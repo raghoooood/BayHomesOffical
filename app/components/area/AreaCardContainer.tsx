@@ -34,15 +34,17 @@ const AreaCardContainer: React.FC<AreaProps> = ({ areas }) => {
       </div>
 
       {/* Grid for AreaCard Components */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {filteredAreas.length > 0 ? (
           filteredAreas.map((card, index) => (
-            <div key={index} className="w-full">
-              <AreaCard
-                _id={card._id}
-                image={card.image}
-                areaName={card.areaName}
-              />
+            <div key={index} className="w-full flex justify-center">
+              <div className="w-full max-w-[350px]">
+                <AreaCard
+                  _id={card._id}
+                  image={card.image}
+                  areaName={card.areaName}
+                />
+              </div>
             </div>
           ))
         ) : (

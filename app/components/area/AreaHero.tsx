@@ -1,6 +1,6 @@
-'use client'
+'use client';
 import { filterAminitiesOptions } from '@/utils/areaCardData';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import Breadcrumb from '../Breadcrumb';
 
@@ -12,7 +12,7 @@ interface FilterAminityProps {
 }
 
 const AreaHero: React.FC<FilterAminityProps> = ({ aminity, setAminity, searchQuery, setSearchQuery }) => {
-  
+
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAminity(e.target.value);
   };
@@ -22,27 +22,27 @@ const AreaHero: React.FC<FilterAminityProps> = ({ aminity, setAminity, searchQue
   };
 
   const breadcrumbItems = [
-    { label: 'commuinties', 
-      
-    }, 
+    { label: 'communities' },
   ];
 
   return (
-    <div className="p-2 mb-8">
+    <div className="py-8 sm:py-5 sm:p-4 mb-8 ">
+      {/* Breadcrumb */}
+      <Breadcrumb items={breadcrumbItems} />
+
       {/* Hero Section */}
-      <Breadcrumb items={breadcrumbItems}/>
-      <div className="relative w-full h-[30vh] max-h-[40vh]  text-black flex flex-col items-center justify-center rounded-lg p-6">
-        <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-5xl font-bold mb-4 text-center drop-shadow-sm dark:text-white">
-           Discover Dubai's Finest Communities
+      <div className="relative w-full h-[30vh] max-h-[40vh] flex flex-col items-center justify-center rounded-lg p-6 text-center">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 drop-shadow-sm dark:text-white">
+          Discover Dubai's Finest Communities
         </h2>
-        <p className="text-sm md:text-base lg:text-md xl:text-sm text-center max-w-3xl drop-shadow-sm px-6 py-3 dark:text-white">
-        Discover Dubai’s neighborhoods with Bay Homes Real Estate. Our area guides provide insights into lifestyle, amenities, and property options, helping you find your ideal home.
+        <p className="text-sm md:text-base lg:text-lg max-w-3xl px-4 md:px-6 py-2 drop-shadow-sm dark:text-white">
+          Discover Dubai’s neighborhoods with Bay Homes Real Estate. Our area guides provide insights into lifestyle, amenities, and property options, helping you find your ideal home.
         </p>
       </div>
 
-      {/* Search and Dropdown Container */}
-      <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4 mb-4 ">
-        {/* Search Input with Icon */}
+      {/* Search and Dropdown */}
+      <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
+        {/* Search Input */}
         <div className="relative w-full sm:flex-grow">
           <input
             type="text"
@@ -57,7 +57,7 @@ const AreaHero: React.FC<FilterAminityProps> = ({ aminity, setAminity, searchQue
           />
         </div>
 
-        {/* Dropdown List */}
+        {/* Dropdown */}
         <select
           className="w-full sm:w-auto border border-gray-300 rounded-md py-3 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white dark:bg-CardDark"
           onChange={handleFilterChange}
