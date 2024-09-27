@@ -1,14 +1,12 @@
-"use client"
+"use client";
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FaBed, FaBath, FaPhone, FaWhatsapp, FaEnvelope, FaRulerCombined } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useCurrency } from '../hooks/useCurrency';
 import PriceConverter from '../currencyConverter/priceConverter';
-import { getConvertedPrice } from '@/lib/utils';
 
 interface Props {
   _id: string;
@@ -30,7 +28,7 @@ interface Props {
   size: string;
 }
 
-const PropCard: React.FC<Props> = ({
+const PropCard: React.FC<Props> = React.memo(({
   _id,
   images,
   title,
@@ -42,21 +40,23 @@ const PropCard: React.FC<Props> = ({
   area,
 }) => {
   
-   const handleWhatsAppClick = () => {
-    const message = `Hello, I am interested in the property: ${title}`;
-    window.open(`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-  };  
-
-
-  const handleEmailClick = () => {
-    window.location.href = `mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`;
-  };
-
-  const handleCallClick = () => {
-    window.location.href = `tel:${process.env.NEXT_PUBLIC_PHONE_NUMBER}`;
-  };
-
   const { selectedCurrency } = useCurrency();
+
+  const handleWhatsAppClick = useCallback(() => {
+    const message = `Hello, I am interested in the property: ${title}`;
+    window.open(
+      `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+      '_blank'
+    );
+  }, [title]);
+
+  const handleEmailClick = useCallback(() => {
+    window.location.href = `mailto:${process.env.NEXT_PUBLIC_EMAIL_ADDRESS}`;
+  }, []);
+
+  const handleCallClick = useCallback(() => {
+    window.location.href = `tel:${process.env.NEXT_PUBLIC_PHONE_NUMBER}`;
+  }, []);
 
   return (
     <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-white dark:bg-gray-600 dark:border-gray-600 rounded-lg border border-gray-300 shadow-md hover:shadow-lg overflow-hidden cursor-pointer flex flex-col h-full transition-shadow duration-300 ease-in-out">
@@ -68,6 +68,7 @@ const PropCard: React.FC<Props> = ({
             alt="Property image"
             fill
             unoptimized
+            priority={true} // Ensures the image is loaded fast if it's critical
           />
         </div>
       </Link>
@@ -113,6 +114,8 @@ const PropCard: React.FC<Props> = ({
       </div>
     </div>
   );
-};
+});
+
+PropCard.displayName = 'PropCard';
 
 export default PropCard;

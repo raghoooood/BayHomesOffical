@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -23,10 +23,10 @@ const ListPropContent = () => {
         <div className="space-y-10">
           {/* First Layout: Image on Right, Text on Left */}
           <div className="flex flex-col md:flex-row-reverse items-center">
-            <div className="md:w-1/2 mb-6 md:mb-0">
+            <div className="md:w-1/2 mb-6 md:mb-0 px-4">
               <Image
                 src={ListYourProp2}
-                alt="listing prop Image"
+                alt="Listing Prop Image"
                 layout="responsive"
                 width={100}
                 height={50}
@@ -34,8 +34,8 @@ const ListPropContent = () => {
                 placeholder="blur"
               />
             </div>
-            <div className="md:w-1/2 md:pr-6">
-              <h3 className="text-2xl sm:text-4xl font-semibold mb-2 text-gray-800 dark:text-white">
+            <div className="md:w-1/2 md:pr-6 px-4">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2 text-gray-800 dark:text-white">
                 Why list your property with Bay Homes?
               </h3>
               <div className="space-y-4 mt-5">
@@ -48,47 +48,52 @@ const ListPropContent = () => {
               </div>
             </div>
           </div>
+{/* Second Layout: Steps Section */}
+<div className="py-8 px-4 sm:px-6 lg:px-8 space-y-10">
+  <Heading title="Journey to Listing Your Property" start />
+  <div className="flex flex-col md:flex-row md:space-x-6 space-y-10 md:space-y-0 mb-10 dark:blueCardTitle">
+    {listingPropSteps.map((step, index) => (
+      <Steps_Card
+        key={index}
+        step_number={step.step_number}
+        title={step.title}
+        description={step.description}
+        icon={<step.icon />}  // Use the icon as a JSX component here
+      />
+    ))}
+  </div>
+</div>
 
-          {/* Second Layout: Steps Section */}
-          <div className="py-8 px-4 sm:px-6 lg:px-8 space-y-10">
-            <Heading title="Journey to Listing Your Property" start />
-            <div className="flex flex-col md:flex-row mb-10 space-y-10 sm:space-y-0 sm:space-x-6 dark:blueCardTitle">
-              {listingPropSteps.map((step, index) => (
-                <Steps_Card
-                  key={index}
-                  step_number={step.step_number}
-                  title={step.title}
-                  description={step.description}
-                  icon={<step.icon />}  // You need to use the icon as a JSX component here
-                />
-              ))}
-            </div>
-          </div>
         </div>
+{/* List Your Property Form Section */}
+<section className="bg-gray-50 dark:bg-CardDark px-4 sm:px-6 lg:px-8 pt-10 relative">
+  <div className="flex flex-col lg:flex-row items-center justify-center">
+    {/* Left Content Section */}
+    <div className="lg:w-1/2 mb-10 dark:text-white px-4">
+      <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
+        Meet with our experts to discuss your property and objectives
+      </h2>
+      <p className="text-lg mb-4">List, Sell & Succeed with Us</p>
+      <ul className="list-disc list-inside mb-4 text-lg sm:text-xl font-bold p-3">
+        <li>Initial Consultation</li>
+        <li>Property Valuation</li>
+        <li>Marketing Strategy</li>
+        <li>Negotiation & Sale</li>
+      </ul>
+      <p className="text-lg mb-4">
+        We assess your property’s market value based on current market conditions. Don’t miss out on our expertise. Contact Bay Homes today!
+      </p>
+    </div>
 
-        {/* List Your Property Form Section */}
-        <section className="space-x-5 bg-gray-50 dark:bg-CardDark px-20 mt-10 relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-          <div className="flex flex-col md:flex-row items-center justify-center">
-            <div className="md:w-1/2 mb-10 md:mb-0 md:pr-10 dark:text-white">
-              <h2 className="text-2xl font-semibold mb-4">Meet with our experts to discuss your property and objectives</h2>
-              <p className="text-lg mb-4">List, Sell & Succeed with Us</p>
-              <ul className="list-disc list-inside mb-4 text-xl font-bold p-3">
-                <li>Initial Consultation</li>
-                <li>Property Valuation</li>
-                <li>Marketing Strategy</li>
-                <li>Negotiation & Sale</li>
-              </ul>
-              <p className="text-lg mb-4">
-              We assess your property’s market value based on current market conditions. Don’t miss out on our expertise. Contact Bay Homes today!
-              </p>
-            </div>
+    {/* List Your Property Form */}
+    <div className="w-full lg:w-1/2 p-4 lg:p-10">
+      <ListYourPropForm />
+    </div>
+  </div>
+</section>
 
-            {/* List Your Property Form */}
-            <div className="md:w-1/2 p-10" id="listProp-form">
-              <ListYourPropForm />
-            </div>
-          </div>
-        </section>
+
+
 
         {/* FAQ Section */}
         <div className="mt-10 flex justify-center">
