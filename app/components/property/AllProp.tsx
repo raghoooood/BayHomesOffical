@@ -160,9 +160,9 @@ const AllProp: React.FC<{ initialProperties: Props[] }> = ({ initialProperties }
         initial="hidden"
         whileInView="show"  
           
-          className={`mt-4 ${view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8' : 'flex flex-col space-y-5'}`}>
+          className={`mt-4 ${view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'flex flex-col space-y-5'}`}>
             {currentProperties.map(property => (
-              <div key={property._id} className="relative flex flex-col bg-white rounded-lg shadow-md ">
+              <div key={property._id} className="relative flex flex-col ">
                 {view === 'grid' ? (
                   <PropCard {...property} />
                 ) : (

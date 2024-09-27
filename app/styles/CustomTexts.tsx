@@ -15,7 +15,7 @@ export const TypingText = memo(({ title, textStyles }: TypingTextProps) => (
     variants={textContainer}
     initial="hidden"
     animate="show"
-    className={`font-normal text-[18px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-secondary-white ${textStyles}`}
+    className={`font-normal text-[16px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] text-secondary-white ${textStyles}`}
   >
     {Array.from(title).map((letter, index) => (
       <motion.span
@@ -40,7 +40,7 @@ export const TitleText = memo(({ title, textStyles = '' }: TitleTextProps) => (
     variants={textVariant2}
     initial="hidden"
     whileInView="show"
-    className={`mt-[8px] font-bold text-[32px] sm:text-[48px] md:text-[56px] lg:text-[70px] xl:text-[86px] text-gray-900 dark:text-white ${textStyles}`}
+    className={`mt-[8px] font-bold text-[30px] sm:text-[40px] md:text-[50px] lg:text-[64px] xl:text-[72px] text-gray-900 dark:text-white ${textStyles}`}
     transition={{ duration: 0.06 }} // Speed up title appearance
   >
     {title}
@@ -53,7 +53,7 @@ export const LargeTypingText = memo(({ title, textStyles = '' }: TypingTextProps
     variants={textContainer}
     initial="hidden"
     animate="show"
-    className={`mt-[8px] font-bold text-[44px] sm:text-[48px] md:text-[32px] lg:text-[46px] xl:text-[85px]  ${textStyles}`}
+    className={`mt-[8px] font-bold text-[36px] sm:text-[40px] md:text-[44px] lg:text-[50px] xl:text-[64px]  ${textStyles}`}
   >
     {Array.from(title).map((letter, index) => (
       <motion.span
@@ -73,8 +73,8 @@ export const SmallTitleText = memo(({ title, textStyles = '' }: TitleTextProps) 
     variants={textVariant2}
     initial="hidden"
     whileInView="show"
-    className={`mt-[8px] font-semibold text-[24px] sm:text-[25px] md:text-[26px] lg:text-[22px] xl:text-[24px]  ${textStyles}`}
-    transition={{ duration: 0.03 ,  delay: 0.015 }} // Faster transition
+    className={`mt-[8px] font-semibold text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] xl:text-[28px]  ${textStyles}`}
+    transition={{ duration: 0.03, delay: 0.015 }} // Faster transition
   >
     {title}
   </motion.h3>

@@ -1,10 +1,11 @@
+'use client'
 import React, { useEffect, useState, useRef } from 'react';
 import filterOptions from '@/utils/filterOptions';
 import { useRouter } from 'next/navigation';
 import { getAreas } from '@/lib/actions/area.action';
 import Button from '../buttons/Button';
 import SearchResponsive from './SearchResponsive';
-import {  convertCurrency, getConvertedPrice } from '@/lib/utils';
+import { convertCurrency } from '@/lib/utils';
 import { useCurrency } from '../hooks/useCurrency';
 
 interface Area {
@@ -26,7 +27,7 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
     bedsMax: 0,
     priceMin: 0,
     priceMax: 0,
-     currency: ''
+    currency: ''
   });
 
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -34,24 +35,30 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
   const [filteredAreas, setFilteredAreas] = useState<Area[]>([]);
   const [searchText, setSearchText] = useState('');
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [showAllAreas, setShowAllAreas] = useState(false); // State to show/hide the modal/dropdown
+  const [showAllAreas, setShowAllAreas] = useState(false);
   const priceRef = useRef<HTMLDivElement>(null);
   const bedsRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-const { selectedCurrency} = useCurrency();
+  const { selectedCurrency } = useCurrency();
 
+  const exchangeRates = {
+    AED: 3.67,
+    EUR: 0.85,
+    GBP: 0.75,
+    USD: 1.00,
+  };
 
+  // Handle screen size changes
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
     };
-
     handleResize();
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Fetch areas based on search text
   const fetchAllAreas = async (query: string) => {
     try {
       const areas = await getAreas(query);
@@ -64,6 +71,7 @@ const { selectedCurrency} = useCurrency();
     }
   };
 
+  // Update filters based on area name or search text
   useEffect(() => {
     if (areaName) {
       if (!filters.areas.includes(areaName)) {
@@ -79,37 +87,23 @@ const { selectedCurrency} = useCurrency();
     }
   }, [areaName, searchText]);
 
-
-  const exchangeRates = {
-    AED: 3.67,
-    EUR: 0.85,
-    GBP: 0.75,
-    USD: 1.00,
-  };
-
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setFilters(prevFilters => {
-      const updatedFilters = { ...prevFilters, [name]: value };
-       return updatedFilters;
-    });
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [name]: value,
+    }));
   };
-
-
-  
 
   const [rawPriceMin, setRawPriceMin] = useState(filters.priceMin);
   const [rawPriceMax, setRawPriceMax] = useState(filters.priceMax);
-  
-  useEffect(() => {
-    // Convert the raw prices to the selected currency when it changes
-    const convertedMin = convertCurrency(rawPriceMin, selectedCurrency, 'AED' ,exchangeRates );
-    const convertedMax = convertCurrency(rawPriceMax, selectedCurrency, 'AED' , exchangeRates);
 
-    console.log(rawPriceMin , convertedMin , selectedCurrency);
-    console.log(rawPriceMax , convertedMax , selectedCurrency);
-    
+  // Convert raw prices to selected currency
+  useEffect(() => {
+    const convertedMin = convertCurrency(rawPriceMin, selectedCurrency, 'AED', exchangeRates);
+    const convertedMax = convertCurrency(rawPriceMax, selectedCurrency, 'AED', exchangeRates);
+
     setFilters(prevFilters => ({
       ...prevFilters,
       priceMin: Number(convertedMin),
@@ -117,15 +111,15 @@ const { selectedCurrency} = useCurrency();
     }));
   }, [rawPriceMin, rawPriceMax, selectedCurrency]);
 
-
-  
+  // Handle dropdown toggle
   const handleDropdownToggle = (dropdown: string) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
     setShowFilterOverlay(false);
   };
 
+  // Handle click outside to close dropdowns
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    const handleClickOutside = (event: MouseEvent) => {
       if (priceRef.current && !priceRef.current.contains(event.target as Node)) {
         if (activeDropdown === 'priceRange') {
           setActiveDropdown(null);
@@ -136,36 +130,24 @@ const { selectedCurrency} = useCurrency();
           setActiveDropdown(null);
         }
       }
-    }
+    };
 
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [activeDropdown]);
 
-  const handleSearch = async () => {
-    try {
-      const queryParams = new URLSearchParams();
-
-      queryParams.append('source', 'search');
-
-      if (filters.purpose) queryParams.append('purpose', filters.purpose);
-      if (filters.areas.length > 0) queryParams.append('area', filters.areas.join(', '));
-      if (filters.propertyType) queryParams.append('propertyType', filters.propertyType);
-      // Pass raw prices instead of converted ones
-      if (rawPriceMin) queryParams.append('priceMin', rawPriceMin.toString());
-      if (rawPriceMax) queryParams.append('priceMax', rawPriceMax.toString());
-      if (filters.bedsMin) queryParams.append('bedsMin', filters.bedsMin.toString());
-      if (filters.bedsMax) queryParams.append('bedsMax', filters.bedsMax.toString());
-
-      router.push(`/all-property?${queryParams.toString()}`);
-    } catch (error) {
-      console.error('Error during search:', error);
-    }
+  // Handle search
+  const handleSearch = () => {
+    const queryParams = new URLSearchParams();
+    queryParams.append('source', 'search');
+    if (filters.purpose) queryParams.append('purpose', filters.purpose);
+    if (filteredAreas.length > 0) queryParams.append('area', filteredAreas.map(area => area.areaName).join(','));
+    router.push(`/all-property?${queryParams.toString()}`);
   };
 
+  // Handle area selection
   const handleAreaSelect = (areaName: string) => {
     setFilters(prevFilters => ({
       ...prevFilters,
@@ -175,6 +157,7 @@ const { selectedCurrency} = useCurrency();
     setFilteredAreas([]);
   };
 
+  // Handle area removal
   const handleAreaRemove = (areaName: string) => {
     setFilters(prevFilters => ({
       ...prevFilters,
@@ -184,7 +167,7 @@ const { selectedCurrency} = useCurrency();
 
   return (
 <div className="relative">
-    {isSmallScreen ? (
+{isSmallScreen ? (
         <SearchResponsive
           filters={filters}
           handleFilterChange={handleFilterChange}

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import filterOptions from '@/utils/filterOptions';
@@ -6,31 +6,26 @@ import Button from '../buttons/Button';
 import { useRouter } from 'next/navigation';
 import { MdClose } from 'react-icons/md';
 
-interface Area {
-  _id: string;
-  areaName: string;
+
+export interface SearchResponsiveProps {
+  filters: {
+    purpose: string;
+    areas: string[];
+    propertyType: string;
+    bedsMin: number;
+    bedsMax: number;
+    priceMin: number;
+    priceMax: number;
+    currency: string;
+  };
+  handleFilterChange: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
+  searchText: string;
+  setSearchText: (text: string) => void;
+  filteredAreas: Array<{ _id: string; areaName: string }>;
+  handleAreaSelect: (areaName: string) => void;
+  handleSearch: () => void; // Ensure this is defined in the props
+  defaultPurpose?: string;
 }
-
-
-
-interface SearchResponsiveProps {
-    filters: {
-      purpose: string;
-      propertyType: string;
-      priceMin: number;
-      priceMax: number;
-      bedsMin: number;
-      bedsMax: number;
-    };
-    handleFilterChange: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
-    searchText: string;
-    setSearchText: (text: string) => void;
-    filteredAreas: Area[];
-    handleAreaSelect: (areaName: string) => void;
-    handleSearch: () => Promise<void>; // Added this line
-    defaultPurpose?: string;
-  }
-  
 
 const SearchResponsive: React.FC<SearchResponsiveProps> = ({
   filters,
@@ -39,10 +34,10 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
   setSearchText,
   filteredAreas,
   handleAreaSelect,
+  handleSearch, // This is the prop from parent
   defaultPurpose = '',
 }) => {
   const [showFilterOverlay, setShowFilterOverlay] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [localFilters, setLocalFilters] = useState({
     purpose: defaultPurpose,
     areas: [] as string[],
@@ -55,7 +50,7 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
 
   const router = useRouter();
 
-  const handleSearch = () => {
+  const executeSearch = () => { // Renamed local function to avoid conflict
     try {
       const queryParams = new URLSearchParams();
 
@@ -74,18 +69,27 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
     }
   };
 
-
-
   const toggleFilterOverlay = () => {
-    setShowFilterOverlay(!showFilterOverlay);
-    setActiveDropdown(null);
+    setShowFilterOverlay(prev => !prev);
   };
 
   const handleAreaRemove = (areaName: string) => {
-    setLocalFilters(prevFilters => ({
-      ...prevFilters,
-      areas: prevFilters.areas.filter(area => area !== areaName),
+    setLocalFilters(prev => ({
+      ...prev,
+      areas: prev.areas.filter(area => area !== areaName),
     }));
+  };
+
+  const handleClearFilters = () => {
+    setLocalFilters({
+      purpose: '',
+      areas: [],
+      type: '',
+      bedsMin: 0,
+      bedsMax: 0,
+      priceMin: 0,
+      priceMax: 0,
+    });
   };
 
   return (
@@ -97,7 +101,7 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
           className="p-1 w-full dark:bg-white dark:text-gray-500"
           value={filters.purpose}
         >
-          {filterOptions.purpose.map((option) => (
+          {filterOptions.purpose.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -108,16 +112,16 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
         type="text"
         name="area"
         placeholder="Area or Community"
-        onChange={(e) => setSearchText(e.target.value)}
+        onChange={e => setSearchText(e.target.value)}
         className="p-2 w-full bg-white rounded-lg dark:text-black"
         value={searchText}
       />
       {filteredAreas.length > 0 && (
         <ul className="absolute z-10 bg-white border border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
-          {filteredAreas.map((area) => (
+          {filteredAreas.map(area => (
             <li
               key={area._id}
-              className="p-2 hover:bg-gray-200 cursor-pointer dark:text-black "
+              className="p-2 hover:bg-gray-200 cursor-pointer dark:text-black"
               onClick={() => handleAreaSelect(area.areaName)}
             >
               {area.areaName}
@@ -125,29 +129,31 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
           ))}
         </ul>
       )}
-      <div className="flex flex-col space-y-2">
-        {localFilters.areas.length > 0 && (
-          <div className="bg-gray-200 p-2 rounded-lg flex items-center">
-            {localFilters.areas[0]}
-            {localFilters.areas.length > 1 && (
-              <span className="ml-1 text-gray-500">
-                {` +${localFilters.areas.length - 1} more`}
-              </span>
-            )}
-            <button
-              type="button"
-              className="ml-2 text-red-500"
-              onClick={() => handleAreaRemove(localFilters.areas[0])}
-              aria-label={`Remove ${localFilters.areas[0]}`}
-            >
-              ×
-            </button>
-          </div>
-        )}
-      </div>
+      {localFilters.areas.length > 0 && (
+        <div className="bg-gray-200 p-2 rounded-lg flex items-center">
+          {localFilters.areas.map((area, index) => (
+            <div key={area} className="flex items-center">
+              <span>{area}</span>
+              <button
+                type="button"
+                className="ml-2 text-red-500"
+                onClick={() => handleAreaRemove(area)}
+                aria-label={`Remove ${area}`}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+          {localFilters.areas.length > 1 && (
+            <span className="ml-1 text-gray-500">
+              {` +${localFilters.areas.length - 1} more`}
+            </span>
+          )}
+        </div>
+      )}
       <div className="flex flex-row space-x-2">
-        <Button label="Search" onClick={handleSearch} />
-        <Button label="Filter" onClick={toggleFilterOverlay}   />
+        <Button label="Search" onClick={executeSearch} /> {/* Use renamed function */}
+        <Button label="Filter" onClick={toggleFilterOverlay} />
       </div>
 
       {showFilterOverlay && (
@@ -166,7 +172,7 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
                 className="p-2 border border-gray-300 rounded w-full"
                 value={localFilters.type}
               >
-                {filterOptions.propertyType.map((option) => (
+                {filterOptions.propertyType.map(option => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
@@ -174,83 +180,51 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
               </select>
               <div className="flex flex-col space-y-2">
                 <label htmlFor="priceMin">Min Price</label>
-                <select
+                <input
+                  type="number"
                   id="priceMin"
                   name="priceMin"
-                  onChange={handleFilterChange}
+                  value={localFilters.priceMin} // Sync local filter with input
+                  onChange={e => setLocalFilters(prev => ({ ...prev, priceMin: parseFloat(e.target.value) || 0 }))} 
                   className="p-2 border border-gray-300 rounded w-full"
-                  value={localFilters.priceMin}
-                >
-                  {filterOptions.priceRange.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Enter minimum price"
+                />
                 <label htmlFor="priceMax">Max Price</label>
-                <select
+                <input
+                  type="number"
                   id="priceMax"
                   name="priceMax"
-                  onChange={handleFilterChange}
+                  value={localFilters.priceMax} // Sync local filter with input
+                  onChange={e => setLocalFilters(prev => ({ ...prev, priceMax: parseFloat(e.target.value) || 0 }))} 
                   className="p-2 border border-gray-300 rounded w-full"
-                  value={localFilters.priceMax}
-                >
-                  {filterOptions.priceRange.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Enter maximum price"
+                />
               </div>
               <div className="flex flex-col space-y-2">
                 <label htmlFor="bedsMin">Min Beds</label>
-                <select
+                <input
+                  type="number"
                   id="bedsMin"
                   name="bedsMin"
-                  onChange={handleFilterChange}
+                  value={localFilters.bedsMin} // Sync local filter with input
+                  onChange={e => setLocalFilters(prev => ({ ...prev, bedsMin: parseInt(e.target.value, 10) || 0 }))} 
                   className="p-2 border border-gray-300 rounded w-full"
-                  value={localFilters.bedsMin}
-                >
-                  {filterOptions.bedsRange.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Enter minimum beds"
+                />
                 <label htmlFor="bedsMax">Max Beds</label>
-                <select
+                <input
+                  type="number"
                   id="bedsMax"
                   name="bedsMax"
-                  onChange={handleFilterChange}
+                  value={localFilters.bedsMax} // Sync local filter with input
+                  onChange={e => setLocalFilters(prev => ({ ...prev, bedsMax: parseInt(e.target.value, 10) || 0 }))} 
                   className="p-2 border border-gray-300 rounded w-full"
-                  value={localFilters.bedsMax}
-                >
-                  {filterOptions.bedsRange.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex flex-col space-y-2">
-                <Button
-                  label="Clear Filters"
-                  onClick={() =>
-                    setLocalFilters({
-                      purpose: '',
-                      areas: [],
-                      type: '',
-                      bedsMin: 0,
-                      bedsMax: 0,
-                      priceMin: 0,
-                      priceMax: 0,
-                    })
-                  }
-                  small
+                  placeholder="Enter maximum beds"
                 />
-                <Button label="Apply Filters" onClick={handleSearch} small />
               </div>
             </div>
+            <Button label="Clear Filters" onClick={handleClearFilters} />
+            <Button label="Apply" onClick={() => { executeSearch(); toggleFilterOverlay(); }} />
           </div>
         </div>
       )}

@@ -19,9 +19,8 @@ const ProjectGallery = ({ images }: Props) => {
   const [currentImages, setCurrentImages] = useState<string[]>(images.outImages);
 
   useEffect(() => {
-    // Update displayed images when overlayImageType changes
     setCurrentImages(overlayImageType === 'in' ? images.inImages : images.outImages);
-    setCurrentImageIndex(0); // Reset the index when changing image type
+    setCurrentImageIndex(0);
   }, [overlayImageType, images.inImages, images.outImages]);
 
   useEffect(() => {
@@ -71,20 +70,19 @@ const ProjectGallery = ({ images }: Props) => {
 
   return (
     <div className="relative container py-10">
-      
       <TitleText title="Outer & Inner View" textStyles="justify-start" />
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {/* Outer Images */}
         {images.outImages.slice(0, 6).map((src, index) => (
           <div
             key={`outer-${index}`}
             className={`relative ${
               index % 6 === 0
-                ? 'col-span-3 row-span-3 h-84'
-                : index % 4 === 0
-                ? 'col-span-3 row-span-2 h-80'
-                : 'col-span-1 h-80'
+                ? 'col-span-2 sm:col-span-1 lg:col-span-2 row-span-3 h-48 sm:h-64 lg:h-80'
+                : index % 3 === 0
+                ? 'col-span-1 sm:col-span-2 lg:col-span-3 row-span-1 h-48 sm:h-64 lg:h-80'
+                : 'col-span-1 sm:col-span-1 h-48 sm:h-64 lg:h-80'
             } overflow-hidden rounded-lg shadow-md cursor-pointer`}
             onClick={() => handleOpenOverlay(index, 'out')}
           >
@@ -93,25 +91,22 @@ const ProjectGallery = ({ images }: Props) => {
               alt={`Outer Gallery Image ${index + 1}`}
               layout="fill"
               objectFit="cover"
-              className="rounded-lg"
+              className="rounded-lg transition-transform duration-300 hover:scale-105"
               unoptimized
             />
           </div>
         ))}
 
-
         {/* Inner Images */}
-       
-
         {images.inImages.length > 0 && images.inImages.slice(0, 6).map((src, index) => (
           <div
             key={`inner-${index}`}
             className={`relative ${
               index % 6 === 0
-                ? 'col-span-3 row-span-3 h-84'
-                : index % 4 === 0
-                ? 'col-span-3 row-span-2 h-80'
-                : 'col-span-1 h-80'
+                ? 'col-span-2 sm:col-span-1 lg:col-span-2 row-span-3 h-48 sm:h-64 lg:h-80'
+                : index % 3 === 0
+                ? 'col-span-1 sm:col-span-2 lg:col-span-3 row-span-1 h-48 sm:h-64 lg:h-80'
+                : 'col-span-1 sm:col-span-1 h-48 sm:h-64 lg:h-80'
             } overflow-hidden rounded-lg shadow-md cursor-pointer`}
             onClick={() => handleOpenOverlay(index, 'in')}
           >
@@ -120,14 +115,12 @@ const ProjectGallery = ({ images }: Props) => {
               alt={`Inner Gallery Image ${index + 1}`}
               layout="fill"
               objectFit="cover"
-              className="rounded-lg"
+              className="rounded-lg transition-transform duration-300 hover:scale-105"
               unoptimized
             />
           </div>
         ))}
       </div>
-
-   
 
       {isOverlayOpen && (
         <AnimatePresence>
@@ -145,14 +138,13 @@ const ProjectGallery = ({ images }: Props) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="relative w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden"
+              className="relative w-full h-full max-w-lg max-h-[90vh] bg-white rounded-lg overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-
               <div className="relative w-full h-full flex items-center justify-center">
                 <button
                   onClick={handlePrevImage}
-                  className="absolute z-10 left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
+                  className="absolute z-10 left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition-colors"
                 >
                   <FaArrowLeft />
                 </button>
@@ -173,7 +165,7 @@ const ProjectGallery = ({ images }: Props) => {
 
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition-colors"
                 >
                   <FaArrowRight />
                 </button>

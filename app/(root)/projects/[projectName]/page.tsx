@@ -55,17 +55,18 @@ const ProjectDetails: React.FC = async ({ params }: any) => {
 
   {/* <div id="properties" className="grid grid-cols-1 md:grid-cols-2 gap-12 p-6 md:p-12 mt-12"> */}
   {/* Left Side: Description */}
-  <div className="relative  p-6 md:p-12 mt-12 rounded-lg shadow-lg">
-  <h2 className="text-lg md:text-xl text-orange-500 font-semibold uppercase tracking-wide mb-4">About the Project</h2>
-  <hr className="border-t-2 border-orange-500 w-16 mb-8" />
-  
-  <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 max-w-[65vw]">
+  <div className="relative p-4 md:p-6 mt-8 rounded-lg shadow-lg">
+  <h2 className="text-xl md:text-2xl text-orange-500 font-semibold uppercase tracking-wide mb-4 text-center md:text-left">About the Project</h2>
+  <hr className="border-t-2 border-orange-500 w-16 mb-6 mx-auto md:mx-0" />
+
+  <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4 md:space-y-6 max-w-[90vw] md:max-w-[65vw]">
     <p 
-      className="text-md md:text-lg text-gray-800 leading-loose md:leading-relaxed max-w-4xl"
+      className="text-lg md:text-lg text-gray-800 leading-relaxed md:leading-relaxed"
       dangerouslySetInnerHTML={{ __html: sanitizedDescription }}>
     </p>
-    </div>
+  </div>
 </div>
+
 
 
   {/* Right Side: Project Details */}

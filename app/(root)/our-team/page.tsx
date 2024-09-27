@@ -17,15 +17,19 @@ const AboutTeam = async () => {
   return (
     <Container>
       {/* Hero Section */}
-      <div className="p-6 mt-10 mb-8">
-        <Breadcrumb items={breadcrumbItems}/>
+      <div className="p-4 md:p-6 lg:p-10 mt-10 mb-8">
+        <Breadcrumb items={breadcrumbItems} />
 
         <div className="relative w-full h-[30vh] max-h-[400px] text-black flex flex-col items-center justify-center rounded-lg p-6">
           <LargeTypingText title="Our Team" textStyles="text-center" />
-          <SmallTitleText title='Our team comprises real estate professionals with a wealth of experience in Dubai’s real estate market. Each member brings unique skills and expertise, contributing to our collective success in delivering top-notch leasing solutions.' />          
+          <SmallTitleText 
+            title="Our team comprises real estate professionals with a wealth of experience in Dubai’s real estate market. Each member brings unique skills and expertise, contributing to our collective success in delivering top-notch leasing solutions."
+            textStyles="mt-4 text-center max-w-[800px] mx-auto"
+          />          
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12">
+        {/* Team Member Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-12">
           {combinedTeamMembers.map((member, index) => (
             <TeamMemberCard
               key={index}
