@@ -11,7 +11,7 @@ const Page = async () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
-      <main className="w-full max-w-7xl mx-auto p-6 sm:p-8 lg:p-12 ">
+      <main className="w-full max-w-6xl mx-auto p-6 sm:p-8 lg:p-12 ">
         <AreaCardContainer areas={plainAreas} />
       </main>
     </div>
