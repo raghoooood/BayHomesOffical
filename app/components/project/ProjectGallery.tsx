@@ -104,7 +104,7 @@ const ProjectGallery = ({ images }: Props) => {
             className={`relative ${
               index % 6 === 0
                 ? 'col-span-2 sm:col-span-1 lg:col-span-2 row-span-3 h-48 sm:h-64 lg:h-80'
-                : index % 3 === 0
+                : index % 2 === 0
                 ? 'col-span-1 sm:col-span-2 lg:col-span-3 row-span-1 h-48 sm:h-64 lg:h-80'
                 : 'col-span-1 sm:col-span-1 h-48 sm:h-64 lg:h-80'
             } overflow-hidden rounded-lg shadow-md cursor-pointer`}
