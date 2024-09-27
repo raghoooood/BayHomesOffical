@@ -1,4 +1,3 @@
-"use client"
 
 import { urlFor } from "@/lib/sanityLip/createClient";
 import Image from "next/image";
@@ -8,7 +7,7 @@ interface ImageValue {
   asset: {
     _id: string;
   };
-  alt?: string; // Optional alt text field
+  alt?: string;
 }
 
 export const RichText = {
@@ -16,10 +15,10 @@ export const RichText = {
     image: ({ value }: { value: ImageValue }) => {
       if (!value.asset) {
         console.error("Image asset not found:", value);
-        return null; // Handle the missing asset case
+        return null;
       }
       
-      const imageUrl = urlFor(value.asset).url(); // Correctly access asset
+      const imageUrl = urlFor(value.asset).url();
       return (
         <div className="flex items-center justify-center">
           <Image
@@ -69,5 +68,11 @@ export const RichText = {
         </Link>
       );
     },
+    strong: ({ children }: any) => (
+      <strong className="font-bold">{children}</strong>
+    ),
+    em: ({ children }: any) => (
+      <em className="italic">{children}</em>
+    ),
   },
 };

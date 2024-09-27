@@ -4,7 +4,7 @@ import { client, urlFor } from "@/lib/sanityLip/createClient";
 import Container from "@/app/components/blog/BlogContainer";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import { RichText } from "@/app/components/RichText";
+import { RichText } from "./RichText";
 
 interface Props {
   params: {
