@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.1.0",
     "@googlemaps/js-api-loader": "^1.16.8",
     "@hookform/resolvers": "^3.9.0",
     "@react-google-maps/api": "^2.19.3",
@@ -52,7 +53,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "real-estate-sayyah": "file:",
     "sanitize-html": "^2.13.0",
-    "sanity": "^3.53.0",
+    "sanity": "^3.58.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.12",
     "supabase": "^1.187.10",
