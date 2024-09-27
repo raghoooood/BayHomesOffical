@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState, useRef } from 'react';
 import filterOptions from '@/utils/filterOptions';
 import { MdClose } from 'react-icons/md';
@@ -5,7 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { getAreas } from '@/lib/actions/area.action';
 import Button from '../buttons/Button';
 import { useCurrency } from '../hooks/useCurrency';
-import { convertCurrency, getConvertedPrice } from '@/lib/utils';
+import { convertCurrency } from '@/lib/utils';
 
 interface Area {
   _id: string;
@@ -16,7 +18,7 @@ interface SearchContainerProps {
   areaName?: string;
   defaultPurpose?: string;
 }
-
+export const dynamic = 'force-dynamic'; 
 const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   const [filters, setFilters] = useState({
     areas: [] as string[],
@@ -119,10 +121,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   const toggleFilterOverlay = () => {
     setShowFilterOverlay(prev => !prev);
     setActiveDropdown(null);  // Close all dropdowns when overlay is opened
-  };
-
-  
-   
+  }; 
   
       const exchangeRates = {
         AED: 3.67,
