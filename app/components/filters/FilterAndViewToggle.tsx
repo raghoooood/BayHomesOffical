@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from 'react';
 import { FaList, FaTh } from 'react-icons/fa';
 

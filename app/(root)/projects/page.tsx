@@ -2,6 +2,8 @@
 import ProjectContainer from "@/app/components/project/ProjectContainer";
 import { getProjects } from "@/lib/actions/project.action";
 
+export const dynamic = 'force-dynamic';
+
 const Page = async () => {
 
   // const developer = await getDeveloper();

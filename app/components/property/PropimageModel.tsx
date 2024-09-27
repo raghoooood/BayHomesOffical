@@ -1,4 +1,4 @@
-// components/propimageModel.tsx
+"use client"
 import React from 'react';
 import Image from 'next/image';
 import { FaTimes } from 'react-icons/fa';

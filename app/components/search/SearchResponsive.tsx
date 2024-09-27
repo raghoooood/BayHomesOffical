@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import filterOptions from '@/utils/filterOptions';
 import Button from '../buttons/Button';

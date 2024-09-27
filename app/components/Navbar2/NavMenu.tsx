@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';

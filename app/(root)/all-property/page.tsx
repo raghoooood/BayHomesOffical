@@ -2,6 +2,8 @@ import AllProp from "@/app/components/property/AllProp";
 import { searchProperties } from "@/lib/actions/searchProperties.action";
 import { SearchParamsProps } from "@/types";
 
+export const dynamic = 'force-dynamic';
+
 const Page = async (params: { searchParams: SearchParamsProps }) => {
    const { searchParams, } = params; // Destructure selectedCurrency
    const properties = await searchProperties({ searchParams });

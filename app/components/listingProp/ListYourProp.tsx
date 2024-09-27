@@ -1,3 +1,5 @@
+"use client"
+
 import Image from 'next/image';
 import ListYourPropForm from '../forms/ListYourPropForm';
 import insta1 from '@/assets/images/insta1.png'

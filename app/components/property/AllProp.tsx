@@ -13,7 +13,7 @@ import { displayTitle } from "@/lib/utils";
 import { fadeIn, slideIn } from "@/app/styles/animations";
 import { motion } from "framer-motion"; 
 import Features from "../features/Features";
-export const dynamic = 'force-dynamic'; 
+
 interface BreadcrumbItem {
   label: string;
   path: string;

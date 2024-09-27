@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { FaUserCircle, FaQuoteRight, FaStar } from 'react-icons/fa';
 
