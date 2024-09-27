@@ -1,3 +1,5 @@
+"use client"
+
 import { useRef, ReactNode } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 

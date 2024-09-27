@@ -18,7 +18,7 @@ interface SearchContainerProps {
   areaName?: string;
   defaultPurpose?: string;
 }
-export const dynamic = 'force-dynamic'; 
+
 const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   const [filters, setFilters] = useState({
     areas: [] as string[],
@@ -121,7 +121,10 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   const toggleFilterOverlay = () => {
     setShowFilterOverlay(prev => !prev);
     setActiveDropdown(null);  // Close all dropdowns when overlay is opened
-  }; 
+  };
+
+  
+   
   
       const exchangeRates = {
         AED: 3.67,

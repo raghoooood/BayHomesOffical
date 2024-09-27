@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import { IoReturnDownBack } from "react-icons/io5";
 

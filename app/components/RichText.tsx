@@ -1,3 +1,5 @@
+"use client"
+
 import { urlFor } from "@/lib/sanityLip/createClient";
 import Image from "next/image";
 import Link from "next/link";
