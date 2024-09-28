@@ -119,18 +119,23 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
         whileInView="show"
       >
         <Heading title={title ? `Properties for sale in ${title}` : "All Properties"} start />
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
+        
+        {/* Align filter and button to the left */}
+        <div className="flex flex-col md:flex-row items-start justify-between mb-4">
           <FilterPurpose
             propertyPurpose={propertyPurpose}
             setPropertyPurpose={setPropertyPurpose}
             propertyCounts={propertyCounts}
           />
+          
+          {/* Button aligned to the left */}
           <div className="hidden md:flex ml-4 mb-5">
             <Button label="More Properties" onClick={() => router.push('/all-property')} />
           </div>
         </div>
-
-        <div className="relative flex overflow-x-auto w-full py-4">
+  
+        {/* Align property cards to the left */}
+        <div className="relative flex overflow-x-auto w-full py-4 items-start">
           {showPrev && (
             <button
               onClick={handlePrev}
@@ -139,9 +144,10 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
               <FiChevronLeft size={24} />
             </button>
           )}
-          <div ref={scrollRef} className="flex space-x-4 md:space-x-6 justify-start sm:justify-center w-full">
+  
+          <div ref={scrollRef} className="flex space-x-4 md:space-x-6 justify-start w-full">
             {propertiesToShow.map((property) => (
-              <div key={property._id} className="flex-shrink-0 w-full sm:w-[42vw] md:w-[28vw] lg:w-[20vw]  ">
+              <div key={property._id} className="flex-shrink-0 w-full sm:w-[42vw] md:w-[28vw] lg:w-[20vw]">
                 <PropCard
                   _id={property._id}
                   images={property.images}
@@ -156,6 +162,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
               </div>
             ))}
           </div>
+  
           {showNext && (
             <button
               onClick={handleNext}
@@ -165,6 +172,8 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
             </button>
           )}
         </div>
+  
+        {/* Additional button for mobile view */}
         <div className="flex flex-col items-center mt-5 space-y-4">
           <div className="md:hidden w-full flex justify-center">
             <Button label="More Properties" onClick={() => router.push('/all-property')} />
@@ -173,6 +182,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
       </motion.div>
     </Container>
   );
+  
 };
 
 export default AreaOffplan;

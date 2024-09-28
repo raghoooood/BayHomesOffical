@@ -86,7 +86,7 @@ const ListPropContent = () => {
     </div>
 
     {/* List Your Property Form */}
-    <div className="w-full lg:w-1/2 p-4 lg:p-10">
+    <div id='listProp-form' className="w-full lg:w-1/2 p-4 lg:p-10">
       <ListYourPropForm />
     </div>
   </div>

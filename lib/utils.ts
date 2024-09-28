@@ -133,16 +133,28 @@ export function convertCurrency(amount: number, fromCurrency: string, toCurrency
   
   return (amount / fromRate) * toRate;
 }
-export const getConvertedPrice = (price: number, selectedCurrency: string ) => {
+export const getConvertedPrice = (price: number, selectedCurrency?: string, reverseConversion?: boolean) => {
   const exchangeRates = {
-    AED: 3.67,
-    EUR: 0.85,
-    GBP: 0.75,
-    USD: 1.00,
+    AED: 3.67, // USD to AED
+    EUR: 0.85, // USD to EUR
+    GBP: 0.75, // USD to GBP
+    USD: 1.00, // Base USD
   };
 
-  const convertedPrice = convertCurrency(price, 'AED', selectedCurrency, exchangeRates);
+  // Default to AED if no currency is provided
+  selectedCurrency = selectedCurrency || 'AED'; 
 
+  let convertedPrice: number;
+
+  if (reverseConversion) {
+    // Convert from the selected currency to AED
+    convertedPrice = convertCurrency(price, selectedCurrency, 'AED', exchangeRates);
+  } else {
+    // Convert from AED to the selected currency
+    convertedPrice = convertCurrency(price, 'AED', selectedCurrency, exchangeRates);
+  }
+
+  // Format the price with no decimal points
   const formattedPrice = convertedPrice.toLocaleString(undefined, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
@@ -152,10 +164,13 @@ export const getConvertedPrice = (price: number, selectedCurrency: string ) => {
 };
 
 
+
 // lib/displayTitleUtil.ts
  export const capitalizeFirstLetter = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
- export const displayTitle = (searchParams: URLSearchParams) => {
+ import { useRouter } from 'next/router'; // if you're using Next.js
+
+ export const displayTitle = (searchParams: URLSearchParams, pathname?: string) => {
   const filters = {
     purpose: searchParams.get('purpose'),
     area: searchParams.get('area'),
@@ -165,51 +180,63 @@ export const getConvertedPrice = (price: number, selectedCurrency: string ) => {
     bedsMin: searchParams.get('bedsMin'),
     bedsMax: searchParams.get('bedsMax'),
     projectName: searchParams.get('projectName'),
+    featured: searchParams.get('featured'),
     name: searchParams.get('name') || 'See all properties',
   };
+
+  // Check for the '/projects' path
+  if (pathname === '/projects') {
+    return 'Off plan projects in Dubai';
+  }
 
   if (!Object.values(filters).some(Boolean)) return 'All projects in Dubai';
 
   let title = '';
   const source = searchParams.get('source') || 'search';
-  const {selectedCurrency } = useCurrency();
+  const { selectedCurrency } = useCurrency();
 
   // Handle price conversion
- // In the displayTitle function
-  const priceMin = filters.priceMin ? getConvertedPrice(Number(filters.priceMin) , selectedCurrency ) : null;
- const priceMax = filters.priceMax ? getConvertedPrice(Number(filters.priceMax) , selectedCurrency) : null;
+  const priceMin = filters.priceMin ? getConvertedPrice(Number(filters.priceMin), selectedCurrency) : null;
+  const priceMax = filters.priceMax ? getConvertedPrice(Number(filters.priceMax), selectedCurrency) : null;
 
   if (source === 'nav') {
     title += `${
       filters.name !== filters.projectName
-        ?`${capitalizeFirstLetter(filters.name)} in Dubai `
-        : `Off plan properties for sale in Dubai developed by ${capitalizeFirstLetter(filters.name)}`
-    } ` 
+        ? `${capitalizeFirstLetter(filters.name)} in Dubai`
+        : `${capitalizeFirstLetter(filters.name)}`
+    } `;
   } else {
-    if (filters.projectName) {
-      title += `Off plan properties for ${filters.purpose ? capitalizeFirstLetter(filters.purpose) : 'Sale'} in Dubai `;
-    } else {
+    if (filters.projectName ) {
+      title += `Properties   ${
+        filters.purpose ? `for ${capitalizeFirstLetter(filters.purpose)}` : 'for Sale'
+      } in ${filters.projectName}`;
+       
+    } else if (filters.featured) {
+      title+= 'Luxury Properties in Dubai'
+    }else {
       title += `${filters.propertyType ? `${capitalizeFirstLetter(filters.propertyType)}s` : 'Properties'} ${
         filters.purpose ? `for ${capitalizeFirstLetter(filters.purpose)}` : 'for Sale'
       } in ${filters.area ? capitalizeFirstLetter(filters.area) : 'Dubai'} `;
     }
-   
-
 
     // Include the formatted price in the title
     if (priceMin && priceMax) {
-      title += `between  ${priceMin} and ${priceMax} `;
+      title += `between ${priceMin} and ${priceMax} `;
     } else if (priceMin) {
       title += `above ${priceMin} `;
     } else if (priceMax) {
       title += `below ${priceMax} `;
-    } 
+    }
 
     // Handle bedroom filters
     const bedsMinNumber = parseInt(filters.bedsMin || '', 10);
     const bedsMaxNumber = parseInt(filters.bedsMax || '', 10);
     if (!isNaN(bedsMinNumber) && !isNaN(bedsMaxNumber)) {
-      title += `with ${bedsMinNumber === bedsMaxNumber ? `${bedsMinNumber} bedroom${bedsMinNumber > 1 ? 's' : ''}` : `${bedsMinNumber} to ${bedsMaxNumber} bedrooms`} `;
+      title += `with ${
+        bedsMinNumber === bedsMaxNumber
+          ? `${bedsMinNumber} bedroom${bedsMinNumber > 1 ? 's' : ''}`
+          : `${bedsMinNumber} to ${bedsMaxNumber} bedrooms`
+      } `;
     } else if (!isNaN(bedsMinNumber)) {
       title += `with more than ${bedsMinNumber} bedroom${bedsMinNumber > 1 ? 's' : ''} `;
     } else if (!isNaN(bedsMaxNumber)) {
@@ -219,8 +246,6 @@ export const getConvertedPrice = (price: number, selectedCurrency: string ) => {
 
   return title.trim();
 };
-
-
 
 export const sanitizeHtmlContent = (html: string): string => {
   return sanitizeHtml(html, {

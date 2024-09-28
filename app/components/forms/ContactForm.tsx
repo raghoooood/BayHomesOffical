@@ -37,33 +37,17 @@ const ContactForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
   const [submitting, setSubmitting] = useState(false);
 
-
-  /*  const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
-    try {
-      setSubmitting(true);
-      console.log(data);
-      toast.success('Form submitted successfully!');
-      reset();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setSubmitting(false);
-    }
-  }; */
   const onSubmit: SubmitHandler<IFormInputs> = async (data: any) => {
     try {
       setSubmitting(true);
       const response = await contactForm(data);
 
       if (response.success) {
-      console.log(response.message);
-      reset();
-       
+        toast.success('Form submitted successfully!');
+        reset(); // Reset the form
       } else {
-       console.log(response.message);
-       
+        toast.error(response.message || 'Something went wrong.');
       }
-       
     } catch (error) {
       console.error(error);
       toast.error('Failed to send the form. Please try again.');
@@ -71,8 +55,7 @@ const ContactForm: React.FC = () => {
       setSubmitting(false);
     }
   };
- 
- 
+
   return (
     <div id="contact" className="relative p-4 mb-4 z-20">
       <div className="sm:flex justify-center items-center">
@@ -83,14 +66,13 @@ const ContactForm: React.FC = () => {
                 <label className="relative">
                   <input
                     {...register('firstName')}
-                    name="firstName"
                     placeholder="First Name"
                     className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize dark:bg-gray-600"
                   />
                   <FaRegUser className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
                 {errors.firstName && (
-                  <span className="text-red-500 text-xs text-center mt-1">required</span>
+                  <span className="text-red-500 text-xs text-center mt-1">{errors.firstName.message}</span>
                 )}
               </div>
 
@@ -98,14 +80,13 @@ const ContactForm: React.FC = () => {
                 <label className="relative">
                   <input
                     {...register('lastName')}
-                    name="lastName"
                     placeholder="Last Name"
                     className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize dark:bg-gray-600"
                   />
                   <FaRegUser className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
                 {errors.lastName && (
-                  <span className="text-red-500 text-xs mt-1 text-center">required</span>
+                  <span className="text-red-500 text-xs mt-1 text-center">{errors.lastName.message}</span>
                 )}
               </div>
             </div>
@@ -115,14 +96,13 @@ const ContactForm: React.FC = () => {
                 <label className="relative">
                   <input
                     {...register('email')}
-                    name="email"
                     placeholder="Email Address"
                     className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize dark:bg-gray-600"
                   />
                   <MdOutlineEmail className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
                 {errors.email && (
-                  <span className="text-red-500 text-xs text-center">required</span>
+                  <span className="text-red-500 text-xs text-center">{errors.email.message}</span>
                 )}
               </div>
 
@@ -130,14 +110,13 @@ const ContactForm: React.FC = () => {
                 <label className="relative">
                   <input
                     {...register('phoneNumber')}
-                    name="phoneNumber"
                     placeholder="Phone Number"
                     className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize dark:bg-gray-600"
                   />
                   <IoCallOutline className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
                 {errors.phoneNumber && (
-                  <span className="text-red-500 text-xs text-center">required</span>
+                  <span className="text-red-500 text-xs text-center">{errors.phoneNumber.message}</span>
                 )}
               </div>
             </div>
@@ -146,21 +125,24 @@ const ContactForm: React.FC = () => {
               <label className="relative">
                 <textarea
                   {...register('message')}
-                  name="message"
                   placeholder="Your Message"
                   className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-24 resize-none dark:bg-gray-600"
                 />
                 <FaRegMessage className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
               </label>
               {errors.message && (
-                <span className="text-red-500 text-xs text-center">required</span>
+                <span className="text-red-500 text-xs text-center">{errors.message.message}</span>
               )}
             </div>
 
-            <Button label="Submit"  onClick={()=>submitting}/> 
-                 
-           
-            
+            <Button label="Submit"
+             onClick={() => {
+            if (!submitting) {
+            handleSubmit(onSubmit)(); // Call the form submit handler
+    }
+  }}
+/>
+
           </div>
 
           <ToastContainer

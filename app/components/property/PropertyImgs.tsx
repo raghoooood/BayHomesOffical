@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import { HiMagnifyingGlassPlus } from "react-icons/hi2";
 import { FaArrowLeft, FaArrowRight, FaImages } from 'react-icons/fa';
 import Loader from '@/app/components/Loader'; // Adjust path as needed
@@ -14,9 +13,9 @@ const PropertyImgs = ({ propImages }: { propImages: string[] }) => {
   const [zoomPos, setZoomPos] = useState({ x: 0, y: 0 });
   const [isZooming, setIsZooming] = useState(false);
   const [iconPos, setIconPos] = useState({ x: 0, y: 0 });
-  const [isLoading, setIsLoading] = useState(true); // State for loading
+  const [isLoading, setIsLoading] = useState(true);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
-  // Ensure there are images to display
   const allImages = propImages;
   const totalImages = allImages.length;
   const visibleImages = allImages.slice(0, 3); // First 3 images
@@ -31,10 +30,8 @@ const PropertyImgs = ({ propImages }: { propImages: string[] }) => {
       }
     };
 
-    // Add event listener for keydown
     window.addEventListener('keydown', handleKeyDown);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -84,7 +81,27 @@ const PropertyImgs = ({ propImages }: { propImages: string[] }) => {
   };
 
   const handleImageLoad = () => {
-    setIsLoading(false); // Image loaded, hide spinner
+    setIsLoading(false);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touchStartX = e.touches[0].clientX;
+    const touchStartY = e.touches[0].clientY;
+
+    overlayRef.current!.addEventListener('touchmove', (ev) => {
+      const touchEndX = ev.touches[0].clientX;
+      const touchEndY = ev.touches[0].clientY;
+
+      if (touchEndX < touchStartX) {
+        handleNextImage();
+      }
+
+      if (touchEndX > touchStartX) {
+        handlePrevImage();
+      }
+
+      overlayRef.current!.removeEventListener('touchmove', null!);
+    });
   };
 
   return (
@@ -109,7 +126,9 @@ const PropertyImgs = ({ propImages }: { propImages: string[] }) => {
             objectFit="cover"
             className="rounded-md"
             priority
-            onLoadingComplete={handleImageLoad} // Trigger when image has loaded
+            onLoadingComplete={handleImageLoad}
+            placeholder="blur"
+            blurDataURL="/path/to/low-quality.jpg" // Replace with actual low-quality image path
           />
 
           {isZooming && (
@@ -134,7 +153,6 @@ const PropertyImgs = ({ propImages }: { propImages: string[] }) => {
             </>
           )}
 
-          {/* "More Images" Button */}
           {totalImages > 3 && (
             <button
               onClick={handleOpenOverlay}
@@ -159,69 +177,58 @@ const PropertyImgs = ({ propImages }: { propImages: string[] }) => {
                 layout="fill"
                 objectFit="cover"
                 className="rounded-md"
+                loading="lazy"
               />
             </div>
           ))}
         </div>
       </div>
 
-      <AnimatePresence>
       {isOverlayOpen && (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.3, ease: "easeOut" }}
-    className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center overflow-hidden"
-    onClick={handleCloseOverlay}
-  >
-    <motion.div
-      key={currentImageIndex}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className="relative w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden"
-      onClick={(e) => e.stopPropagation()} // Prevents closing overlay when clicking inside
-    >
-      <div className="relative w-full h-full flex items-center justify-center">
-        {/* Previous Image Button */}
-        <button
-          onClick={handlePrevImage}
-          className="absolute z-10 left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
-          style={{ zIndex: 10 }} // Ensure it's above other elements 
-          >
-        <FaArrowLeft  /> {/* Increase the size if needed */}
-        </button>
-
-        {/* Image Container */}
-        <motion.div
-          key={overlayImages[currentImageIndex]}
-          className="relative w-full h-full rounded-lg overflow-hidden"
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center overflow-hidden"
+          onClick={handleCloseOverlay}
+          ref={overlayRef}
+          onTouchStart={handleTouchStart} // Enable touch scrolling
         >
-          <Image
-            src={overlayImages[currentImageIndex]}
-            alt={`Slider Image ${currentImageIndex + 1}`}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-lg"
-            onLoadingComplete={handleImageLoad} // Trigger when image has loaded
-          />
-        </motion.div>
+          <div className="relative w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden">
+            <div className="relative w-full h-full flex items-center justify-center">
+              <button
+              
+              onClick={(e) => {
+                e.stopPropagation(); // Prevents the overlay from closing
+                handlePrevImage();
+              }}
+                className="absolute z-10 left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
+              
+              >
+                <FaArrowLeft />
+              </button>
 
-        {/* Next Image Button */}
-        <button
-          onClick={handleNextImage}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
-        >
-          <FaArrowRight />
-        </button>
-      </div>
-    </motion.div>
-  </motion.div>
-)}
+              <div className="relative w-full h-full rounded-lg overflow-hidden">
+                <Image
+                  src={overlayImages[currentImageIndex]}
+                  alt={`Slider Image ${currentImageIndex + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-lg"
+                  loading="lazy"
+                />
+              </div>
 
-      </AnimatePresence>
+              <button
+                 onClick={(e) => {
+                  e.stopPropagation(); // Prevents the overlay from closing
+                  handleNextImage();
+                }}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
+              >
+                <FaArrowRight />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
