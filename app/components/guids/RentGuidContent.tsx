@@ -117,7 +117,7 @@ const RentGuidContent: React.FC<LatestPropProps> = ({ initialProperties }) => {
           propertyCounts={propertyCounts}
         />
         <div className="hidden md:flex ml-4 mb-5">
-          <Button label="More Properties" onClick={() => router.push(`/all-property?purpose=sale`)} />
+          <Button label="More Properties" onClick={() => router.push(`/all-property?purpose=rent`)} />
         </div>
       </div>
       <div className="relative flex overflow-x-auto w-full py-4">

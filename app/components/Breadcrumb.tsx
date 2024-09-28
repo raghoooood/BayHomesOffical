@@ -68,7 +68,7 @@ const Breadcrumb = ({ items, onBreadcrumbClick, styles }: BreadcrumbProps) => {
                       }
                     }
                   }}
-                  className="text-gray-600 hover:underline text-sm md:text-base"
+                  className="text-gray-600 dark:text-gray-50  hover:underline text-sm md:text-base "
                 >
                   {item.label}
                 </a>
@@ -94,7 +94,7 @@ const Breadcrumb = ({ items, onBreadcrumbClick, styles }: BreadcrumbProps) => {
                         }
                       }
                     }}
-                    className="text-black hover:underline text-sm md:text-base"
+                    className="text-gray-600  dark:text-gray-300 hover:underline text-sm md:text-base"
                   >
                     {item.label}
                   </a>

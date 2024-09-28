@@ -74,7 +74,7 @@ const ContactForm: React.FC = () => {
  
  
   return (
-    <div id="contact" className="relative p-4 mb-4">
+    <div id="contact" className="relative p-4 mb-4 z-20">
       <div className="sm:flex justify-center items-center">
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-lg">
           <div className="flex flex-col gap-6">

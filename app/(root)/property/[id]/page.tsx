@@ -35,7 +35,7 @@ const Page = async ({ params }: any) => {``
 
   return (
     <div className="max-w-6xl mx-auto py-24 px-5 relative">
-      <Breadcrumb items={breadcrumbItems} />
+      <Breadcrumb  items={breadcrumbItems}  />
       <PropertyImgs propImages={result.images.propImages} />
 
       <div className="flex flex-col lg:flex-row ">

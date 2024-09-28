@@ -71,21 +71,26 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
     }
   };
 
-  // Update filters based on area name or search text
   useEffect(() => {
     if (areaName) {
-      if (!filters.areas.includes(areaName)) {
-        setFilters(prevFilters => ({
-          ...prevFilters,
-          areas: [...prevFilters.areas, areaName],
-        }));
-      }
+      setFilters(prevFilters => {
+        if (!prevFilters.areas.includes(areaName)) {
+          return {
+            ...prevFilters,
+            areas: [...prevFilters.areas, areaName],
+          };
+        }
+        return prevFilters; // Don't update if areaName is already present
+      });
     } else if (searchText) {
+      if (isSmallScreen) {
+        // Small screen logic here
+      }
       fetchAllAreas(searchText);
     } else {
       setFilteredAreas([]);
     }
-  }, [areaName, searchText]);
+  }, [areaName, searchText, isSmallScreen]);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -138,13 +143,25 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
     };
   }, [activeDropdown]);
 
-  // Handle search
-  const handleSearch = () => {
-    const queryParams = new URLSearchParams();
-    queryParams.append('source', 'search');
-    if (filters.purpose) queryParams.append('purpose', filters.purpose);
-    if (filteredAreas.length > 0) queryParams.append('area', filteredAreas.map(area => area.areaName).join(','));
-    router.push(`/all-property?${queryParams.toString()}`);
+  const handleSearch = async () => {
+    try {
+      const queryParams = new URLSearchParams();
+  
+      queryParams.append('source', 'search');
+  
+      if (filters.purpose) queryParams.append('purpose', filters.purpose);
+      if (filters.areas.length > 0) queryParams.append('area', filters.areas.join(', '));
+      if (filters.propertyType) queryParams.append('propertyType', filters.propertyType);
+      // Pass raw prices instead of converted ones
+      if (rawPriceMin) queryParams.append('priceMin', rawPriceMin.toString());
+      if (rawPriceMax) queryParams.append('priceMax', rawPriceMax.toString());
+      if (filters.bedsMin) queryParams.append('bedsMin', filters.bedsMin.toString());
+      if (filters.bedsMax) queryParams.append('bedsMax', filters.bedsMax.toString());
+  
+      router.push(`/all-property?${queryParams.toString()}`);
+    } catch (error) {
+      console.error('Error during search:', error);
+    }
   };
 
   // Handle area selection
@@ -155,6 +172,13 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
     }));
     setSearchText('');
     setFilteredAreas([]);
+  };
+  const handlePriceChange = (min: number, max: number) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      priceMin: min,
+      priceMax: max,
+    }));
   };
 
   // Handle area removal
@@ -168,6 +192,7 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
   return (
 <div className="relative">
 {isSmallScreen ? (
+  
         <SearchResponsive
           filters={filters}
           handleFilterChange={handleFilterChange}
@@ -177,7 +202,12 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
           handleAreaSelect={handleAreaSelect}
           handleSearch={handleSearch}
           defaultPurpose={defaultPurpose}
-        />
+          handlePriceChange={handlePriceChange}
+          setRawPrices={{ setRawPriceMin, setRawPriceMax }} 
+         selectedCurrency={selectedCurrency}
+         exchangeRates={exchangeRates}
+          rawPriceMin={rawPriceMin}
+          rawPriceMax={rawPriceMax}      />
       ) : (
         <div className="p-2 max-w-4xl mx-auto">
           <div className="hidden md:flex flex-row space-x-4">
@@ -197,7 +227,7 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
               <div className="relative w-full md:w-auto">
                 <div className="flex items-center gap-2">
                   {filters.areas.length > 0 && (
-                    <div className="flex items-center bg-gray-200 p-1 rounded text-xs text-black">
+                    <div className="flex items-center bg-white p-1 rounded text-xs text-black">
                       {filters.areas[0]}
                       {filters.areas.length > 1 && (
                         <span
@@ -273,7 +303,7 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
                           name="priceMin"
                           id="priceMin"
                           value={rawPriceMin} // Use rawPriceMin for input value
-                          onChange={e => setRawPriceMin(parseFloat(e.target.value) || 0)}
+                          onChange={e => setRawPriceMin(parseFloat(e.target.value))}
                           placeholder="Min"
                           className="p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-300 text-black"
                         />
@@ -290,7 +320,7 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
                           name="priceMax"
                           id="priceMax"
                           value={rawPriceMax} // Use rawPriceMax for input value
-                          onChange={e => setRawPriceMax(parseFloat(e.target.value) || 0)}
+                          onChange={e => setRawPriceMax(parseFloat(e.target.value))}
                           placeholder="Max"
                           className="p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-300 text-black"
                         />
@@ -360,26 +390,35 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
       )}
 
   {/* Modal/Dropdown for displaying all selected areas */}
- {showAllAreas && filters.areas.length > 0 && (
+  {showAllAreas && filters.areas.length > 0 && (
   <div
-    className="absolute left-0 right-0 mt-2 z-50"
+    className="fixed inset-0 z-50 flex justify-center items-start pt-10 bg-black bg-opacity-50" 
     onClick={() => setShowAllAreas(false)}  // Close modal on click outside
   >
-     <div
-      className="bg-white shadow-lg p-2 w-full max-w-md mx-auto"
-      // onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the content
+    <div
+      className="bg-white shadow-lg p-4 w-full max-w-md mx-auto rounded-lg relative"
+      onClick={(e) => e.stopPropagation()}  // Prevent closing when clicking inside the modal
     >
+      {/* Modal Close Button */}
+      <button
+        type="button"
+        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+        onClick={() => setShowAllAreas(false)}
+      >
+        ×
+      </button>
+
       {/* Selected Areas Grid */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-4 mt-4">
         {filters.areas.map((area) => (
           <div
             key={area}
-            className="flex justify-between items-center p-2 bg-gray-200 rounded text-sm h-10"
+            className="flex justify-between items-center p-2 bg-gray-100 rounded text-sm h-10"
           >
             <span>{area}</span>
             <button
               type="button"
-              className="text-red-500"
+              className="text-red-500 hover:text-red-700"
               onClick={() => handleAreaRemove(area)}
             >
               ×
@@ -390,6 +429,7 @@ const SearchContainer = ({ areaName, defaultPurpose }: SearchContainerProps) => 
     </div>
   </div>
 )}
+
 
 
 

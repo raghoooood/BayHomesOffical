@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
-import heroBg from "@/assets/images/Image12.jpg";
+import heroBg from "@/assets/images/bg3.jpg";
 import SearchContainer from "../search/SearchContainer";
 import { SmallTitleText, LargeTypingText } from '@/app/styles/CustomTexts';
 import Link from 'next/link';

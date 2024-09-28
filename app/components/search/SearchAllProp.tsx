@@ -205,7 +205,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
 {/* Main Filters for Large Devices */}
 <div className="hidden lg:flex flex-wrap justify-center items-center space-x-4 w-full px-4 py-2 ">
   {/* Filters Container */}
-  <div className="flex flex-wrap items-center bg-white dark:bg-bg rounded-lg shadow-lg p-2 space-x-4 flex-grow max-w-7xl">
+  <div className="flex flex-wrap items-center bg-white dark:bg-bg rounded-lg shadow-lg p-2 space-x-4 flex-grow max-w-6xl">
     {/* Area Filter */}
     <div className="relative flex items-center space-x-2 flex-grow z-20 ">
     {filters.areas.length > 0 && (
@@ -367,7 +367,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
               </div>
   </div>
   {/* Action Buttons */}
-  <div className="flex space-x-2  items-center w-[20vw]">
+  <div className="flex space-x-2  items-center w-[20vw] z-50">
     <Button label="Search" onClick={handleSearch} />
     <Button label="Clear Filters" 
       onClick={() =>

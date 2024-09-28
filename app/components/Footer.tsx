@@ -89,25 +89,24 @@ const Footer: React.FC = () => {
           {/* Social Media Icons */}
           <div className="flex justify-center sm:justify-start gap-3 mb-2 sm:mb-0">
             <Link href="https://www.facebook.com/Alsayyahgroup/" target="_blank">
-              <FaFacebookF className="text-blue-600 hover:text-blue-800 text-lg sm:text-xl" />
+              <FaFacebookF className="text-white hover:text-blue-800 text-lg sm:text-xl" />
             </Link>
             <Link href="https://www.instagram.com/alsayyahgroup/" target="_blank">
-              <FaInstagram className="text-pink-500 hover:text-pink-700 text-lg sm:text-xl" />
+              <FaInstagram className="text-white hover:text-pink-700 text-lg sm:text-xl" />
             </Link>
             <Link href="https://www.linkedin.com/company/alsayyahgroup" target="_blank">
-              <FaLinkedinIn className="text-blue-700 hover:text-blue-900 text-lg sm:text-xl" />
+              <FaLinkedinIn className="text-white hover:text-blue-900 text-lg sm:text-xl" />
             </Link>
           </div>
 
           {/* Centered Content */}
           <div className="flex flex-col items-center text-xs sm:text-sm">
-            <Link
-              href="https://alsayyah.com/"
-              target="_blank"
+            <a
+              href='/'
               className="font-semibold text-center text-bluePText hover:text-orange-500 dark:text-white mb-1"
             >
-              &copy; 2024 Al-Sayyah Group. All Rights Reserved.
-            </Link>
+              &copy; 2024 Bay Homes. All Rights Reserved.
+            </a>
           </div>
         </div>
       </div>
