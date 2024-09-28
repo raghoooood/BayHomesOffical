@@ -86,11 +86,11 @@ const MortgageCalculator = ({ result }: MortgageCalculatorProps) => {
           <p className='text-lg font-bold'>Monthly Payments</p>
           <p className='text-xl text-orange-500'>AED {monthlyPayment} /month</p>
         </div>
-        <button 
+        {/* <button 
           className='w-full lg:w-auto mt-4 lg:mt-0 bg-orange-500 text-white p-2 rounded hover:bg-gray-600'
         >
           Get a free consultation
-        </button>
+        </button> */}
       </div>
     </div>
   );

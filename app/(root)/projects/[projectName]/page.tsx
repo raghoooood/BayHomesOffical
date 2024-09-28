@@ -61,7 +61,7 @@ const ProjectDetails: React.FC = async ({ params }: any) => {
 
   <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4 md:space-y-6 max-w-[90vw] md:max-w-[65vw]">
     <p 
-      className="text-lg md:text-lg text-gray-800 leading-relaxed md:leading-relaxed"
+      className="text-lg md:text-lg text-gray-800 leading-relaxed md:leading-relaxed dark:text-white"
       dangerouslySetInnerHTML={{ __html: sanitizedDescription }}>
     </p>
   </div>

@@ -50,7 +50,7 @@ const Features = () => {
 
     return (
         <Container>
-        <div className="relative flex pt-9 sm:pt-12 md:pt-10 lg:pt-1 my-auto">
+        <div className="relative flex mt-10 sm:mt-12 md:mt-10 lg:mt-1 my-auto">
             <div
                 ref={scrollContainerRef}
                 className="flex overflow-x-auto smooth-scroll scrollbar-hide"

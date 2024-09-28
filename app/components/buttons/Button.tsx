@@ -29,7 +29,8 @@ const Button: React.FC<ButtonProps> = ({
     className={`
     disabled:opacity-70
     rounded-lg
-    hover:opacity-80
+    hover:bg-orange-600
+    hover:border-orange-600
     transition
     w-full
     p-5
