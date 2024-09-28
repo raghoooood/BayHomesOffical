@@ -31,16 +31,17 @@ const Page = () => {
         <div className='w-50'>
           <HeroContainer2 title={'List Your Property in Dubai with Confidence.'} description={"Sell or Buy with Bay Homes Real Estate, and let's connect you to the right buyers or tenants"}/>
           </div>
-          <Link
+          <a
           href="#listProp-form"
-          className="p-4 mt-5 bg-orange-500 text-white rounded-md shadow-sm hover:bg-orange-600 focus:outline-none">
-      List Your Property Now
-    </Link>
+          className="p-4 mt-5 bg-orange-500 text-white rounded-md shadow-sm hover:bg-orange-600 focus:outline-none"
+            >
+         List Your Property Now
+        </a>
         </div>
       </div>
 
       {/* Content Section */}
-      <section className="py-10">
+      <section  className="py-10">
         <ListPropContent />
       </section>
 

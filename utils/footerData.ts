@@ -17,7 +17,7 @@ const footerData: FooterItem[] = [
     options: [
       { name: 'Properties for Sale', path: "/all-property", filters: { purpose: "sale" } },
       { name: 'Guide to Buying', path: '/buyGuid' },
-      { name: 'Signature Collection', path: '/signature-collection' },
+      { name: 'Signature Collection', path: '/all-property', filters : {featured: "true"} },
       { name: 'Mortgages', path: '/mortgages' },
       // { name: 'Property Management', path: '/property-management' },
     ],
@@ -40,7 +40,7 @@ const footerData: FooterItem[] = [
   {
     title: 'services',
     options: [
-      { name: 'Properties for Sale', path: "/all-property", filters: { purpose: "rent" } },
+      { name: 'Properties for Rent', path: "/all-property", filters: { purpose: "rent" } },
       { name: 'Mortgages', path: '/mortgages' },
       { name: 'List Your Property', path: '/list-your-property' },
     ],

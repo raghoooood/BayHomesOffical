@@ -9,14 +9,13 @@ const ContactProject: React.FC = () => {
   return (
     <section className="relative w-full min-h-screen">
       {/* Background Image */}
-      <div className="absolute inset-0 z-[-1]">
+      <div className="absolute inset-0 z-1">
         <Image
           src={bg}
           alt="Background image"
           fill
           className="object-cover rounded-xl"
         />
-      </div>
 
       {/* Content */}
       <div className="relative flex flex-col justify-center w-full h-full p-6 lg:p-8 rounded-xl bg-white bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-80 shadow-lg">
@@ -37,13 +36,14 @@ const ContactProject: React.FC = () => {
               <h2 className="text-2xl md:text-3xl lg:text-2xl text-gray-800 dark:text-gray-100 font-bold text-center lg:text-left pl-0 lg:pl-5">
                 Real Estate Inquiry Form
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 mt-2 md:mt-3 lg:mt-4 text-center lg:text-left pb-4">
+              <p className="text-gray-600 dark:text-gray-300 px-5 mt-2 md:mt-3 lg:mt-4 text-center lg:text-left pb-4">
                 As the complexity of buildings increases, our expertise can help navigate your options.
               </p>
               <ContactForm />
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

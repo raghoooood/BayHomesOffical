@@ -84,10 +84,7 @@ const TestimonialContainer: React.FC = () => {
               duration: 30 
             } 
           }}
-          style={{ 
-            // Conditionally apply styles to stop animation on hover
-            x: isHovered ? 0 : undefined 
-          }}
+         
         >
           {[...testimonials, ...testimonials].map((t, index) => (
             <div key={index} className="flex-shrink-0 w-[500px] h-[300px] p-4">

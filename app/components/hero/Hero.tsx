@@ -26,18 +26,18 @@ const Hero : React.FC<Props> = ({
         className="w-full h-screen bg-no-repeat rounded-b-4xl object-cover object-center"
       />
          <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 ">
-        <SmallTitleText title="The best way to" textStyles="text-center text-gray-50 "/>
+        <SmallTitleText title="The best way to" textStyles="text-center text-gray-800 "/>
         
-        <LargeTypingText title="Find Your Dream Home" textStyles="text-center text-gray-50 "/>
+        <LargeTypingText title="Find Your Dream Home" textStyles="text-center text-gray-900 "/>
           
-          <SmallTitleText title="Home to lucrative opportunities" textStyles="text-center text-gray-50"/>         
+          <SmallTitleText title="Home to lucrative opportunities" textStyles="text-center text-gray-800"/>         
         <div className="w-full max-w-2xl mt-10">
           <SearchContainer />
         </div>
          {/* Conditionally render the link */}
          <Link
           href={totalProjects > 1 ? "/projects" : `/projects/${projectName}`}
-          className="block text-gray-100 hover:text-orange-500 pt-10 text-md font-semibold underline uppercase"
+          className="block text-white hover:text-orange-500 pt-5 sm:pt-10 text-md font-semibold underline uppercase"
         >
           Register your interest now
         </Link>
