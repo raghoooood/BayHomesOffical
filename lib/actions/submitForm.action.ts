@@ -3,12 +3,15 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // or another email service provider
+  host: 'smtp.office365.com',  
+  port: 587,                   
+  secure: false,              
   auth: {
-    user: process.env.EMAIL_USER, // Your email address
-    pass: process.env.EMAIL_PASS, // Your email password
+    user: process.env.NEXT_PUBLIC_EMAIL_ADDRESS,  // Your email address
+    pass: process.env.EMAIL_PASS,  // Your email password or app-specific password
   },
 });
+
 
 export async function submitForm(formData: {
   name: string;
@@ -94,8 +97,8 @@ export async function submitForm(formData: {
 
   // Send email
   const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER, // Your email address
+    from: email,
+    to: process.env.NEXT_PUBLIC_EMAIL_ADDRESS, // Your email address
     subject: 'New Property Listing Form Submission',
     html: htmlBody,
   };
@@ -198,8 +201,8 @@ export async function submitBookingForm(formData: {
 
   // Send email
   const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER, 
+    from: email,
+    to: process.env.NEXT_PUBLIC_EMAIL_ADDRESS, 
     subject: `New Property Viewing Request for ${propertyName}`,
     html: htmlBody,
   };
@@ -271,8 +274,8 @@ export async function contactForm(data: {
 
   // Send email
   const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER, // Your email address
+    from: email,
+    to: process.env.NEXT_PUBLIC_EMAIL_ADDRESS, // Your email address
     subject: 'New Contact Form Request',
     html: htmlBody,
   };

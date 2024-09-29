@@ -12,7 +12,7 @@ import { IoCallOutline } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaRegMessage } from "react-icons/fa6";
 import Button from '../buttons/Button';
-import { contactForm } from '@/lib/actions/contactForm.action';
+import { contactForm } from '@/lib/actions/submitForm.action';
 
 interface IFormInputs {
   firstName: string;
