@@ -12,7 +12,7 @@ const menuItems: MenuItem[] = [
       { name: "See all properties for sale", path: "/all-property", filters: { purpose: "sale" } },
       { name: "Apartments for sale", path: "/all-property", filters: { purpose: "sale", propertyType: "apartment" } },
       { name: "Villas for sale", path: "/all-property", filters: { purpose: "sale", propertyType: "villa" } },
-      { name: "Residential Properties for sale", path: "/all-property", filters: { purpose: "sale", classification: "Residential" } },
+      { name: "Residential Properties for sale", path: "/all-property", filters: { purpose: "sale", classification: "residential" } },
       { name: "Buyer's Guide", path: "/buyGuid" },
       { name: "Sales's Guide", path: "/saleGuid" }
     ]
@@ -24,7 +24,7 @@ const menuItems: MenuItem[] = [
       { name: "See properties for rent", path: "/all-property", filters: { purpose: "rent" } },
       { name: "Apartments for rent", path: "/all-property", filters: { purpose: "rent", propertyType: "apartment" } },
       { name: "Villas for rent", path: "/all-property", filters: { purpose: "rent", propertyType: "villa" } },
-      { name: "Residential Properties for rent", path: "/all-property", filters: { purpose: "rent", classification: "Residential" } },
+      { name: "Residential Properties for rent", path: "/all-property", filters: { purpose: "rent", classification: "residential" } },
       { name: "Tenants Guide", path: "/renantsGuid" }
     ]
   },
