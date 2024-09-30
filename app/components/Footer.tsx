@@ -80,17 +80,17 @@ const Footer: React.FC = () => {
 
           {/* Centered Content */}
           <div className="flex flex-col items-center text-xs sm:text-sm">
-            <Link
-              href="https://alsayyah.com/"
+            <a
+              href="/"
               target="_blank"
               className="font-semibold text-center text-bluePText hover:text-orange-500 dark:text-white mb-1"
             >
-              &copy; 2024 Al-Sayyah Group. All Rights Reserved.
-            </Link>
+              &copy; 2024 Bay Homes. All Rights Reserved.
+            </a>
           </div>
 
           {/* Terms and Privacy */}
-          <div className="flex flex-wrap items-center gap-3 justify-center sm:justify-end text-xs sm:text-sm">
+          {/* <div className="flex flex-wrap items-center gap-3 justify-center sm:justify-end text-xs sm:text-sm">
             <Link
               href="#"
               className="font-semibold text-center text-bluePText hover:text-orange-500 dark:text-white"
@@ -103,7 +103,7 @@ const Footer: React.FC = () => {
             >
               Privacy
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </motion.footer>
