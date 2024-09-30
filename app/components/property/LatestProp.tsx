@@ -102,8 +102,6 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
     );
   }, [initialProperties, intialProjects, propertyClassification]);
 
- 
-
   const propertiesToShow = useMemo(
     () => filteredProperties.slice(currentIndex, currentIndex + pageSize),
     [filteredProperties, currentIndex, pageSize]
@@ -126,8 +124,6 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
   
     return counts;
   }, [initialProperties, intialProjects, intialProjects]);
-  
-
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - pageSize, 0));
@@ -169,36 +165,36 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
             </button>
           )}
           <div ref={scrollRef} className="flex space-x-4 md:space-x-6 justify-start w-full">
-  {propertiesToShow.map((property) => (
-    <div key={property._id} className="flex-shrink-0 w-[100%] sm:w-[420px] md:w-[280px] lg:w-[300px] xl:w-[330px]">
-      {propertyClassification === 'off plan' ? (
-        <ProjectCard2
-          _id={(property as PropsProj)._id}
-          images={(property as PropsProj).images}
-          projectName={(property as PropsProj).projectName}
-          startPrice={(property as PropsProj).startPrice}
-          location={(property as PropsProj).location}
-          rooms={(property as PropsProj).rooms}
-          area={(property as PropsProj).area}
-          developer={(property as PropsProj).developer}
-          size={(property as PropsProj).size}
-        />
-      ) : (
-        <PropCard
-          _id={(property as Props)._id}
-          images={(property as Props).images}
-          title={(property as Props).title}
-          price={(property as Props).price}
-          location={(property as Props).location}
-          numOfrooms={(property as Props).numOfrooms}
-          numOfbathrooms={(property as Props).numOfbathrooms}
-          size={(property as Props).size}
-          area={(property as Props).area}
-        />
-      )}
-    </div>
-  ))}
-</div>
+            {propertiesToShow.map((property) => (
+              <div key={property._id} className="flex-shrink-0 w-[100%] sm:w-[420px] md:w-[280px] lg:w-[300px] xl:w-[330px]">
+                {propertyClassification === 'off plan' ? (
+                  <ProjectCard2
+                    _id={(property as PropsProj)._id}
+                    images={(property as PropsProj).images}
+                    projectName={(property as PropsProj).projectName}
+                    startPrice={(property as PropsProj).startPrice}
+                    location={(property as PropsProj).location}
+                    rooms={(property as PropsProj).rooms}
+                    area={(property as PropsProj).area}
+                    developer={(property as PropsProj).developer}
+                    size={(property as PropsProj).size}
+                  />
+                ) : (
+                  <PropCard
+                    _id={(property as Props)._id}
+                    images={(property as Props).images}
+                    title={(property as Props).title}
+                    price={(property as Props).price}
+                    location={(property as Props).location}
+                    numOfrooms={(property as Props).numOfrooms}
+                    numOfbathrooms={(property as Props).numOfbathrooms}
+                    size={(property as Props).size}
+                    area={(property as Props).area}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
 
           {showNext && (
             <button
