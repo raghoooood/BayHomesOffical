@@ -34,14 +34,14 @@ const Page = async () => {
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Renting Guide for Dubai</h2>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed dark:text-gray-50">
             Many renters spend months looking for the perfect place, often settling for less or paying more than expected. Avoid that frustration with Provident. With our expertise, you'll find the ideal property at the right price, saving you both time and money.
             </p>
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Description</h2>
-            <p className="text-gray-700 leading-relaxed mx-auto w-full">Renting a property in Dubai comes with its own set of challenges—sorting through options, negotiating contracts, and handling paperwork. Whether you’re searching for a long-term rental through us, we’ll secure the best payment options to fit your budget. Plus, we’ll handle the registration in-house, saving you time and effort.
+            <p className="text-gray-700 leading-relaxed mx-auto w-full dark:text-gray-50">Renting a property in Dubai comes with its own set of challenges—sorting through options, negotiating contracts, and handling paperwork. Whether you’re searching for a long-term rental through us, we’ll secure the best payment options to fit your budget. Plus, we’ll handle the registration in-house, saving you time and effort.
             So, why stress over the complexities of renting? Let us guide you through the process and make renting in Dubai simple and stress-free. Dive into our guide for a hassle-free experience.
             </p>
           </div>

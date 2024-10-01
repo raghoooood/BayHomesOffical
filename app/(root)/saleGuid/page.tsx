@@ -35,7 +35,7 @@ const Page = async () => {
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Discover Real Estate Excellence with Bay Homes </h2>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed dark:text-gray-50">
             Whether you're looking for a new family home or exploring investment opportunities in Dubai, we're committed to making your property search smooth and enjoyable.
 
 Ready to invest in Dubai’s thriving real estate market?  </p>
@@ -43,7 +43,7 @@ Ready to invest in Dubai’s thriving real estate market?  </p>
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Description</h2>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed dark:text-gray-50">
             Bay Homes offers a detailed step-by-step process for selling your home in Dubai, covering everything from determining the market value and preparing your Bay Homes property for sale to effectively listing and marketing it. With expert guidance, you can negotiate offers and finalize the sale smoothly. The guide also answers FAQs specific to Bay Homes, such as maximizing ROI, boosting home value through improvements, and handling the sale of mortgaged properties, all while emphasizing the benefits of working with a skilled real estate agent for a successful transaction.
             </p>
           </div>

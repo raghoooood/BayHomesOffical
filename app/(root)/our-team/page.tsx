@@ -21,10 +21,10 @@ const AboutTeam = async () => {
         <Breadcrumb items={breadcrumbItems} />
 
         <div className="relative w-full h-[30vh] max-h-[400px] text-black flex flex-col items-center justify-center rounded-lg p-2 sm:p-4 mt-6 sm:mt-3">
-          <LargeTypingText title="Our Team" textStyles="text-center" />
+          <LargeTypingText title="Our Team" textStyles="text-center dark:text-white" />
           <SmallTitleText 
             title="Our team comprises real estate professionals with a wealth of experience in Dubai’s real estate market. Each member brings unique skills and expertise, contributing to our collective success in delivering top-notch leasing solutions."
-            textStyles="mt-4 text-center max-w-[800px] mx-auto"
+            textStyles="mt-4 text-center max-w-[800px] mx-auto dark:text-white"
           />          
         </div>
 

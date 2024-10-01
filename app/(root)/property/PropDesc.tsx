@@ -19,7 +19,7 @@ const PropertyDesc: React.FC<PropertyDescrProps> = ({ description }) => {
   return (
     <div className="space-y-4">
       <div
-        className="font-normal text-black leading-6 dark:text-gray-900"
+        className="font-normal text-black leading-6 dark:text-gray-50"
         dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
       />
     </div>
