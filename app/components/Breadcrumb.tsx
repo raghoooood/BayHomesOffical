@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { FiHome } from 'react-icons/fi'; // Importing home icon
+import { HiChevronRight } from 'react-icons/hi'; // Importing chevron right icon
 
 interface BreadcrumbItem {
   label: string;
@@ -41,11 +43,14 @@ const Breadcrumb = ({ items, onBreadcrumbClick, styles }: BreadcrumbProps) => {
 
   return (
     <nav className={`${styles} text-black dark:text-gray-300 text-xs mb-4 mt-2`} aria-label="breadcrumb">
-      <ol className="list-none p-0 inline-flex flex-wrap">
-        {/* Always show the Home link */}
+      <ol className="list-none p-0 inline-flex items-center flex-wrap">
+        {/* Always show the Home link with an icon */}
         <li className="flex items-center">
-          <Link href="/" className="text-black dark:text-gray-300 hover:underline text-sm md:text-base">Home</Link>
-          {items.length > 0 && <span className="mx-2 text-sm md:text-base">/</span>}
+          <Link href="/" className="text-black dark:text-gray-300 hover:underline text-sm md:text-base flex items-center">
+            <FiHome className="mr-1" /> {/* Home icon */}
+            Home
+          </Link>
+          {items.length > 0 && <HiChevronRight className="mx-2 text-gray-500 dark:text-gray-400" />} {/* Chevron separator */}
         </li>
 
         {items.map((item, index) => {
@@ -53,35 +58,23 @@ const Breadcrumb = ({ items, onBreadcrumbClick, styles }: BreadcrumbProps) => {
 
           // Conditionally hide intermediate breadcrumbs on small screens
           if (index !== 0 && index !== items.length - 1 && items.length > maxItemsOnSmallScreen) {
-            return (
-              <li
-                key={index}
-                className={`flex items-center ${item.style || ''}`} // Hide on small screens, show on medium and larger
-              >
-                <a
-                  href={item.path}
-                  onClick={(e) => {
-                    if (onBreadcrumbClick) {
-                      e.preventDefault();
-                      if (item.path) {
-                        handleClick(item.path, index, item.filters);
-                      }
-                    }
-                  }}
-                  className="text-gray-600 dark:text-gray-50  hover:underline text-sm md:text-base "
-                >
-                  {item.label}
-                </a>
-                <span className="mx-2 text-sm md:text-base">/</span>
-              </li>
-            );
+            if (index === 1) {
+              // Add ellipsis to indicate hidden breadcrumbs on small screens
+              return (
+                <li key={index} className="flex items-center text-gray-500">
+                  ...
+                  <HiChevronRight className="mx-2 text-gray-500 dark:text-gray-400" />
+                </li>
+              );
+            }
+            return null; // Hide intermediate items
           }
 
           // Display first and last breadcrumbs, and all items for larger screens
           return (
             <li key={index} className="flex items-center">
               {isLast ? (
-                <span className="text-orange-500 text-sm md:text-base">{item.label}</span>
+                <span className="text-orange-500 font-semibold text-sm md:text-base">{item.label}</span>
               ) : (
                 <>
                   <a
@@ -94,11 +87,11 @@ const Breadcrumb = ({ items, onBreadcrumbClick, styles }: BreadcrumbProps) => {
                         }
                       }
                     }}
-                    className="text-gray-600  dark:text-gray-300 hover:underline text-sm md:text-base"
+                    className="text-gray-600 dark:text-gray-300 hover:underline text-sm md:text-base"
                   >
                     {item.label}
                   </a>
-                  <span className="mx-2 text-sm md:text-base">/</span>
+                  <HiChevronRight className="mx-2 text-gray-500 dark:text-gray-400" />
                 </>
               )}
             </li>

@@ -34,7 +34,7 @@ const Page = async ({ params }: any) => {``
 
 
   return (
-    <div className="max-w-6xl mx-auto py-24 px-5 relative">
+    <div className="max-w-6xl mx-auto py-24 px-5 relative space-y-5">
       <Breadcrumb  items={breadcrumbItems}  />
       <PropertyImgs propImages={result.images.propImages} />
 
@@ -51,20 +51,20 @@ const Page = async ({ params }: any) => {``
           </div>
 
           <p className="text-lg font-bold text-gray-700 dark:text-white">
-            Dubai, {result.area.areaName}, {result.location.street}
-          </p>
+            {result.location.city}, {result.area.areaName} {result.location.street ? `, ${result.location.street}` : ''}
+    </p>
           <div className="border-t border-gray-300 dark:border-gray-700" />
 
-          <p className="text-sm font-bold text-blueCardSubTitle dark:text-white">Key Information</p>
+          <p className="text-md font-bold text-blueCardSubTitle dark:text-white py-3">Key Information</p>
 
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5">
             <div>
               <p className="font-semibold text-gray-800 dark:text-white">Property Type</p>
-              <p className="text-gray-700 dark:text-white">{result.propertyType}</p>
+              <p className="text-gray-700 dark:text-white capitalize">{result.propertyType}</p>
             </div>
             <div>
               <p className="font-semibold text-gray-800 dark:text-white">Purpose</p>
-              <p className="text-gray-700 dark:text-white">{result.purpose}</p>
+              <p className="text-gray-700 dark:text-white capitalize">{result.purpose}</p>
             </div>
             <div>
               <p className="font-semibold text-gray-800 dark:text-white">Bedroom(s)</p>
@@ -80,14 +80,14 @@ const Page = async ({ params }: any) => {``
             </div>
             <div>
               <p className="font-semibold text-gray-800 dark:text-white">Furnishing Type</p>
-              <p className="text-gray-700 dark:text-white">{result.furnishingType}</p>
+              <p className="text-gray-700 dark:text-white capitalize">{result.furnishingType}</p>
             </div>
           </div>
 
           <div className="border-t border-gray-300 dark:border-gray-700" />
 
           <div className="space-y-4">
-          <p className="text-sm font-bold text-blueCardSubTitle dark:text-white">Property Description</p>
+          <p className="text-md font-bold text-blueCardSubTitle dark:text-white py-3">Property Description</p>
          {/* Property Description Component */}
          <PropertyDesc description={result.description} />
           </div>

@@ -26,7 +26,7 @@ const ContactProject: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 mb-6 sm:mb-8 lg:mb-16">
           {/* Text Section */}
           <div className="flex flex-col items-center lg:items-start justify-center lg:pr-8 mb-4 lg:mb-0">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-800 dark:text-gray-100 font-bold text-center lg:text-left">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-800 dark:text-gray-50 font-bold text-center lg:text-left">
               Speak with our Real Estate Specialists Today
             </h1>
             <p className="text-gray-600 dark:text-gray-300 mt-2 sm:mt-3 md:mt-4 lg:mt-5 text-center lg:text-left">

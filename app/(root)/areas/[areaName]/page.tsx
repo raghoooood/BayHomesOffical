@@ -76,13 +76,13 @@ const AreaDetails: React.FC<{ params: { areaName: string } }> = async ({ params 
           </div>
 
           {/* Centered Content */}
-          <div className="relative flex flex-col items-start justify-center h-full  text-white z-10 px-20">
-            <div className="ml-5 space-y-4">
+          <div className="relative flex flex-col items-start justify-center h-full  text-white z-10 px-6 sm:px-20 space-y-3">
+            <div className="space-y-5">
             <Breadcrumb styles={`z-10 text-white`} items={breadcrumbItems} />
             <h1 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg ">
               {result.areaName}
             </h1>
-            <p className="mt-5 text-xl md:text-2xl font-normal">
+            <p className="my:10 sm:mt-5 text-xl md:text-2xl font-normal">
               Discover the unique charm and vibrant life of {result.areaName}.
             </p>
             </div>
@@ -93,8 +93,8 @@ const AreaDetails: React.FC<{ params: { areaName: string } }> = async ({ params 
         {/* Details Section */}
         <div id="properties" className="max-w-screen-xl grid grid-cols-1 md:grid-cols-2 gap-24 p-6 md:p-12 mt-12 space-y-12 md:space-y-0">
           <div>
-            <h2 className="text-2xl font-semibold mb-4">About {result.areaName}</h2>
-            <p className="text-gray-700 leading-relaxed">{result.description}</p>
+            <h2 className="text-2xl font-semibold mb-4 dark:text-white">About {result.areaName}</h2>
+            <p className="text-gray-700 leading-relaxed dark:text-gray-50">{result.description}</p>
           </div>
 
           <div>
@@ -119,6 +119,7 @@ const AreaDetails: React.FC<{ params: { areaName: string } }> = async ({ params 
         </div>
 
         <div className="max-w-screen-xl justify-start items-start py-10">
+          <h2 className='text-2xl font-semibold mb-4 dark:text-white capitalize'>see <span className='text-orange-500'>{areaName}</span>  location</h2>
         <Map url={result.location} />
         </div>
 

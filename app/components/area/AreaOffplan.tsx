@@ -18,6 +18,7 @@ interface Props {
   };
   title: string;
   price: number;
+  propertyType:string;
   numOfbathrooms: number;
   location: {
     city: string;
@@ -118,7 +119,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
         initial="hidden"
         whileInView="show"
       >
-        <Heading title={title ? `Properties for sale in ${title}` : "All Properties"} start />
+        <Heading title={title ? `Properties for ${propertyPurpose} in ${title}` : "All Properties"} start />
         
         {/* Align filter and button to the left */}
         <div className="flex flex-col md:flex-row items-start justify-between mb-4">
@@ -154,6 +155,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
                   title={property.title}
                   price={property.price}
                   location={property.location}
+                  propertyType={property.propertyType}
                   numOfrooms={property.numOfrooms}
                   numOfbathrooms={property.numOfbathrooms}
                   size={property.size}

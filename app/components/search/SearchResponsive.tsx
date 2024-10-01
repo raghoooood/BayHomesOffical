@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import filterOptions from '@/utils/filterOptions';
 import Button from '../buttons/Button';
@@ -18,20 +18,20 @@ export interface SearchResponsiveProps {
     priceMax: number;
     currency: string;
   };
-  rawPriceMin : number;
-rawPriceMax: number;
-setRawPrices: {
-  setRawPriceMin: (price: number) => void;
-  setRawPriceMax: (price: number) => void;
-};
+  rawPriceMin: number;
+  rawPriceMax: number;
+  setRawPrices: {
+    setRawPriceMin: (price: number) => void;
+    setRawPriceMax: (price: number) => void;
+  };
   handleFilterChange: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void;
   searchText: string;
   setSearchText: (text: string) => void;
   filteredAreas: Array<{ _id: string; areaName: string }>;
   handleAreaSelect: (areaName: string) => void;
-  handleSearch: () => void; // Ensure this is defined in the props
+  handleSearch: () => void;
   defaultPurpose?: string;
-  handlePriceChange: (min: number, max: number) => void; // New prop for price change handler
+  handlePriceChange: (min: number, max: number) => void;
   selectedCurrency: string;
   exchangeRates: Record<string, number>;
 }
@@ -43,7 +43,7 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
   setSearchText,
   filteredAreas,
   handleAreaSelect,
-  handleSearch, // This is the prop from parent
+  handleSearch,
   defaultPurpose = '',
   rawPriceMax,
   rawPriceMin,
@@ -63,8 +63,6 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
     priceMax: 0,
   });
 
-
-
   useEffect(() => {
     const convertedMin = convertCurrency(rawPriceMin, selectedCurrency, 'AED', exchangeRates);
     const convertedMax = convertCurrency(rawPriceMax, selectedCurrency, 'AED', exchangeRates);
@@ -76,37 +74,33 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
     }));
   }, [rawPriceMin, rawPriceMax, selectedCurrency, exchangeRates]);
 
-  // Handle input changes
-  const handleMinPriceChange = (e : any) => {
+  const handleMinPriceChange = (e: any) => {
     const value = e.target.value;
     setRawPrices.setRawPriceMin(value);
   };
 
-  const handleMaxPriceChange = (e : any) => {
+  const handleMaxPriceChange = (e: any) => {
     const value = e.target.value;
     setRawPrices.setRawPriceMax(value);
   };
+
   const handleAreaRemove = (areaName: string) => {
     const newAreas = filters.areas.filter(area => area !== areaName);
     handleFilterChange({ target: { name: 'areas', value: newAreas } } as unknown as React.ChangeEvent<HTMLSelectElement>);
   };
 
   const handleClearFilters = () => {
-    // Reset parent filter state instead of using local state
-    handleFilterChange({
-      target: { name: 'reset', value: '' }, // Customize the reset behavior if needed
-    } as React.ChangeEvent<HTMLSelectElement>);
+    handleFilterChange({ target: { name: 'reset', value: '' } } as React.ChangeEvent<HTMLSelectElement>);
   };
-
-
 
   return (
     <div className="md:hidden flex flex-col space-y-3 mb-5">
-      <div className="flex justify-between items-center p-2 bg-white rounded-lg">
+      {/* Purpose Select */}
+      <div className="flex justify-between items-center p-2 bg-white dark:bg-gray-800 rounded-lg">
         <select
           name="purpose"
           onChange={handleFilterChange}
-          className="p-1 w-full dark:bg-white dark:text-gray-500"
+          className="p-1 w-full dark:bg-gray-800 dark:text-white"
           value={filters.purpose}
         >
           {filterOptions.purpose.map(option => (
@@ -116,20 +110,24 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
           ))}
         </select>
       </div>
+
+      {/* Area Input */}
       <input
         type="text"
         name="area"
         placeholder="Area or Community"
         onChange={e => setSearchText(e.target.value)}
-        className="p-2 w-full bg-white rounded-lg dark:text-black"
+        className="p-2 w-full bg-white dark:bg-gray-800 dark:text-white rounded-lg"
         value={searchText}
       />
+
+      {/* Filtered Areas Dropdown */}
       {filteredAreas.length > 0 && (
-        <ul className="absolute z-10 bg-white border border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
+        <ul className="absolute z-10 bg-white dark:bg-gray-800 dark:border-gray-600 border border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
           {filteredAreas.map(area => (
             <li
               key={area._id}
-              className="p-2 hover:bg-gray-200 cursor-pointer dark:text-black"
+              className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer dark:text-white"
               onClick={() => handleAreaSelect(area.areaName)}
             >
               {area.areaName}
@@ -137,11 +135,13 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
           ))}
         </ul>
       )}
+
+      {/* Selected Areas */}
       {filters.areas.length > 0 && (
-        <div className="bg-gray-200 p-2 rounded-lg flex items-center">
-          {filters.areas.map((area, index) => (
+        <div className="bg-gray-200 dark:bg-gray-700 p-2 rounded-lg flex items-center">
+          {filters.areas.map(area => (
             <div key={area} className="flex items-center">
-              <span>{area}</span>
+              <span className="dark:text-white">{area}</span>
               <button
                 type="button"
                 className="ml-2 text-red-500"
@@ -153,23 +153,26 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
             </div>
           ))}
           {filters.areas.length > 1 && (
-            <span className="ml-1 text-gray-500">
+            <span className="ml-1 text-gray-500 dark:text-gray-400">
               {` +${filters.areas.length - 1} more`}
             </span>
           )}
         </div>
       )}
+
+      {/* Search and Filter Buttons */}
       <div className="flex flex-row space-x-2">
-        <Button label="Search" onClick={handleSearch} /> {/* Trigger search from props */}
+        <Button label="Search" onClick={handleSearch} />
         <Button label="Filter" onClick={toggleFilterOverlay} />
       </div>
 
+      {/* Filter Overlay */}
       {showFilterOverlay && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-80 flex flex-col items-center p-4 z-50">
-          <div className="bg-white text-black p-6 rounded-lg space-y-4 w-full max-w-md">
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-80 dark:bg-black dark:bg-opacity-80 flex flex-col items-center p-4 z-50">
+          <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-6 rounded-lg space-y-4 w-full max-w-md">
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-bold">Filters</h2>
-              <button onClick={toggleFilterOverlay} className="text-black">
+              <button onClick={toggleFilterOverlay} className="text-black dark:text-white">
                 <MdClose size={24} />
               </button>
             </div>
@@ -177,7 +180,7 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
               <select
                 name="propertyType"
                 onChange={handleFilterChange}
-                className="p-2 border border-gray-300 rounded w-full"
+                className="p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded w-full"
                 value={filters.propertyType}
               >
                 {filterOptions.propertyType.map(option => (
@@ -186,6 +189,7 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
                   </option>
                 ))}
               </select>
+
               <div className="flex flex-col space-y-2">
                 <label htmlFor="priceMin">Min Price</label>
                 <input
@@ -194,7 +198,7 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
                   name="priceMin"
                   value={rawPriceMin}
                   onChange={handleMinPriceChange}
-                  className="p-2 border border-gray-300 rounded w-full"
+                  className="p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded w-full"
                   placeholder="Enter minimum price"
                 />
                 <label htmlFor="priceMax">Max Price</label>
@@ -203,11 +207,12 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
                   id="priceMax"
                   name="priceMax"
                   value={rawPriceMax}
-                   onChange={handleMaxPriceChange}
-                  className="p-2 border border-gray-300 rounded w-full"
+                  onChange={handleMaxPriceChange}
+                  className="p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded w-full"
                   placeholder="Enter maximum price"
                 />
               </div>
+
               <div className="flex flex-col space-y-2">
                 <label htmlFor="bedsMin">Min Beds</label>
                 <input
@@ -215,8 +220,8 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
                   id="bedsMin"
                   name="bedsMin"
                   value={filters.bedsMin}
-                  onChange={handleFilterChange} 
-                  className="p-2 border border-gray-300 rounded w-full"
+                  onChange={handleFilterChange}
+                  className="p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded w-full"
                   placeholder="Enter minimum beds"
                 />
                 <label htmlFor="bedsMax">Max Beds</label>
@@ -225,16 +230,17 @@ const SearchResponsive: React.FC<SearchResponsiveProps> = ({
                   id="bedsMax"
                   name="bedsMax"
                   value={filters.bedsMax}
-                  onChange={handleFilterChange} 
-                  className="p-2 border border-gray-300 rounded w-full"
+                  onChange={handleFilterChange}
+                  className="p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded w-full"
                   placeholder="Enter maximum beds"
                 />
               </div>
+
+              <div className="flex justify-between space-x-3">
+                <Button label="Clear Filters" onClick={handleClearFilters} />
+                <Button label="Apply Filters" onClick={toggleFilterOverlay} />
+              </div>
             </div>
-            <div className="flex flex-col space-y-2">
-            <Button label="Clear Filters" onClick={handleClearFilters} />
-            <Button label="Apply" onClick={() => { handleSearch(); toggleFilterOverlay(); }} />
-        </div>
           </div>
         </div>
       )}

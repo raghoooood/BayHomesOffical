@@ -135,10 +135,10 @@ export function convertCurrency(amount: number, fromCurrency: string, toCurrency
 }
 export const getConvertedPrice = (price: number, selectedCurrency?: string, reverseConversion?: boolean) => {
   const exchangeRates = {
-    AED: 3.67, // USD to AED
-    EUR: 0.85, // USD to EUR
-    GBP: 0.75, // USD to GBP
-    USD: 1.00, // Base USD
+    AED: 1.00,    // Base AED
+    USD: 0.27, // AED to USD
+    EUR: 0.24, // AED to EUR
+    GBP: 0.20, // AED to GBP
   };
 
   // Default to AED if no currency is provided
@@ -184,7 +184,6 @@ export const getConvertedPrice = (price: number, selectedCurrency?: string, reve
     name: searchParams.get('name') || 'See all properties',
   };
 
-  // Check for the '/projects' path
   if (pathname === '/projects') {
     return 'Off plan projects in Dubai';
   }

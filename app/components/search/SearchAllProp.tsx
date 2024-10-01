@@ -367,7 +367,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
               </div>
   </div>
   {/* Action Buttons */}
-  <div className="flex space-x-2  items-center w-[20vw] z-50">
+  <div className="flex space-x-2  items-center w-[20vw] z-10">
     <Button label="Search" onClick={handleSearch} />
     <Button label="Clear Filters" 
       onClick={() =>

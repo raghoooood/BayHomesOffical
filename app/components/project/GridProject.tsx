@@ -2,18 +2,18 @@
 
 import Image from 'next/image';
 import React from 'react';
-import { FaBed, FaBath, FaPhone, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { FaBed, FaBath, FaPhone, FaWhatsapp, FaEnvelope, FaRulerCombined } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCurrency } from '../hooks/useCurrency';
 import { convertCurrency } from '@/lib/utils';
 import PropertyDesc from '@/app/(root)/property/PropDesc';
+import PriceConverter from '../currencyConverter/priceConverter';
 
 interface Props {
   _id: string;
   images: {
-    outImages: string[];
     backgroundImage: string;
   };
   projectName?: string;
@@ -22,15 +22,16 @@ interface Props {
     min: number;
     max: number;
   }
-  area: {
+  area?: {
     areaName: string;
   };
   description?: string;
   developer?: {
     developerName: string;
   };
-  size: string;
+  size?: string;
   startPrice: number;
+  location : string;
 
 }
 const GridProject: React.FC<Props> = ({
@@ -42,7 +43,8 @@ const GridProject: React.FC<Props> = ({
   description='' , 
   developer,
   size,
-  startPrice
+  startPrice,
+  location,
 }) => {
   
   const { selectedCurrency } = useCurrency();
@@ -102,23 +104,45 @@ const GridProject: React.FC<Props> = ({
             </p>
           )}
 
+          {
+            startPrice !== null && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Starting price:
+              <PriceConverter
+              price={startPrice}
+              style='text-lg font-semibold text-orange-500 dark:text-orange-400'/>
+              </p>
+            )
+          }
+
          {/*  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Starting price:
             <span className="text-lg font-semibold text-orange-500 dark:text-orange-400">{selectedCurrency} {convertedPrice.toFixed(2)}</span>
           </p> */}
         </div>
-        {/* <div className="flex items-center text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2">
+         <div className="flex items-center text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2">
           <IoLocationOutline className="mr-2 text-gray-800 dark:text-gray-300" />
-          <span>{location.city}, {area?.areaName}, {location.state}</span>
-        </div> */}
+          <span>{location}</span>
+        </div> 
         <div className="flex flex-wrap items-center text-xs sm:text-sm space-x-1 text-gray-700 dark:text-gray-300 mb-2">
           <FaBed className="text-gray-800 dark:text-gray-300" />
           <span>{rooms?.min} to {rooms?.max} bedrooms </span>
-         
+          {size && (
+           <>
+           <span>|</span>
+           <FaRulerCombined className="text-gray-800 dark:text-gray-300" />
+           <span>{size} sq ft</span>
+          </>
+          )}
+          
         </div>
 
-        <div className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-             <PropertyDesc description={truncatedDescription} />
-               <span className='text-orange-500 underline'>Read More</span></div> 
+        {description && (
+          <div className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+          <PropertyDesc description={truncatedDescription} />
+          <span className='text-orange-500 underline'>Read More</span>
+        </div> 
+        )}
+
+      
         <div className="border-t border-gray-300 dark:border-gray-700 pt-4">
           <div className="flex flex-wrap justify-between items-center">
             <div className="flex space-x-4 sm:space-x-6">

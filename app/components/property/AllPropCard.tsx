@@ -80,7 +80,8 @@ const AllPropCard: React.FC<Props> = ({
 
         <div className="hidden md:flex flex-col w-1/3 lg:w-1/4 h-80 sm:h-96 overflow-hidden">
           {additionalImages.map((img, index) => (
-            <div key={index} className="relative w-full h-1/2 overflow-hidden ml-2 mb-1 rounded-md">
+            <div key={index} 
+            className="relative w-full h-1/2 overflow-hidden ml-2 mb-1 rounded-md">
               <Image
                 src={img}
                 alt={`Additional Image ${index + 1}`}

@@ -7,6 +7,7 @@ import { IoLocationOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import { useCurrency } from '../hooks/useCurrency';
 import PriceConverter from '../currencyConverter/priceConverter';
+import { FaHouse } from 'react-icons/fa6';
 
 interface Props {
   _id: string;
@@ -15,6 +16,7 @@ interface Props {
   };
   title: string;
   price: number;
+  propertyType: string;
   numOfbathrooms: number;
   location: {
     city: string;
@@ -33,6 +35,7 @@ const PropCard: React.FC<Props> = React.memo(({
   images,
   title,
   price,
+  propertyType,
   location,
   numOfrooms,
   numOfbathrooms,
@@ -59,9 +62,9 @@ const PropCard: React.FC<Props> = React.memo(({
   }, []);
 
   return (
-    <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-white dark:bg-gray-600 dark:border-gray-600 rounded-lg border border-gray-300 shadow-md hover:shadow-lg overflow-hidden cursor-pointer flex flex-col h-full transition-shadow duration-300 ease-in-out">
+    <div className="relative w-full max-w-lg sm:max-w-md md:max-w-lg lg:max-w-xl dark:bg-gray-600 dark:border-gray-600 rounded-lg border border-gray-300 shadow-md hover:shadow-lg overflow-hidden cursor-pointer flex flex-col h-full transition-shadow duration-300 ease-in-out">
       <Link href={`/property/${_id}`} className="block">
-        <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64">
+        <div className="relative w-full h-60 sm:h-48 md:h-56 lg:h-64">
           <Image
             className="object-cover w-full h-full transition-transform transform hover:scale-105 duration-300"
             src={images?.backgroundImage}
@@ -80,8 +83,15 @@ const PropCard: React.FC<Props> = React.memo(({
         <h3 className="text-base sm:text-md md:text-base font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
         <div className="flex items-center text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2">
           <IoLocationOutline className="mr-2 text-gray-800 dark:text-gray-300" />
-          <span>{location.city}, {area?.areaName}, {location.state}</span>
+          <span>
+            {location.city}, {area?.areaName}
+            {location.street ? `, ${location.street}` : ''}
+          </span>
         </div>
+        <div className="flex items-center text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2">
+          <FaHouse className="mr-2 text-gray-600 dark:text-gray-200" />
+          <span className='capitalize'>{propertyType}</span>
+          </div>
         <div className="flex flex-wrap items-center text-xs sm:text-sm space-x-1 text-gray-700 dark:text-gray-300 mb-2">
           <FaBed className="text-gray-800 dark:text-gray-300" />
           <span>{numOfrooms} Beds</span>
