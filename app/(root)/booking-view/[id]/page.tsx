@@ -1,6 +1,5 @@
 
 import BookingView from '@/app/components/booking-view/BookingView';
-import { title } from 'process';
 
 interface PageProps {
   params: { id: string };
