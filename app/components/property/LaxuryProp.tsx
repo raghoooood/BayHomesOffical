@@ -14,6 +14,7 @@ interface Props {
   };
   title: string;
   price: number;
+  propertyType: string;
   numOfbathrooms: number;
   location: {
     city: string;
@@ -67,7 +68,7 @@ const LuxuryProp: React.FC<LuxuryPropProps> = ({ initialProperties }) => {
               Explore our signature collection of unparalleled luxury properties.
             </p>
             {/* Button with responsive styling */}
-            <div className="pt-10 sm:pt-5 w-full flex justify-center lg:justify-start">
+            <div className="pt-10 sm:pt-5 flex justify-center sm:justify-start w-36">
               <Button
                 label="Discover"
                 onClick={() => router.push(`/all-property?featured=true`)}
@@ -87,6 +88,7 @@ const LuxuryProp: React.FC<LuxuryPropProps> = ({ initialProperties }) => {
                     title={property.title}
                     price={property.price}
                     location={property.location}
+                    propertyType={property.propertyType}
                     numOfrooms={property.numOfrooms}
                     numOfbathrooms={property.numOfbathrooms}
                     size={property.size}

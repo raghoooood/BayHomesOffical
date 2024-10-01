@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Container from "../container/Container";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ProjectCard from "./ProjectCard";
 import Breadcrumb from "../Breadcrumb";
 import FilterAndViewToggle from "../filters/FilterAndViewToggle";
-import SearchAllProp from "../search/SearchAllProp";
 import GridProject from "./GridProject";
 import { displayTitle, applyFilters, sortProperties } from "@/lib/utils";
 
@@ -23,11 +22,10 @@ interface Props {
     backgroundImage: string;
   };
   projectName?: string;
- 
-  rooms?:{
+  rooms?: {
     min: number;
     max: number;
-  }
+  };
   area: {
     areaName: string;
   };
@@ -37,8 +35,9 @@ interface Props {
   };
   size: string;
   startPrice: number;
-
+  location: string;
 }
+
 const ITEMS_PER_PAGE = 6;
 
 const ProjectContainer: React.FC<{ initialProperties: Props[] }> = ({ initialProperties }) => {
@@ -49,8 +48,9 @@ const ProjectContainer: React.FC<{ initialProperties: Props[] }> = ({ initialPro
   const [totalPages, setTotalPages] = useState<number>(1);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [breadcrumbItems, setBreadcrumbItems] = useState<BreadcrumbItem[]>([]);
-  const title = displayTitle(searchParams);
+  const title = displayTitle(searchParams, pathname);
 
   useEffect(() => {
     const storedView = localStorage.getItem('project-view');
@@ -91,7 +91,7 @@ const ProjectContainer: React.FC<{ initialProperties: Props[] }> = ({ initialPro
   const generateBreadcrumbItems = (query: URLSearchParams) => {
     const items: BreadcrumbItem[] = [
       {
-        label:  'Off plan Projects in Dubai',
+        label: title,
         path: '/all-projects',
       },
     ];
@@ -131,28 +131,30 @@ const ProjectContainer: React.FC<{ initialProperties: Props[] }> = ({ initialPro
 
   return (
     <Container>
-      {/* <SearchAllProp /> */}
-
-      <div className=" pt-12 lg:pt-5 md:pt-12 sm:mt-0 mt-6">
-      <Breadcrumb items={breadcrumbItems} onBreadcrumbClick={handleBreadcrumbClick} />
-        <h1 className="text-2xl font-semibold mb-4 space-y-5 pt-3">{title}</h1>
+      <div className="pt-12 lg:pt-5 md:pt-12 sm:mt-0 mt-6">
+        <Breadcrumb items={breadcrumbItems} onBreadcrumbClick={handleBreadcrumbClick} />
+        <h1 className="text-2xl font-semibold mb-6">{title}</h1>
         <FilterAndViewToggle onSortChange={setSortOption} onViewChange={setView} currentView={view} />
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${view === 'list' ? '1' : '3'} gap-6`}>
+        
+        {/* Improved list and grid view layout */}
+        <div className={`grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-${view === 'list' ? '1' : '3'} gap-8`}>
           {getPaginatedProperties().map((project) => (
-            <div key={project._id} className="relative flex flex-col bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out h-full">
+            <div key={project._id} className="relative flex flex-col bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
               {view === 'grid' ? (
-                <GridProject  {...project} />
+                <GridProject {...project} />
               ) : (
-                <ProjectCard {...project} />
+                <ProjectCard {...project}  />
               )}
             </div>
           ))}
         </div>
-        <div className="flex justify-between items-center mt-4">
+        
+        {/* Pagination controls */}
+        <div className="flex justify-between items-center mt-6">
           <button
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-300 text-gray-700 hover:bg-orange-500 hover:text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-gray-300 text-gray-700 hover:bg-orange-500 hover:text-white rounded disabled:opacity-50 transition-colors"
           >
             Back
           </button>
@@ -162,7 +164,7 @@ const ProjectContainer: React.FC<{ initialProperties: Props[] }> = ({ initialPro
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-300 text-gray-700 hover:bg-orange-500 hover:text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-gray-300 text-gray-700 hover:bg-orange-500 hover:text-white rounded disabled:opacity-50 transition-colors"
           >
             Next
           </button>

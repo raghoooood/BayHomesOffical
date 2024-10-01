@@ -5,6 +5,7 @@ import { MdClose } from 'react-icons/md';
 import ContactForm from '../forms/ContactForm';
 import Image from 'next/image'; // Import the Next.js Image component
 import samah from '@/assets/images/samah.png'
+import Button from '../buttons/Button';
 const RegisterButton = () => {
     const [showFilterOverlay, setShowFilterOverlay] = useState(false);
 
@@ -15,7 +16,7 @@ const RegisterButton = () => {
     return (
         <div>
             {/* Register Interest Button */}
-            <ButtonProp label="Register Interest" onClick={toggleFilterOverlay} />
+            <Button label="Register Your Interest Now" onClick={toggleFilterOverlay} />
 
             {/* Filter Overlay for Small Devices */}
             {showFilterOverlay && (

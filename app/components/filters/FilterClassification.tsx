@@ -23,7 +23,7 @@ const FilterClassification: React.FC<FilterClassificationProps> = ({ propertyCla
   const classifications = ['residential', 'commercial', 'off plan'];
 
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center justify-between px-4 mb-6 md:space-y-0 md:space-x-6">
+    <div className="flex flex-col md:flex-row items-start md:items-center justify-between  mb-6 md:space-y-0 md:space-x-6">
       <div className="flex flex-wrap gap-3 md:gap-4 mb-4 md:mb-0">
         {/* Property classification buttons */}
         {classifications.map((classification) => (

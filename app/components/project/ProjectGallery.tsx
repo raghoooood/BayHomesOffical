@@ -98,28 +98,29 @@ const ProjectGallery = ({ images }: Props) => {
         ))}
 
         {/* Inner Images */}
-        {images.inImages.length > 0 && images.inImages.slice(0, 6).map((src, index) => (
-          <div
-            key={`inner-${index}`}
-            className={`relative ${
-              index % 6 === 0
-                ? 'col-span-2 sm:col-span-1 lg:col-span-2 row-span-3 h-48 sm:h-64 lg:h-80'
-                : index % 2 === 0
-                ? 'col-span-1 sm:col-span-2 lg:col-span-3 row-span-1 h-48 sm:h-64 lg:h-80'
-                : 'col-span-1 sm:col-span-1 h-48 sm:h-64 lg:h-80'
-            } overflow-hidden rounded-lg shadow-md cursor-pointer`}
-            onClick={() => handleOpenOverlay(index, 'in')}
-          >
-            <Image
-              src={src}
-              alt={`Inner Gallery Image ${index + 1}`}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-lg transition-transform duration-300 hover:scale-105"
-              unoptimized
-            />
-          </div>
-        ))}
+        {images.inImages.length > 0 &&
+          images.inImages.slice(0, 6).map((src, index) => (
+            <div
+              key={`inner-${index}`}
+              className={`relative ${
+                index % 6 === 0
+                  ? 'col-span-2 sm:col-span-1 lg:col-span-2 row-span-3 h-48 sm:h-64 lg:h-80'
+                  : index % 2 === 0
+                  ? 'col-span-1 sm:col-span-2 lg:col-span-3 row-span-1 h-48 sm:h-64 lg:h-80'
+                  : 'col-span-1 sm:col-span-1 h-48 sm:h-64 lg:h-80'
+              } overflow-hidden rounded-lg shadow-md cursor-pointer`}
+              onClick={() => handleOpenOverlay(index, 'in')}
+            >
+              <Image
+                src={src}
+                alt={`Inner Gallery Image ${index + 1}`}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-lg transition-transform duration-300 hover:scale-105"
+                unoptimized
+              />
+            </div>
+          ))}
       </div>
 
       {isOverlayOpen && (
@@ -138,17 +139,19 @@ const ProjectGallery = ({ images }: Props) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="relative w-full h-full max-w-lg max-h-[90vh] bg-white rounded-lg overflow-hidden"
+              className="relative w-full max-w-[95vw] h-[90vh] max-h-[85vh] bg-white rounded-lg overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative w-full h-full flex items-center justify-center">
+                {/* Previous Button */}
                 <button
                   onClick={handlePrevImage}
-                  className="absolute z-10 left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition-colors"
+                  className="absolute z-10 left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 md:p-3 rounded-full hover:bg-gray-600 transition-colors"
                 >
                   <FaArrowLeft />
                 </button>
 
+                {/* Image Container */}
                 <motion.div
                   key={currentImages[currentImageIndex]}
                   className="relative w-full h-full flex items-center justify-center"
@@ -157,15 +160,16 @@ const ProjectGallery = ({ images }: Props) => {
                     src={currentImages[currentImageIndex]}
                     alt={`Slider Image ${currentImageIndex + 1}`}
                     layout="fill"
-                    objectFit="cover"
+                    objectFit="contain" // Use 'contain' for better fit on small screens
                     className="rounded-lg"
                     unoptimized
                   />
                 </motion.div>
 
+                {/* Next Button */}
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition-colors"
+                  className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 md:p-3 rounded-full hover:bg-gray-600 transition-colors"
                 >
                   <FaArrowRight />
                 </button>

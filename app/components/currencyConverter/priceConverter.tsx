@@ -13,10 +13,10 @@ const PriceConverter: React.FC<PriceConverterProps> = ({ price , style }) => {
   const { selectedCurrency } = useCurrency();
   
   const exchangeRates = {
-    AED: 3.67,
-    EUR: 0.85,
-    GBP: 0.75,
-    USD: 1.00,
+    AED: 1.00,    // Base AED
+    USD: 0.27, // AED to USD
+    EUR: 0.24, // AED to EUR
+    GBP: 0.20, // AED to GBP
   };
 
   const convertedPrice = convertCurrency(price, 'AED', selectedCurrency, exchangeRates);

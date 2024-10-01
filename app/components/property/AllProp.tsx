@@ -6,7 +6,7 @@ import Breadcrumb from "../Breadcrumb";
 import FilterAndViewToggle from "../filters/FilterAndViewToggle";
 import { applyFilters, sortProperties, displayTitle } from "@/lib/utils";
 import SearchAllProp from "../search/SearchAllProp";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import { fadeIn, slideIn } from "@/app/styles/animations";
 
 // Lazy-loaded components
@@ -31,6 +31,7 @@ interface Props {
   price: number;
   description: string;
   numOfbathrooms: number;
+  propertyType: string;
   location: {
     city: string;
     state: string;
@@ -149,20 +150,29 @@ const AllProp: React.FC<{ initialProperties: Props[] }> = ({ initialProperties }
           onViewChange={handleViewChange}
           currentView={view}
         />
-        <motion.div
-          variants={fadeIn("down", "tween", 0.2, 1)}
-          initial="hidden"
-          whileInView="show"
-          className={`mt-4 ${view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8' : 'flex flex-col space-y-5'}`}
-        >
-          {currentProperties.map(property => (
-            <div key={property._id} className="relative flex flex-col bg-white rounded-lg shadow-md">
-              <Suspense fallback={<div>Loading property...</div>}>
-                {view === 'grid' ? <PropCard {...property} /> : <AllPropCard {...property} />}
-              </Suspense>
-            </div>
-          ))}
-        </motion.div>
+
+        {/* Display "No Properties Found" if there are no properties */}
+        {currentProperties.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-xl font-bold">Oops, No Properties Found!</p>
+            <p className="text-gray-500">Try adjusting your search or filters to find more properties :)</p>
+          </div>
+        ) : (
+          <motion.div
+            variants={fadeIn("down", "tween", 0.2, 1)}
+            initial="hidden"
+            whileInView="show"
+            className={`mt-4 ${view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8' : 'flex flex-col space-y-5'}`}
+          >
+            {currentProperties.map(property => (
+              <div key={property._id} className="relative flex flex-col bg-white rounded-lg shadow-md">
+                <Suspense fallback={<div>Loading property...</div>}>
+                  {view === 'grid' ? <PropCard {...property} /> : <AllPropCard {...property} />}
+                </Suspense>
+              </div>
+            ))}
+          </motion.div>
+        )}
 
         <div className="flex justify-between items-center mt-6">
           <button
