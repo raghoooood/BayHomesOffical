@@ -16,6 +16,7 @@ interface Props {
   }
   title: string;
   price: number;
+  propertyType:string;
   numOfbathrooms: number;
   location: {
     city: string;
@@ -137,6 +138,7 @@ const RentGuidContent: React.FC<LatestPropProps> = ({ initialProperties }) => {
                 images={property.images}
                 title={property.title}
                 price={property.price}
+                propertyType={property.propertyType}
                 location={property.location}
                 numOfrooms={property.numOfrooms}
                 numOfbathrooms={property.numOfbathrooms}

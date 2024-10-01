@@ -185,50 +185,53 @@ const PropertyImgs = ({ propImages }: { propImages: string[] }) => {
       </div>
 
       {isOverlayOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center overflow-hidden"
-          onClick={handleCloseOverlay}
-          ref={overlayRef}
-          onTouchStart={handleTouchStart} // Enable touch scrolling
+  <div
+    className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center overflow-auto"
+    onClick={handleCloseOverlay}
+    ref={overlayRef}
+    onTouchStart={handleTouchStart} // Enable touch scrolling
+  >
+    <div className="relative w-full h-full max-w-4xl md:max-h-[90vh] bg-white rounded-lg overflow-hidden">
+      <div className="relative w-full h-full flex items-center justify-center">
+        
+        {/* Left Arrow Button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation(); // Prevents the overlay from closing
+            handlePrevImage();
+          }}
+          className="absolute z-10 left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
         >
-          <div className="relative w-full h-full max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden">
-            <div className="relative w-full h-full flex items-center justify-center">
-              <button
-              
-              onClick={(e) => {
-                e.stopPropagation(); // Prevents the overlay from closing
-                handlePrevImage();
-              }}
-                className="absolute z-10 left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
-              
-              >
-                <FaArrowLeft />
-              </button>
+          <FaArrowLeft />
+        </button>
 
-              <div className="relative w-full h-full rounded-lg overflow-hidden">
-                <Image
-                  src={overlayImages[currentImageIndex]}
-                  alt={`Slider Image ${currentImageIndex + 1}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg"
-                  loading="lazy"
-                />
-              </div>
-
-              <button
-                 onClick={(e) => {
-                  e.stopPropagation(); // Prevents the overlay from closing
-                  handleNextImage();
-                }}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
-              >
-                <FaArrowRight />
-              </button>
-            </div>
-          </div>
+        {/* Main Image Container */}
+        <div className="relative w-full h-full max-h-[90vh] flex items-center justify-center">
+          <Image
+            src={overlayImages[currentImageIndex]}
+            alt={`Slider Image ${currentImageIndex + 1}`}
+            layout="fill"
+            objectFit="contain" // Changed to object-contain for proper scaling
+            className="rounded-lg"
+            loading="lazy"
+          />
         </div>
-      )}
+
+        {/* Right Arrow Button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation(); // Prevents the overlay from closing
+            handleNextImage();
+          }}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full hover:bg-gray-600 transition-colors"
+        >
+          <FaArrowRight />
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

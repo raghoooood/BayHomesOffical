@@ -60,6 +60,7 @@ const BookingView = ({ propertyId }: BookingViewProps) => {
                     title={property.title}
                     price={property.price}
                     location={property.location}
+                    propertyType={property.propertyType}
                     numOfrooms={property.numOfrooms}
                     numOfbathrooms={property.numOfbathrooms}
                     size={property.size}
