@@ -119,7 +119,7 @@ const AreaDetails: React.FC<{ params: { areaName: string } }> = async ({ params 
         </div>
 
         <div className="max-w-screen-xl justify-start items-start py-10">
-          <h2 className='text-2xl font-semibold mb-4 dark:text-white capitalize'>see <span className='text-orange-500'>{areaName}</span>  location</h2>
+          <h2 className='text-2xl font-semibold mb-4 dark:text-white capitalize'>see <span className='text-orange-500'> {result.areaName}</span>  location</h2>
         <Map url={result.location} />
         </div>
 
