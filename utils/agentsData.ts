@@ -30,7 +30,7 @@ export const agentsData = [
     },
     {
       image: Moayyyad,
-      name: 'Moayyyad Al-Ali',
+      name: 'Moayyad Al-Ali',
       position: 'Property Consultant ',
     
     },

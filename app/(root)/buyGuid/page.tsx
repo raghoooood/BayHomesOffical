@@ -33,7 +33,7 @@ const Page = async () => {
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Discover Real Estate Excellence with Bay Homes</h2>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed dark:text-gray-50">
             Whether you're looking for a new family home or exploring investment opportunities in Dubai, we're committed to making your property search smooth and enjoyable.
             Ready to invest in Dubai’s thriving real estate market?
              </p>
@@ -41,7 +41,7 @@ const Page = async () => {
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Description</h2>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed dark:text-gray-50">
             Bay Homes is your trusted partner in turning your vision of ownership into a reality. Navigating the property buying process—especially in a new city or as a first-time buyer—can be daunting, but we’re here to make it simple. Our detailed property buying guide provides you with all the essential information to help you move confidently through Dubai’s real estate world.
             At Bay Homes Estate, we go beyond simply facilitating transactions. Our goal is to help you make strategic investment decisions that offer long-term financial growth and security. Let us lead you through the buying process with expert advice, ensuring your choices are both informed and rewarding for your future.
             </p>

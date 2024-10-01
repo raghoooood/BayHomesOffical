@@ -30,8 +30,8 @@ const Page = () => {
       <div className="mt-20 sm:mt-10 mb-8">
         <Breadcrumb items={breadcrumbItems}/>
         <div className="relative  w-full h-[40vh] sm:h-[30vh] lg:h-[50vh] text-black flex flex-col items-center justify-center">
-          <LargeTypingText title="Our Story" textStyles="text-center" />
-          <SmallTitleText title='Bay Homes Real Estate Leasing Brokerage, established in 2021, is a rising player in the real estate sector, committed to delivering exceptional real estate experiences.' textStyles="text-center" />
+          <LargeTypingText title="Our Story" textStyles="text-center dark:text-white" />
+          <SmallTitleText title='Bay Homes Real Estate Leasing Brokerage, established in 2021, is a rising player in the real estate sector, committed to delivering exceptional real estate experiences.' textStyles="text-center dark:text-gray-50" />
         </div>
 
         {/* Buttons */}
@@ -73,7 +73,7 @@ const Page = () => {
             </div>
             <div className="order-1 md:order-2 md:w-1/2 md:pl-6 p-5">
               <TypingText title='Our Mission' textStyles="font-extrabold text-4xl" />
-              <p className="text-sm md:text-lg text-gray-600">
+              <p className="text-sm md:text-lg text-gray-600 dark:text-white">
                 Providing exceptional real estate services that connect buyers and sellers with unparalleled expertise and personalized care.
               </p>
             </div>
@@ -93,7 +93,7 @@ const Page = () => {
             </div>
             <div className="md:w-1/2 md:pl-6 p-5">
               <TypingText title="Our Values" textStyles="font-extrabold text-4xl"/>
-              <p className="text-sm md:text-lg text-gray-600">
+              <p className="text-sm md:text-lg text-gray-600 dark:text-white">
                 Our values revolve around trust, reliability, and a deep commitment to creating lasting relationships with property owners, tenants, and investors.
               </p>
             </div>

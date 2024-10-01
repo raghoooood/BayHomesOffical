@@ -11,13 +11,13 @@ interface Props {
 
 const ProjectMap = ({ mapURL, projectName, aboutMap }: Props) => {
   return (
-    <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-between px-4 lg:px-12 py-12 lg:py-16 border border-gray-200 rounded-xl shadow-lg bg-white max-w-screen-xl mx-auto space-y-8 lg:space-y-0 lg:space-x-12">
+    <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-between px-4 lg:px-12 py-12 lg:py-16 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg bg-white dark:bg-gray-900 transition-colors duration-300 max-w-screen-xl mx-auto space-y-8 lg:space-y-0 lg:space-x-12">
       {/* Left Side: Description */}
-      <div className="w-full lg:w-1/2  ">
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 lg:mb-6 ">
+      <div className="w-full lg:w-1/2">
+        <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-4 lg:mb-6">
           {projectName}
         </h1>
-        <p className="text-lg lg:text-xl text-gray-600 leading-relaxed mb-4">
+        <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           Prime Location, Endless Possibilities
         </p>
         <PropertyDesc description={aboutMap} />
