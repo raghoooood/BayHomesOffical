@@ -44,6 +44,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   const bedsRef = useRef<HTMLDivElement>(null);
 
   const { selectedCurrency } = useCurrency();
+  const areaDropdownRef = useRef<HTMLDivElement>(null); // Ref for area dropdown
 
 
   // Initialize filters based on query parameters
@@ -123,9 +124,6 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
     setActiveDropdown(null);  // Close all dropdowns when overlay is opened
   };
 
-  
-   
-  
       const exchangeRates = {
         AED: 3.67,
         EUR: 0.85,
@@ -166,13 +164,15 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
     setShowFilterOverlay(false);
   };
 
+  
+  // Handle area selection
   const handleAreaSelect = (areaName: string) => {
     setFilters(prevFilters => ({
       ...prevFilters,
       areas: [...new Set([...prevFilters.areas, areaName])],
     }));
-    setSearchText('');
-    setFilteredAreas([]);
+    setSearchText(''); // Clear search text
+    setFilteredAreas([]); // Close the dropdown
   };
 
   const handleAreaRemove = (areaName: string) => {
@@ -194,11 +194,16 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
           setActiveDropdown(null);
         }
       }
+      if (areaDropdownRef.current && !areaDropdownRef.current.contains(event.target as Node)) {
+        setFilteredAreas([]); // Close area dropdown if clicked outside
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [activeDropdown]);
+
+
 
   return (
     <div className="relative p-4 space-y-5 sm:space-y-0  h-20 ">
@@ -388,55 +393,59 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   </div>
 </div>
 
-{/* Responsive Design for Small and Medium Devices */}
-<div className="lg:hidden flex flex-col space-y-4 mb-10 py-2 ">
-  <input
-    type="text"
-    name="area"
-    placeholder="Area or Community"
-    onChange={(e) => setSearchText(e.target.value)}
-    className="p-3 w-full bg-white rounded-lg border border-gray-300 shadow-lg"
-    value={searchText}
-  />
-  {filteredAreas.length > 0 && (
-    <ul className="absolute z-10 bg-white border border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
-      {filteredAreas.map((area) => (
-        <li
-          key={area._id}
-          className="p-2 hover:bg-gray-200 cursor-pointer"
-          onClick={() => handleAreaSelect(area.areaName)}
-        >
-          {area.areaName}
-        </li>
-      ))}
-    </ul>
-  )}
-  <div className="flex flex-col space-y-2">
-    {filters.areas.length > 0 && (
-      <div className="bg-gray-200 p-2 rounded-lg">
-        {filters.areas[0]}
-        {filters.areas.length > 1 && (
-          <span className="ml-1 text-gray-500">
-            {` +${filters.areas.length - 1} more`}
-          </span>
-        )}
-        {filters.areas.length > 0 && (
-          <button
-            type="button"
-            className="ml-2 text-red-500"
-            onClick={() => handleAreaRemove(filters.areas[0])}
-          >
-            ×
-          </button>
-        )}
+   {/* Responsive Design for Small and Medium Devices */}
+   <div className="lg:hidden flex flex-col space-y-4 mb-10 py-2 ">
+        <div ref={areaDropdownRef} className="relative">
+          <input
+            type="text"
+            name="area"
+            placeholder="Area or Community"
+            onChange={(e) => setSearchText(e.target.value)}
+            className="p-3 w-full bg-white text-black rounded-lg border border-gray-300 shadow-lg"
+            value={searchText}
+          />
+          {filteredAreas.length > 0 && (
+            <ul className="absolute z-10 bg-white text-black border border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
+              {filteredAreas.map((area) => (
+                <li
+                  key={area._id}
+                  className="p-2 hover:bg-gray-200 cursor-pointer"
+                  onClick={() => handleAreaSelect(area.areaName)} // Close dropdown on select
+                >
+                  {area.areaName}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Display selected area */}
+        <div className="flex flex-col space-y-2">
+          {filters.areas.length > 0 && (
+            <div className="bg-gray-200 text-black p-2 rounded-lg">
+              {filters.areas[0]}
+              {filters.areas.length > 1 && (
+                <span className="ml-1 text-gray-500">
+                  {` +${filters.areas.length - 1} more`}
+                </span>
+              )}
+              {filters.areas.length > 0 && (
+                <button
+                  type="button"
+                  className="ml-2 text-red-500"
+                  onClick={() => setFilters({ ...filters, areas: [] })} // Clear selected areas
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          )}
+          {/* Buttons */}
+          <div className="flex flex-row space-x-2">
+            <Button label="Search" onClick={handleSearch} />
+          </div>
+        </div>
       </div>
-    )}
-    <div className="flex flex-row space-x-2 ">
-      <Button label="Search" onClick={handleSearch} />
-      <Button label="Filter" onClick={toggleFilterOverlay} />
-    </div>
-  </div>
-</div>
 
       {/* Filter Overlay for Small Devices */}
       {showFilterOverlay && (
