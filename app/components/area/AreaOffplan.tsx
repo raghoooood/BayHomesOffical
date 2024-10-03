@@ -18,7 +18,7 @@ interface Props {
   };
   title: string;
   price: number;
-  propertyType:string;
+  propertyType: string;
   numOfbathrooms: number;
   location: {
     city: string;
@@ -42,7 +42,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [pageSize, setPageSize] = useState(3);
-  const [propertyPurpose, setPropertyPurpose] = useState<string>('sale');
+  const [propertyPurpose, setPropertyPurpose] = useState<string>('');
   const router = useRouter();
 
   useEffect(() => {
@@ -149,7 +149,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
           <div ref={scrollRef} className="flex space-x-4 md:space-x-6 justify-start w-full">
             {propertiesToShow.map((property) => (
               <div key={property._id} className="flex-shrink-0 w-full sm:w-[42vw] md:w-[28vw] lg:w-[20vw]">
-                <PropCard
+                 <PropCard
                   _id={property._id}
                   images={property.images}
                   title={property.title}

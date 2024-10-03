@@ -233,7 +233,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
         name="area"
         placeholder="Area, project or community"
         onChange={(e) => setSearchText(e.target.value)}
-        className="p-2 w-full text-black dark:bg-white dark:text-gray-900"
+        className="p-2 w-full dark:bg-white dark:text-gray-800"
         value={searchText}
       />
       {filteredAreas.length > 0 && (
@@ -241,7 +241,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
           {filteredAreas.map((area) => (
             <li
               key={area._id}
-              className="p-3 hover:bg-gray-100 cursor-pointer text-black"
+              className="p-3 hover:bg-gray-100 cursor-pointer"
               onClick={() => handleAreaSelect(area.areaName)}
             >
               {area.areaName}
@@ -367,7 +367,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
               </div>
   </div>
   {/* Action Buttons */}
-  <div className="flex space-x-2  items-center w-[20vw] z-10">
+  <div className="flex space-x-2  items-center w-[20vw] z-50">
     <Button label="Search" onClick={handleSearch} />
     <Button label="Clear Filters" 
       onClick={() =>
@@ -395,11 +395,11 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
     name="area"
     placeholder="Area or Community"
     onChange={(e) => setSearchText(e.target.value)}
-    className="p-3 w-full bg-white rounded-lg border border-gray-300 shadow-lg dark:text-black"
+    className="p-3 w-full bg-white rounded-lg border border-gray-300 shadow-lg"
     value={searchText}
   />
   {filteredAreas.length > 0 && (
-    <ul className="absolute z-10 bg-white border text-black border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
+    <ul className="absolute z-10 bg-white border border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
       {filteredAreas.map((area) => (
         <li
           key={area._id}
@@ -413,7 +413,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   )}
   <div className="flex flex-col space-y-2">
     {filters.areas.length > 0 && (
-      <div className="bg-gray-200 p-2 rounded-lg text-black">
+      <div className="bg-gray-200 p-2 rounded-lg">
         {filters.areas[0]}
         {filters.areas.length > 1 && (
           <span className="ml-1 text-gray-500">
@@ -438,20 +438,20 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   </div>
 </div>
 
-{/* Filter Overlay for Small Devices */}
-{showFilterOverlay && (
-  <div className="fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center p-4 z-50">
-    <div className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg space-y-4 w-full max-w-md">
+      {/* Filter Overlay for Small Devices */}
+      {showFilterOverlay && (
+  <div className="fixed inset-0 bg-gray-900 bg-opacity-80 flex flex-col items-center p-4 z-50">
+    <div className="bg-white text-black p-6 rounded-lg space-y-4 w-full max-w-md">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-bold">Filters</h2>
-        <button onClick={toggleFilterOverlay} className="text-black dark:text-white">
+        <button onClick={toggleFilterOverlay} className="text-black">
           <MdClose size={24} />
         </button>
       </div>
       <div className="flex flex-col space-y-4">
         <select
           name="propertyType"
-          className="p-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white rounded w-full"
+          className="p-2 border border-gray-300 rounded w-full"
           onChange={handleFilterChange}
           value={filters.propertyType}
         >
@@ -463,46 +463,46 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
         </select>
         
         <div className="flex flex-col space-y-2">
-          <label htmlFor="priceMin" className="dark:text-gray-300">Min Price</label>
+          <label htmlFor="priceMin">Min Price</label>
           <input
             type="number"
             id="priceMin"
             name="priceMin"
             value={rawPriceMin} // Use rawPriceMin for input value
-            onChange={e => setRawPriceMin(parseFloat(e.target.value) || 0)}
-            className="p-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white rounded w-full"
+            onChange={e => setRawPriceMin(parseFloat(e.target.value) )}
+            className="p-2 border border-gray-300 rounded w-full"
             placeholder="Enter minimum price"
           />
-          <label htmlFor="priceMax" className="dark:text-gray-300">Max Price</label>
+          <label htmlFor="priceMax">Max Price</label>
           <input
             type="number"
             id="priceMax"
             name="priceMax"
             value={rawPriceMax} // Use rawPriceMax for input value
-            onChange={e => setRawPriceMax(parseFloat(e.target.value) || 0)}
-            className="p-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white rounded w-full"
+            onChange={e => setRawPriceMax(parseFloat(e.target.value) )}
+            className="p-2 border border-gray-300 rounded w-full"
             placeholder="Enter maximum price"
           />
         </div>
 
         <div className="flex flex-col space-y-2">
-          <label htmlFor="bedsMin" className="dark:text-gray-300">Min Beds</label>
+          <label htmlFor="bedsMin">Min Beds</label>
           <input
             type="number"
             id="bedsMin"
             name="bedsMin"
             onChange={handleFilterChange}
-            className="p-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white rounded w-full"
+            className="p-2 border border-gray-300 rounded w-full"
             value={filters.bedsMin}
             placeholder="Enter minimum beds"
           />
-          <label htmlFor="bedsMax" className="dark:text-gray-300">Max Beds</label>
+          <label htmlFor="bedsMax">Max Beds</label>
           <input
             type="number"
             id="bedsMax"
             name="bedsMax"
             onChange={handleFilterChange}
-            className="p-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-700 dark:text-white rounded w-full"
+            className="p-2 border border-gray-300 rounded w-full"
             value={filters.bedsMax}
             placeholder="Enter maximum beds"
           />
@@ -524,11 +524,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
             }
             small
           />
-          <Button
-            label="Apply Filters"
-            onClick={handleSearch}
-            small
-          />
+          <Button label="Apply Filters" onClick={handleSearch} small />
         </div>
       </div>
     </div>
