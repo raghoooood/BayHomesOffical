@@ -169,7 +169,7 @@ export const getConvertedPrice = (price: number, selectedCurrency?: string, reve
  export const capitalizeFirstLetter = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
  import { useRouter } from 'next/router'; // if you're using Next.js
-
+/* 
  export const displayTitle = (searchParams: URLSearchParams, pathname?: string) => {
   const filters = {
     purpose: searchParams.get('purpose'),
@@ -205,7 +205,10 @@ export const getConvertedPrice = (price: number, selectedCurrency?: string, reve
         : `${capitalizeFirstLetter(filters.name)}`
     } `;
   } else {
-    if (filters.projectName ) {
+    if (!filters) {
+      title += 'All properties in Dubai'
+    }
+    else if (filters.projectName ) {
       title += `Properties   ${
         filters.purpose ? `for ${capitalizeFirstLetter(filters.purpose)}` : 'for Sale'
       } in ${filters.projectName}`;
@@ -244,7 +247,83 @@ export const getConvertedPrice = (price: number, selectedCurrency?: string, reve
   }
 
   return title.trim();
+}; */
+
+export const displayTitle = (searchParams: URLSearchParams, pathname?: string) => {
+  const filters = {
+    purpose: searchParams.get('purpose'),
+    area: searchParams.get('area'),
+    propertyType: searchParams.get('propertyType'),
+    priceMin: searchParams.get('priceMin'),
+    priceMax: searchParams.get('priceMax'),
+    bedsMin: searchParams.get('bedsMin'),
+    bedsMax: searchParams.get('bedsMax'),
+    projectName: searchParams.get('projectName'),
+    featured: searchParams.get('featured'),
+    name: searchParams.get('name') || 'See all properties',
+  };
+
+  // If there are no filters, return "All properties in Dubai"
+  const noFiltersApplied = !filters.purpose && !filters.area && !filters.propertyType && !filters.priceMin && !filters.priceMax && !filters.bedsMin && !filters.bedsMax && !filters.projectName && !filters.featured;
+
+  if (noFiltersApplied) {
+    return 'All properties in Dubai';
+  }
+
+  // Special case for projects page
+  if (pathname === '/projects') {
+    return 'Off plan projects in Dubai';
+  }
+
+  let title = '';
+  const source = searchParams.get('source') || 'search';
+  const { selectedCurrency } = useCurrency();
+
+  // Handle price conversion
+  const priceMin = filters.priceMin ? getConvertedPrice(Number(filters.priceMin), selectedCurrency) : null;
+  const priceMax = filters.priceMax ? getConvertedPrice(Number(filters.priceMax), selectedCurrency) : null;
+
+  // Construct the title based on the source and filters
+  if (source === 'nav') {
+    title = filters.name !== filters.projectName 
+      ? `${capitalizeFirstLetter(filters.name)} in Dubai` 
+      : `${capitalizeFirstLetter(filters.name)}`;
+  } else {
+    if (filters.projectName) {
+      title = `Properties ${filters.purpose ? `for ${capitalizeFirstLetter(filters.purpose)}` : ''} in ${filters.projectName}`;
+    } else if (filters.featured) {
+      title = 'Luxury Properties in Dubai';
+    } else {
+      title = `${filters.propertyType ? `${capitalizeFirstLetter(filters.propertyType)}s` : 'Properties'} for ${
+        filters.purpose ? capitalizeFirstLetter(filters.purpose) : 'Sale'
+      } in ${filters.area ? capitalizeFirstLetter(filters.area) : 'Dubai'}`;
+    }
+
+    // Include price range if available
+    if (priceMin && priceMax) {
+      title += ` between ${priceMin} and ${priceMax}`;
+    } else if (priceMin) {
+      title += ` above ${priceMin}`;
+    } else if (priceMax) {
+      title += ` below ${priceMax}`;
+    }
+
+    // Include bedroom filters if available
+    const bedsMin = parseInt(filters.bedsMin || '', 10);
+    const bedsMax = parseInt(filters.bedsMax || '', 10);
+    if (!isNaN(bedsMin) && !isNaN(bedsMax)) {
+      title += ` with ${bedsMin === bedsMax ? `${bedsMin} bedroom${bedsMin > 1 ? 's' : ''}` : `${bedsMin} to ${bedsMax} bedrooms`}`;
+    } else if (!isNaN(bedsMin)) {
+      title += ` with more than ${bedsMin} bedroom${bedsMin > 1 ? 's' : ''}`;
+    } else if (!isNaN(bedsMax)) {
+      title += ` with less than ${bedsMax} bedrooms`;
+    }
+  }
+
+  return title.trim();
 };
+
+
 
 export const sanitizeHtmlContent = (html: string): string => {
   return sanitizeHtml(html, {
