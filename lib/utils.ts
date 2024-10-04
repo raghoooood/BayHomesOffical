@@ -262,18 +262,28 @@ export const displayTitle = (searchParams: URLSearchParams, pathname?: string) =
     featured: searchParams.get('featured'),
     name: searchParams.get('name') || 'See all properties',
   };
-
+  
+  // Special case for projects page
+  if (pathname === '/projects' ) {
+    return 'Off plan projects in Dubai';
+  }
   // If there are no filters, return "All properties in Dubai"
-  const noFiltersApplied = !filters.purpose && !filters.area && !filters.propertyType && !filters.priceMin && !filters.priceMax && !filters.bedsMin && !filters.bedsMax && !filters.projectName && !filters.featured;
+  const noFiltersApplied =
+  !filters.purpose &&
+  !filters.area &&
+  !filters.propertyType &&
+  !filters.priceMin &&
+  !filters.priceMax &&
+  !filters.bedsMin &&
+  !filters.bedsMax &&
+  !filters.projectName &&
+  !filters.featured;
 
   if (noFiltersApplied) {
     return 'All properties in Dubai';
   }
 
-  // Special case for projects page
-  if (pathname === '/projects') {
-    return 'Off plan projects in Dubai';
-  }
+
 
   let title = '';
   const source = searchParams.get('source') || 'search';
