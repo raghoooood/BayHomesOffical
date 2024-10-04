@@ -1,16 +1,14 @@
-// app/actions/submitForm.ts
 "use server"
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.office365.com',  
-  port: 587,                   
-  secure: false,              
+ 
+  service:'gmail',             
   auth: {
-    user: process.env.NEXT_PUBLIC_EMAIL_ADDRESS,  // Your email address
+    user: process.env.EMAIL_USER,  // Your email address
     pass: process.env.EMAIL_PASS,  // Your email password or app-specific password
   },
-});
+});  
 
 
 export async function submitForm(formData: {
@@ -97,38 +95,18 @@ export async function submitForm(formData: {
 
   // Send email
   const mailOptions = {
-    from: email,
-    to: process.env.NEXT_PUBLIC_EMAIL_ADDRESS, // Your email address
-    subject: 'New Property Listing Form Submission',
-    html: htmlBody,
+  from: email, // Use the authenticated email address
+  to: process.env.EMAIL_USER, // Your destination email address
+  subject: 'New Property Listing Form Submission',
+  html: htmlBody,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    // Send WhatsApp message (Replace with actual WhatsApp API call)
-    await fetch('https://api.whatsapp.com/send', {
-      method: 'POST',
-      body: JSON.stringify({
-        phone: process.env.WHATSAPP_PHONE_NUMBER, // Your WhatsApp number
-        text: `
-        Name: ${formData.name}
-        Email: ${formData.email}
-        Phone: ${formData.phone}
-        Country: ${formData.country}
-        Preferred Language: ${formData.preferredLanguage}
-        Property Address: ${formData.propertyAddress}
-        Property Type: ${formData.propertyType}
-        Property Purpose: ${formData.propertyPurpose}
-        Bedroom: ${formData.bedroom}
-        Message: ${formData.message}
-      `,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
+  
     return { success: true, message: 'Form submitted successfully' };
   } catch (error) {
-    console.error('Error sending email or WhatsApp message:', error);
+    console.error('Error sending email :', error);
     return { success: false, message: 'Error submitting form' };
   }
 }
@@ -202,15 +180,13 @@ export async function submitBookingForm(formData: {
   // Send email
   const mailOptions = {
     from: email,
-    to: process.env.NEXT_PUBLIC_EMAIL_ADDRESS, 
+    to: process.env.EMAIL_USER, 
     subject: `New Property Viewing Request for ${propertyName}`,
     html: htmlBody,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    
-    // Add WhatsApp API call logic if needed
 
     return { success: true, message: 'Booking request submitted successfully' };
   } catch (error) {
@@ -275,32 +251,17 @@ export async function contactForm(data: {
   // Send email
   const mailOptions = {
     from: email,
-    to: process.env.NEXT_PUBLIC_EMAIL_ADDRESS, // Your email address
+    to: process.env.EMAIL_USER, // Your email address
     subject: 'New Contact Form Request',
     html: htmlBody,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    // Send WhatsApp message (Replace with actual WhatsApp API call if needed)
-    await fetch('https://api.whatsapp.com/send', {
-      method: 'POST',
-      body: JSON.stringify({
-        phone: process.env.WHATSAPP_PHONE_NUMBER, // Your WhatsApp number
-        text: `
-        First Name: ${firstName}
-        Last Name: ${lastName}
-        Email: ${email}
-        Phone Number: ${phoneNumber}
-        Message: ${message}
-      `,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
+ 
     return { success: true, message: 'Form submitted successfully' };
   } catch (error) {
-    console.error('Error sending email or WhatsApp message:', error);
+    console.error('Error sending email:', error);
     return { success: false, message: 'Error submitting form' };
   }
 }
