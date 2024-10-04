@@ -39,19 +39,20 @@ const DeveloperHero: React.FC<DeveloperProps> = ({
           </p>
         </div>
 
-        {/* Right section with developer image */}
-        <div className="mt-12 md:mt-0 md:w-1/2 flex justify-center md:justify-end p-5">
-          <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-gray-200 shadow-lg">
-            <Image
-              src={image}
-              alt="Developer logo"
-              width={250}
-              height={250}
-              className="object-cover"
-              unoptimized
-            />
-          </div>
-        </div>
+      {/* Right section with developer image */}
+<div className="mt-12 md:mt-0 md:w-1/2 flex justify-center md:justify-end p-5">
+  <div className="w-80 h-80 rounded-full overflow-hidden bg-white border-gray-200 shadow-lg">
+    <Image
+      src={image}
+      alt="Developer logo"
+      width={300}
+      height={300}
+      className="object-cover w-full h-full py-10"
+      unoptimized
+    />
+  </div>
+</div>
+
       </div>
     </section>
   );
