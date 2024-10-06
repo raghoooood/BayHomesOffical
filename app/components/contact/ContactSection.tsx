@@ -13,29 +13,30 @@ const ContactSection: React.FC = () => {
   const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
 
   // Reusable contact item
-  const ContactItem = ({
-    href,
-    icon: Icon,
-    label,
-  }: {
-    href: string;
-    icon: React.ElementType;
-    label: string;
-  }) => (
-    <div className="flex items-center space-x-4">
-      <div className="bg-gray-500 p-4 rounded-full shadow-md">
-        <Icon className="w-6 h-6 text-white" />
-      </div>
-      <a
-        href={href}
-        target={href.startsWith('http') ? '_blank' : undefined}
-        rel="noopener noreferrer"
-        className="text-gray-700 dark:text-gray-100 font-semibold hover:text-orange-500 hover:underline transition duration-300"
-      >
-        {label}
-      </a>
+const ContactItem = ({
+  href,
+  icon: Icon,
+  label,
+}: {
+  href: string;
+  icon: React.ElementType;
+  label: string;
+}) => (
+  <div className="flex items-center space-x-4">
+    <div className="bg-gray-300 p-3 rounded-full shadow-lg">
+      <Icon className="w-6 h-6 text-black-500 dark:text-white" />
     </div>
-  );
+    <a
+      href={href}
+      target={href.startsWith('http') ? '_blank' : undefined}
+      rel="noopener noreferrer"
+      className="text-gray-600 dark:text-gray-100 font-bold hover:text-orange-500 hover:underline"
+    >
+      {label}
+    </a>
+  </div>
+);
+
 
   return (
     <Container>
@@ -44,22 +45,20 @@ const ContactSection: React.FC = () => {
         initial="hidden"
         whileInView="show"
       >
-        {/* Use max-w-full to ensure no horizontal overflow */}
-        <div className="relative px-5 sm:px-10 md:px-16 mt-10 bg-gray-50 dark:bg-gray-800 w-full h-full">
-          <div className="p-6 md:p-8 lg:p-12 rounded-lg max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
-              
+        <div className="relative px-5 sm:px-20 mt-5 bg-gray-100 dark:bg-gray-500 w-full  h-full">
+          <div className="p-4 md:p-6 lg:p-8 rounded-lg">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-8 lg:mb-16">
               {/* Left Section */}
-              <div className="flex flex-col items-center lg:items-start mb-8 lg:mb-0">
-                <h1 className="text-2xl md:text-3xl lg:text-4xl text-gray-900 dark:text-white font-extrabold uppercase">
+              <div className="flex flex-col items-center lg:items-start mb-4 lg:mb-0">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl text-gray-800 font-bold dark:text-white uppercase">
                   Bay Homes Real Estate
                 </h1>
-                <p className="text-gray-600 mt-4 text-center lg:text-left dark:text-gray-300">
+                <p className="text-gray-600 mt-2 md:mt-3 lg:mt-4 text-center lg:text-left dark:text-gray-100">
                   Your journey to finding the perfect home starts with us.
                 </p>
 
                 {/* Contact info for larger screens */}
-                <div className="hidden lg:flex flex-col space-y-6 mt-8">
+                <div className="hidden lg:grid pt-7 gap-4">
                   <ContactItem
                     href={`https://wa.me/${whatsappNumber}`}
                     icon={FaWhatsapp}
@@ -80,11 +79,11 @@ const ContactSection: React.FC = () => {
 
               {/* Right Section - Contact Form */}
               <div className="flex flex-col items-center lg:items-end">
-                <div className="w-full max-w-lg bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6 lg:p-8">
-                  <h2 className="text-2xl md:text-3xl text-gray-900 dark:text-white font-semibold text-center lg:text-left">
+                <div className="w-full max-w-md">
+                  <h1 className="text-2xl md:text-3xl lg:text-2xl text-gray-800 font-bold pl-5 dark:text-white text-center lg:text-left">
                     Contact Bay Homes Real Estate
-                  </h2>
-                  <p className="text-gray-600 mt-2 md:mt-3 text-center lg:text-left dark:text-gray-300">
+                  </h1>
+                  <p className="text-gray-600 mt-2 md:mt-3 lg:mt-4 pb-4 pl-5 dark:text-white text-center lg:text-left">
                     Let us guide you home!
                   </p>
                   <ContactForm />
@@ -92,7 +91,7 @@ const ContactSection: React.FC = () => {
               </div>
 
               {/* Contact info for mobile screens */}
-              <div className="flex flex-col space-y-6 mt-8 lg:hidden">
+              <div className="pt-7 grid gap-4 lg:hidden">
                 <ContactItem
                   href={`https://wa.me/${whatsappNumber}`}
                   icon={FaWhatsapp}
@@ -109,7 +108,6 @@ const ContactSection: React.FC = () => {
                   label={`Email: ${emailAddress}`}
                 />
               </div>
-
             </div>
           </div>
         </div>
