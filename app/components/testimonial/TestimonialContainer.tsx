@@ -87,7 +87,7 @@ const TestimonialContainer: React.FC = () => {
          
         >
           {[...testimonials, ...testimonials].map((t, index) => (
-            <div key={index} className="flex-shrink-0 w-[100%] sm:w-[390px] md:w-[380px] lg:w-[300px] xl:w-[330px]">
+            <div key={index} className="flex-shrink-0 w-[500px] h-[300px] p-4">
               <TestimonialCard
                 name={t.name}
                 date={t.date}
