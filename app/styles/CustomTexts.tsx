@@ -53,7 +53,7 @@ export const LargeTypingText = memo(({ title, textStyles = '' }: TypingTextProps
     variants={textContainer}
     initial="hidden"
     animate="show"
-    className={`mt-[8px] font-bold text-[36px] sm:text-[40px] md:text-[44px] lg:text-[50px] xl:text-[64px]  ${textStyles}`}
+    className={`mt-[8px] font-bold text-[36px] sm:text-[40px] md:text-[44px] lg:text-[50px] xl:text-[64px] drop-shadow-2xl  ${textStyles}`}
   >
     {Array.from(title).map((letter, index) => (
       <motion.span

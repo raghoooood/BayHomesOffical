@@ -68,7 +68,7 @@ const Navbar2 = () => {
         className={`${
           headerOpen ? "translate-x-0" : "-translate-x-full"
         } md:hidden fixed top-0 left-0 w-full h-screen bg-white dark:bg-bgDark text-center flex justify-center items-center transition-transform duration-300`}>
-        <div className="w-full max-w-md p-6">
+        <div className="w-full p-6">
           <NavMenu onMenuClick={() => setHeaderOpen(false)} />
         </div>
       </div>
