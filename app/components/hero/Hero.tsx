@@ -39,7 +39,7 @@ const Hero : React.FC<Props> = ({
           href={totalProjects > 1 ? "/projects" : `/projects/${projectName}`}
           className="block text-white hover:text-orange-500 pt-5 sm:pt-10 text-md font-semibold underline uppercase"
         >
-          Register your interest now
+          new launch coming soon
         </Link>
       </div>
     
