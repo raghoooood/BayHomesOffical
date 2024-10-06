@@ -96,7 +96,7 @@ const BlogHome: React.FC<Props> = ({ posts, title = 'Latest Blog Posts' }) => {
             <FaChevronLeft size={14} />
           </button>
         )}
-        <div ref={scrollRef} className="flex space-x-5 items-center justify-center">
+        <div ref={scrollRef} className="flex-shrink-0 w-[100%] sm:w-[390px] md:w-[380px] lg:w-[300px] xl:w-[330px]">
           {posts.slice(currentIndex, currentIndex + pageSize).map((post) => (
             <BlogCard key={post._id} post={post} />
           ))}
