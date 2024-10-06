@@ -6,7 +6,7 @@ import rentPropIcon from '@/assets/icons/rentProp_icon.png';
 export const services = [
   {
     icon: buyPropIcon,
-    title: 'Our Projects',
+    title: 'Find Projects',
     subtitle: 'Discover the perfect home for you in Dubai.',
     link: '/projects',
   },
@@ -18,8 +18,8 @@ export const services = [
   },
   {
     icon: rentPropIcon,
-    title: 'Find an Agent',
+    title: 'Our Story',
     subtitle: 'Our team here to help you.',
-    link: '/our-team',
+    link: '/about',
   },
 ];
