@@ -23,7 +23,7 @@ const ContactSection: React.FC = () => {
     label: string;
   }) => (
     <div className="flex items-center space-x-4">
-      <div className="bg-orange-500 p-4 rounded-full shadow-md">
+      <div className="bg-gray-500 p-4 rounded-full shadow-md">
         <Icon className="w-6 h-6 text-white" />
       </div>
       <a
@@ -51,7 +51,7 @@ const ContactSection: React.FC = () => {
               
               {/* Left Section */}
               <div className="flex flex-col items-center lg:items-start mb-8 lg:mb-0">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white font-extrabold uppercase">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl text-gray-900 dark:text-white font-extrabold uppercase">
                   Bay Homes Real Estate
                 </h1>
                 <p className="text-gray-600 mt-4 text-center lg:text-left dark:text-gray-300">
