@@ -71,11 +71,11 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setPageSize(1);
-      } else if (window.innerWidth < 768) {
-        setPageSize(2);
+        setPageSize(1); // Small devices
+      } else if (window.innerWidth < 1024) {
+        setPageSize(2); // Medium devices
       } else {
-        setPageSize(3);
+        setPageSize(3); // Large devices
       }
     };
 
@@ -166,7 +166,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
           )}
           <div ref={scrollRef} className="flex space-x-4 md:space-x-6 w-full overflow-x-auto">
             {propertiesToShow.map((property) => (
-              <div key={property._id} className="flex-shrink-0 w-[100%] sm:w-[420px] md:w-[280px] lg:w-[300px] xl:w-[330px]">
+              <div key={property._id} className="flex-shrink-0 w-[100%] sm:w-[390px] md:w-[380px] lg:w-[300px] xl:w-[330px]">
                 {propertyClassification === 'off plan' ? (
                   <GridProject
                     _id={(property as PropsProj)._id}
