@@ -103,8 +103,6 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
     );
   }, [initialProperties, intialProjects, propertyClassification]);
 
- 
-
   const propertiesToShow = useMemo(
     () => filteredProperties.slice(currentIndex, currentIndex + pageSize),
     [filteredProperties, currentIndex, pageSize]
@@ -120,15 +118,12 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
       return acc;
     }, {} as { [key: string]: number });
   
-    // Add a count for projects (regardless of classification)
     if (intialProjects.length > 0) {
       counts['off plan'] = intialProjects.length;
     }
   
     return counts;
   }, [initialProperties, intialProjects, intialProjects]);
-  
-
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - pageSize, 0));
@@ -149,7 +144,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
         whileInView="show"
       >
         <Heading title={title} start />
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-0 sm:mb-4">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4">
           <FilterClassification
             propertyClassification={propertyClassification}
             setPropertyClassification={setPropertyClassification}
@@ -160,7 +155,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
           </div>
         </div>
 
-        <div className="relative flex overflow-x-auto w-full py-4">
+        <div className="relative flex w-full py-4 overflow-x-hidden">
           {showPrev && (
             <button
               onClick={handlePrev}
@@ -169,39 +164,38 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
               <FiChevronLeft size={24} />
             </button>
           )}
-          <div ref={scrollRef} className="flex space-x-4 md:space-x-6 justify-start w-full">
-  {propertiesToShow.map((property) => (
-    <div key={property._id} className="flex-shrink-0 w-[100%] sm:w-[420px] md:w-[280px] lg:w-[300px] xl:w-[330px]">
-      {propertyClassification === 'off plan' ? (
-        <GridProject
-          _id={(property as PropsProj)._id}
-          images={(property as PropsProj).images}
-          projectName={(property as PropsProj).projectName}
-          startPrice={(property as PropsProj).startPrice}
-          location={(property as PropsProj).location}
-          rooms={(property as PropsProj).rooms}
-          area={(property as PropsProj).area}
-          developer={(property as PropsProj).developer}
-          size={(property as PropsProj).size}
-          
-        />
-      ) : (
-        <PropCard
-          _id={(property as Props)._id}
-          images={(property as Props).images}
-          title={(property as Props).title}
-          price={(property as Props).price}
-          location={(property as Props).location}
-          propertyType={(property as Props).propertyType}        
-          numOfrooms={(property as Props).numOfrooms}
-          numOfbathrooms={(property as Props).numOfbathrooms}
-          size={(property as Props).size}
-          area={(property as Props).area}
-        />
-      )}
-    </div>
-  ))}
-</div>
+          <div ref={scrollRef} className="flex space-x-4 md:space-x-6 w-full overflow-x-auto">
+            {propertiesToShow.map((property) => (
+              <div key={property._id} className="flex-shrink-0 w-[100%] sm:w-[420px] md:w-[280px] lg:w-[300px] xl:w-[330px]">
+                {propertyClassification === 'off plan' ? (
+                  <GridProject
+                    _id={(property as PropsProj)._id}
+                    images={(property as PropsProj).images}
+                    projectName={(property as PropsProj).projectName}
+                    startPrice={(property as PropsProj).startPrice}
+                    location={(property as PropsProj).location}
+                    rooms={(property as PropsProj).rooms}
+                    area={(property as PropsProj).area}
+                    developer={(property as PropsProj).developer}
+                    size={(property as PropsProj).size}
+                  />
+                ) : (
+                  <PropCard
+                    _id={(property as Props)._id}
+                    images={(property as Props).images}
+                    title={(property as Props).title}
+                    price={(property as Props).price}
+                    location={(property as Props).location}
+                    propertyType={(property as Props).propertyType}
+                    numOfrooms={(property as Props).numOfrooms}
+                    numOfbathrooms={(property as Props).numOfbathrooms}
+                    size={(property as Props).size}
+                    area={(property as Props).area}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
 
           {showNext && (
             <button
