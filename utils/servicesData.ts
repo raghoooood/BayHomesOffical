@@ -18,7 +18,7 @@ export const services = [
   },
   {
     icon: rentPropIcon,
-    title: 'Our Story',
+    title: 'interested?',
     subtitle: 'Our team here to help you.',
     link: '/about',
   },
