@@ -36,8 +36,7 @@ const ProjectDetails: React.FC = async ({ params }: any) => {
           className="relative h-[80vh] w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-screen bg-no-repeat bg-cover bg-center"
            style={{ backgroundImage: `url(${result.images.backgroundImage})` }}
         >
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60 "></div>
+         
 
           {/* Centered Content */}
           <div className="relative flex flex-col items-start justify-center h-full text-left text-white  px-20 space-y-10 ">
