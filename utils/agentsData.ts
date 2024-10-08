@@ -19,7 +19,7 @@ export const agentsData = [
     },
     {
       image: Eshani,
-      name: 'Eshani Ranathunge',
+      name: 'Eshani Dimalsha',
       position: 'Administrative Officer',
     }
     ,{
