@@ -18,7 +18,7 @@ const Hero : React.FC<Props> = ({
 
 }) => {
   return (
-    <section className="flex flex-col w-full h-screen ">
+    <section className="flex flex-col w-full max-w-7xl h-screen ">
       <Image
         src={heroBg}
         alt="bg image"

@@ -178,6 +178,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
                     area={(property as PropsProj).area}
                     developer={(property as PropsProj).developer}
                     size={(property as PropsProj).size}
+                    
                   />
                 ) : (
                   <PropCard
