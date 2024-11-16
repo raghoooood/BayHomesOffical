@@ -27,6 +27,7 @@ const nextConfig = {
         'NEXT_PUBLIC_API_URL',
         'NEXT_PUBLIC_CLOUDINARY_URL',
         'NEXT_PUBLIC_SANITY_PROJECT_ID',
+        'SENDGRID_API_KEY',
       ];
 
       requiredEnvVars.forEach((envVar) => {
