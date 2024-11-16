@@ -67,7 +67,7 @@ const ContactForm: React.FC = () => {
                   <input
                     {...register('firstName')}
                     placeholder="First Name"
-                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600"
+                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600 dark:text-white"
                   />
                   <FaRegUser className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
@@ -81,7 +81,7 @@ const ContactForm: React.FC = () => {
                   <input
                     {...register('lastName')}
                     placeholder="Last Name"
-                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600"
+                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600 dark:text-white"
                   />
                   <FaRegUser className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
@@ -97,7 +97,7 @@ const ContactForm: React.FC = () => {
                   <input
                     {...register('email')}
                     placeholder="Email Address"
-                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600"
+                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600 dark:text-white"
                   />
                   <MdOutlineEmail className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
@@ -111,7 +111,7 @@ const ContactForm: React.FC = () => {
                   <input
                     {...register('phoneNumber')}
                     placeholder="Phone Number"
-                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600"
+                    className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600 dark:text-white"
                   />
                   <IoCallOutline className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
                 </label>
@@ -126,7 +126,7 @@ const ContactForm: React.FC = () => {
                 <textarea
                   {...register('message')}
                   placeholder="Your Message"
-                  className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-24 resize-none text-black dark:bg-gray-600"
+                  className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-24 resize-none text-black dark:bg-gray-600 dark:text-white"
                 />
                 <FaRegMessage className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
               </label>
