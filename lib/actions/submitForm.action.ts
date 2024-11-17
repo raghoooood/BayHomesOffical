@@ -80,7 +80,7 @@ export async function submitForm(formData: {
            <tr>
              <td style="background-color: #345C72; padding: 40px; text-align: center; color: #ffffff; font-size: 14px;">
                <p style="margin: 0;">&copy; 2024 Bay Homes. All rights reserved.</p>
-               <p style="margin: 5px 0 0 0;">Business Bay, Blue Bay Tower, Office 7095</p>
+               <p style="margin: 5px 0 0 0;">Blue Bay Tower, Dubai, Office 7095</p>
              </td>
            </tr>
          </table>
@@ -175,7 +175,7 @@ export async function submitBookingForm(formData: {
            <tr>
              <td style="background-color: #345C72; padding: 40px; text-align: center; color: #ffffff; font-size: 14px;">
                <p style="margin: 0;">&copy; 2024 Bay Homes. All rights reserved.</p>
-               <p style="margin: 5px 0 0 0;">Business Bay, Blue Bay Tower, Office 7095</p>
+               <p style="margin: 5px 0 0 0;">Blue Bay Tower, Dubai, Office 7095</p>
              </td>
            </tr>
          </table>
@@ -260,7 +260,7 @@ export async function contactForm(data: {
            <tr>
              <td style="background-color: #345C72; padding: 40px; text-align: center; color: #ffffff; font-size: 14px;">
                <p style="margin: 0;">&copy; 2024 Bay Homes. All rights reserved.</p>
-               <p style="margin: 5px 0 0 0;">Business Bay, Blue Bay Tower, Office 7095</p>
+               <p style="margin: 5px 0 0 0;">Blue Bay Tower, Dubai, Office 7095</p>
              </td>
            </tr>
          </table>
