@@ -137,8 +137,14 @@ const ContactForm: React.FC = () => {
 
             <Button label="Submit"
              onClick={() => {
+<<<<<<< HEAD
            
       
+=======
+            if (!submitting) {
+            handleSubmit(onSubmit)(); // Call the form submit handler
+    }
+>>>>>>> c52f9aa00ce1e71c7b63b8ff3a0cbb7a5a7d00ff
   }}
 />
 
