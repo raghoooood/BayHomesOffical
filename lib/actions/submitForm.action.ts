@@ -91,11 +91,8 @@ export async function submitForm(formData: {
  `;
  const userEmail = formData.email;
  // Send email
-<<<<<<< HEAD
 sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY!);
-=======
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
->>>>>>> c52f9aa00ce1e71c7b63b8ff3a0cbb7a5a7d00ff
+
 
  const mailOptions = {
  from: fromEmail, // Use the authenticated email address
@@ -189,11 +186,9 @@ export async function submitBookingForm(formData: {
  `;
 
  // Send email
-<<<<<<< HEAD
+
  sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY!);
-=======
- sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
->>>>>>> c52f9aa00ce1e71c7b63b8ff3a0cbb7a5a7d00ff
+
  const userEmail = formData.email;
 
 
@@ -276,11 +271,9 @@ export async function contactForm(data: {
  `;
 
  // Send email
-<<<<<<< HEAD
+
  sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY!);
-=======
- sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
->>>>>>> c52f9aa00ce1e71c7b63b8ff3a0cbb7a5a7d00ff
+
 
  const userEmail = data.email;
 
