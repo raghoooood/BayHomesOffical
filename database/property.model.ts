@@ -22,7 +22,6 @@ export interface IProperty extends Document {
     size?: string;
     numOfrooms: number;
     numOfbathrooms: number;
-    status: string;
     features: string[];
     furnishingType: string;
     classification: string;
@@ -30,6 +29,12 @@ export interface IProperty extends Document {
     agent: Schema.Types.ObjectId;
     permitNo: string;
     barcode: string;
+    status: {
+      type: String,
+      enum: ['active', 'archived'],
+      default: 'active',
+      required: true
+    }
   }
   
   const PropertySchema = new Schema({
@@ -48,7 +53,6 @@ export interface IProperty extends Document {
   area: { type: Schema.Types.ObjectId, required: true, ref: 'Area' },
   numOfrooms: { type: Number, required: true },
   numOfbathrooms: { type: Number, required: true },
-   status: { type: String, required: true },
   furnishingType: { type: String, required: true },
   classification: { type: String, required: true },
   features: [{ type: String, required: true }],
@@ -61,6 +65,12 @@ export interface IProperty extends Document {
     street: { type: String, required: true },
     URL: { type: String, required: true },
   },
+  status: {
+    type: String,
+    enum: ['active', 'archived'],
+    default: 'active',
+    required: true
+  }
 
   });
   

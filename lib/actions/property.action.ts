@@ -2,17 +2,12 @@
 
 import Property from "@/database/property.model";
 import { connectToDatabase } from "../mongoose";
-import { GetPropertiesByIdParams, GetPropretiesParams} from "./shared.types";
-import  Location  from '@/database//location.model';
 import Area from "@/database/Area.model";
-import { SearchParamsProps } from "@/types";
-import Project from "@/database/project.model";
-
 
 export async function getProperties(p0?: { areaId: any, projectId: any; }) {
   try {
     connectToDatabase();
-    const properties = await Property.find()
+    const properties = await Property.find({status: 'active'})
       .populate({ path: 'area', model: Area, select: '_id areaName ' })
       .sort({ price: -1 });
 

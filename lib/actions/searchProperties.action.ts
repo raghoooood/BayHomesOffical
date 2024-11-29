@@ -2,8 +2,7 @@ import { SearchParamsProps } from "@/types";
 import { connectToDatabase } from "../mongoose";
 import Area from "@/database/Area.model";
 import Property from "@/database/property.model";
-import { getConvertedPrice } from "../utils";
-import { useCurrency } from "@/app/components/hooks/useCurrency";
+
 
 export const searchProperties = async (params: { searchParams: SearchParamsProps}) => {
  
@@ -55,7 +54,7 @@ export const searchProperties = async (params: { searchParams: SearchParamsProps
     console.log('Using filters:', filters);
 
     // Query the database
-    const properties = await Property.find(filters).populate('area');
+    const properties = await Property.find({filters, status: 'active'}).populate('area');
     console.log('Fetched properties:', properties);
 
     return properties;
