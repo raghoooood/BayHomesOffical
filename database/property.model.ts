@@ -69,9 +69,8 @@ export interface IProperty extends Document {
     type: String,
     enum: ['active', 'archived'],
     default: 'active',
-    required: true
-  }
-
+    required: true,
+  },
   });
   
   const Property = models.Property || model('Property', PropertySchema);
