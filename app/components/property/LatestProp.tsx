@@ -53,6 +53,7 @@ interface PropsProj {
     developerName: string;
   }
   size?: string;
+  status: string;
 }
 
 interface LatestPropProps {
@@ -99,7 +100,8 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
       return intialProjects; // Show projects if classification is 'off plan'
     }
     return initialProperties.filter(property =>
-      propertyClassification ? property.classification?.toLowerCase() === propertyClassification : true
+      propertyClassification ? property.classification?.toLowerCase() === propertyClassification 
+      && property.status==='active': true
     );
   }, [initialProperties, intialProjects, propertyClassification]);
 
