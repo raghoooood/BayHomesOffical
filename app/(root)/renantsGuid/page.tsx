@@ -41,7 +41,7 @@ const Page = async () => {
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Description</h2>
-            <p className="text-gray-700 leading-relaxed mx-auto w-full dark:text-gray-50">Renting a property in Dubai comes with its own set of challenges—sorting through options, negotiating contracts, and handling paperwork. Whether you’re searching for a long-term rental through us, we&apos;ll secure the best payment options to fit your budget. Plus, we&apos;ll handle the registration in-house, saving you time and effort.
+            <p className="text-gray-700 leading-relaxed mx-auto w-full dark:text-gray-50">Renting a property in Dubai comes with its own set of challenges—sorting through options, negotiating contracts, and handling paperwork. Whether you&rsquo;re searching for a long-term rental through us, we&apos;ll secure the best payment options to fit your budget. Plus, we&apos;ll handle the registration in-house, saving you time and effort.
             So, why stress over the complexities of renting? Let us guide you through the process and make renting in Dubai simple and stress-free. Dive into our guide for a hassle-free experience.
             </p>
           </div>
