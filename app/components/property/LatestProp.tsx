@@ -32,6 +32,7 @@ interface Props {
   };
   size: string;
   classification: string;
+  status: string;
 }
 
 interface PropsProj {

@@ -63,7 +63,8 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
   }, []);
 
   useEffect(() => {
-    const hasSaleProperties = initialProperties.some(property => property.purpose?.toLowerCase() === 'sale' && property.status=== 'active');
+    const hasSaleProperties = initialProperties.some(property => property.purpose?.toLowerCase() === 'sale' 
+    && property.status=== 'active');
     if (!propertyPurpose) {
       setPropertyPurpose(hasSaleProperties ? 'sale' : 'rent');
     }
