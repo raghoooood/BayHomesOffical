@@ -32,7 +32,7 @@ interface Props {
   };
   size: string;
   classification: string;
-  status: string;
+  status: string; // Add this field
 }
 
 interface PropsProj {
@@ -54,7 +54,7 @@ interface PropsProj {
     developerName: string;
   }
   size?: string;
-  status: string;
+  status?: string;
 }
 
 interface LatestPropProps {
