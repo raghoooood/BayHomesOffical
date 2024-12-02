@@ -36,9 +36,9 @@ const Page = async () => {
           <div>
             <h2 className="text-2xl font-semibold mb-4">Discover Real Estate Excellence with Bay Homes </h2>
             <p className="text-gray-700 leading-relaxed dark:text-gray-50">
-            Whether you're looking for a new family home or exploring investment opportunities in Dubai, we're committed to making your property search smooth and enjoyable.
+            Whether you&apos;re looking for a new family home or exploring investment opportunities in Dubai, we&apos;re committed to making your property search smooth and enjoyable.
 
-Ready to invest in Dubai’s thriving real estate market?  </p>
+Ready to invest in Dubai&apos;s thriving real estate market?  </p>
           </div>
 
           <div>
