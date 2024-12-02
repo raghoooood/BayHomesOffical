@@ -29,7 +29,6 @@ interface Props {
   };
   size: string;
   classification: string;
-  status: string;
 }
 
 interface LatestPropProps {
@@ -75,7 +74,7 @@ const RentGuidContent: React.FC<LatestPropProps> = ({ initialProperties }) => {
   const filteredProperties = useMemo(
     () => initialProperties.filter(property =>
       propertyClassification ? property.classification?.toLowerCase() === propertyClassification
-      && property.status==='active' : true
+      : true
     ),
     [initialProperties, propertyClassification]
   );

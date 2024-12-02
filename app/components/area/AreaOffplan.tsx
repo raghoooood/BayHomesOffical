@@ -31,7 +31,6 @@ interface Props {
   };
   size: string;
   purpose: string;
-  status:string
 }
 
 interface AreaOffplanProps {
@@ -64,7 +63,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
 
   useEffect(() => {
     const hasSaleProperties = initialProperties.some(property => property.purpose?.toLowerCase() === 'sale' 
-    && property.status=== 'active');
+   );
     if (!propertyPurpose) {
       setPropertyPurpose(hasSaleProperties ? 'sale' : 'rent');
     }
@@ -82,7 +81,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
 
   const filteredProperties = useMemo(
     () => initialProperties.filter(property =>
-      propertyPurpose ? property.purpose?.toLowerCase() === propertyPurpose : true
+      propertyPurpose ? property.purpose?.toLowerCase() === propertyPurpose  : true
       
     ),
     [initialProperties, propertyPurpose]

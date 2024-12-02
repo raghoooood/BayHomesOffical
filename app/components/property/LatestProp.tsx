@@ -105,7 +105,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
       return intialProjects; // Show projects if classification is 'off plan'
     }
     return initialProperties.filter(property =>
-       status && propertyClassification ? property.classification?.toLowerCase() === propertyClassification 
+      propertyClassification ? property.classification?.toLowerCase() === propertyClassification 
       : true
     );
   }, [initialProperties, intialProjects, propertyClassification]); 

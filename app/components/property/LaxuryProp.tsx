@@ -28,7 +28,6 @@ interface Props {
   size: string;
   featured: boolean;
   projectName: string;
-  status: string;
 }
 
 interface LuxuryPropProps {
@@ -40,7 +39,7 @@ const LuxuryProp: React.FC<LuxuryPropProps> = ({ initialProperties }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
 
-  const featuredProperties = initialProperties.filter(property => property.featured && property.status === 'active');
+  const featuredProperties = initialProperties.filter(property => property.featured);
 
   const scroll = (direction: "left" | "right") => {
     const { current } = scrollRef;
