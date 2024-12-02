@@ -32,7 +32,6 @@ interface Props {
   };
   size: string;
   classification: string;
-  status: string; // Add this field
 }
 
 interface PropsProj {
@@ -102,7 +101,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
     }
     return initialProperties.filter(property =>
       propertyClassification ? property.classification?.toLowerCase() === propertyClassification 
-      && property.status==='active': true
+      : true
     );
   }, [initialProperties, intialProjects, propertyClassification]);
 
