@@ -53,7 +53,6 @@ interface PropsProj {
     developerName: string;
   }
   size?: string;
-  status?: string;
 }
 
 interface LatestPropProps {
@@ -67,7 +66,6 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
   const scrollRef = useRef<HTMLDivElement>(null);
   const [pageSize, setPageSize] = useState(3);
   const [propertyClassification, setPropertyClassification] = useState('residential');
-  const [status, setStatus] = useState('active');
   const router = useRouter();
 
   useEffect(() => {
