@@ -31,7 +31,6 @@ interface Props {
   };
   size: string;
   purpose: string;
-  status:string
 }
 
 interface AreaOffplanProps {
@@ -63,7 +62,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
   }, []);
 
   useEffect(() => {
-    const hasSaleProperties = initialProperties.some(property => property.purpose?.toLowerCase() === 'sale' && property.status=== 'active');
+    const hasSaleProperties = initialProperties.some(property => property.purpose?.toLowerCase() === 'sale');
     if (!propertyPurpose) {
       setPropertyPurpose(hasSaleProperties ? 'sale' : 'rent');
     }
