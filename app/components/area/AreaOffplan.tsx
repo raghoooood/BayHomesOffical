@@ -80,7 +80,7 @@ const AreaOffplan: React.FC<AreaOffplanProps> = ({ initialProperties, title }) =
 
   const filteredProperties = useMemo(
     () => initialProperties.filter(property =>
-      propertyPurpose ? property.purpose?.toLowerCase() === propertyPurpose : true
+      propertyPurpose ? property.purpose?.toLowerCase() === propertyPurpose  : true
       
     ),
     [initialProperties, propertyPurpose]

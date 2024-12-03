@@ -29,12 +29,7 @@ export interface IProperty extends Document {
     agent: Schema.Types.ObjectId;
     permitNo: string;
     barcode: string;
-    status: {
-      type: String,
-      enum: ['active', 'archived'],
-      default: 'active',
-      required: true
-    }
+    status: string;
   }
   
   const PropertySchema = new Schema({

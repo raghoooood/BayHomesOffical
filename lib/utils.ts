@@ -2,7 +2,6 @@ import  sanitizeHtml  from 'sanitize-html';
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import qs from "query-string"
-import PriceConverter from '@/app/components/currencyConverter/priceConverter';
 import { useCurrency } from '@/app/components/hooks/useCurrency';
 
 export function cn(...inputs: ClassValue[]) {
@@ -169,85 +168,7 @@ export const getConvertedPrice = (price: number, selectedCurrency?: string, reve
  export const capitalizeFirstLetter = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
  import { useRouter } from 'next/router'; // if you're using Next.js
-/* 
- export const displayTitle = (searchParams: URLSearchParams, pathname?: string) => {
-  const filters = {
-    purpose: searchParams.get('purpose'),
-    area: searchParams.get('area'),
-    propertyType: searchParams.get('propertyType'),
-    priceMin: searchParams.get('priceMin'),
-    priceMax: searchParams.get('priceMax'),
-    bedsMin: searchParams.get('bedsMin'),
-    bedsMax: searchParams.get('bedsMax'),
-    projectName: searchParams.get('projectName'),
-    featured: searchParams.get('featured'),
-    name: searchParams.get('name') || 'See all properties',
-  };
 
-  if (pathname === '/projects') {
-    return 'Off plan projects in Dubai';
-  }
-
-  if (!Object.values(filters).some(Boolean)) return 'All projects in Dubai';
-
-  let title = '';
-  const source = searchParams.get('source') || 'search';
-  const { selectedCurrency } = useCurrency();
-
-  // Handle price conversion
-  const priceMin = filters.priceMin ? getConvertedPrice(Number(filters.priceMin), selectedCurrency) : null;
-  const priceMax = filters.priceMax ? getConvertedPrice(Number(filters.priceMax), selectedCurrency) : null;
-
-  if (source === 'nav') {
-    title += `${
-      filters.name !== filters.projectName
-        ? `${capitalizeFirstLetter(filters.name)} in Dubai`
-        : `${capitalizeFirstLetter(filters.name)}`
-    } `;
-  } else {
-    if (!filters) {
-      title += 'All properties in Dubai'
-    }
-    else if (filters.projectName ) {
-      title += `Properties   ${
-        filters.purpose ? `for ${capitalizeFirstLetter(filters.purpose)}` : 'for Sale'
-      } in ${filters.projectName}`;
-       
-    } else if (filters.featured) {
-      title+= 'Luxury Properties in Dubai'
-    }else {
-      title += `${filters.propertyType ? `${capitalizeFirstLetter(filters.propertyType)}s` : 'Properties'} ${
-        filters.purpose ? `for ${capitalizeFirstLetter(filters.purpose)}` : 'for Sale'
-      } in ${filters.area ? capitalizeFirstLetter(filters.area) : 'Dubai'} `;
-    }
-
-    // Include the formatted price in the title
-    if (priceMin && priceMax) {
-      title += `between ${priceMin} and ${priceMax} `;
-    } else if (priceMin) {
-      title += `above ${priceMin} `;
-    } else if (priceMax) {
-      title += `below ${priceMax} `;
-    }
-
-    // Handle bedroom filters
-    const bedsMinNumber = parseInt(filters.bedsMin || '', 10);
-    const bedsMaxNumber = parseInt(filters.bedsMax || '', 10);
-    if (!isNaN(bedsMinNumber) && !isNaN(bedsMaxNumber)) {
-      title += `with ${
-        bedsMinNumber === bedsMaxNumber
-          ? `${bedsMinNumber} bedroom${bedsMinNumber > 1 ? 's' : ''}`
-          : `${bedsMinNumber} to ${bedsMaxNumber} bedrooms`
-      } `;
-    } else if (!isNaN(bedsMinNumber)) {
-      title += `with more than ${bedsMinNumber} bedroom${bedsMinNumber > 1 ? 's' : ''} `;
-    } else if (!isNaN(bedsMaxNumber)) {
-      title += `with less than ${bedsMaxNumber} bedrooms `;
-    }
-  }
-
-  return title.trim();
-}; */
 
 export const displayTitle = (searchParams: URLSearchParams, pathname?: string) => {
   const filters = {
@@ -355,3 +276,6 @@ export const sanitizeHtmlContent = (html: string): string => {
     },
   });
 };
+
+
+

@@ -53,7 +53,7 @@ interface PropsProj {
     developerName: string;
   }
   size?: string;
-  status: string;
+  status?: string;
 }
 
 interface LatestPropProps {
@@ -67,6 +67,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
   const scrollRef = useRef<HTMLDivElement>(null);
   const [pageSize, setPageSize] = useState(3);
   const [propertyClassification, setPropertyClassification] = useState('residential');
+  const [status, setStatus] = useState('active');
   const router = useRouter();
 
   useEffect(() => {
@@ -95,7 +96,11 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
     }
   }, [currentIndex, initialProperties.length, intialProjects.length, pageSize, propertyClassification]);
 
-  const filteredProperties = useMemo(() => {
+
+
+
+  
+   const filteredProperties = useMemo(() => {
     if (propertyClassification === 'off plan') {
       return intialProjects; // Show projects if classification is 'off plan'
     }
@@ -103,7 +108,7 @@ const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperti
       propertyClassification ? property.classification?.toLowerCase() === propertyClassification 
       : true
     );
-  }, [initialProperties, intialProjects, propertyClassification]);
+  }, [initialProperties, intialProjects, propertyClassification]); 
 
   const propertiesToShow = useMemo(
     () => filteredProperties.slice(currentIndex, currentIndex + pageSize),
