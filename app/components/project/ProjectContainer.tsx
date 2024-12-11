@@ -8,6 +8,7 @@ import Breadcrumb from "../Breadcrumb";
 import FilterAndViewToggle from "../filters/FilterAndViewToggle";
 import GridProject from "./GridProject";
 import { displayTitle, applyFilters, sortProperties } from "@/lib/utils";
+import { useCurrency } from "../hooks/useCurrency";
 
 interface BreadcrumbItem {
   label: string;
@@ -51,7 +52,8 @@ const ProjectContainer: React.FC<{ initialProperties: Props[] }> = ({ initialPro
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const [breadcrumbItems, setBreadcrumbItems] = useState<BreadcrumbItem[]>([]);
-  const title = displayTitle(searchParams , pathname);
+  const { selectedCurrency } = useCurrency();
+  const title = displayTitle(searchParams , pathname , selectedCurrency);
 
   useEffect(() => {
     const storedView = localStorage.getItem('project-view');

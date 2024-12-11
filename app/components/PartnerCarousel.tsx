@@ -24,7 +24,7 @@ const PartnerCarousel = () => {
         <div className="flex items-center gap-5">
         <div className="flex-1 md:flex-none">
             {/* Heading */}
-            <h2 className='font-bold'>PARTNER WITH DUBAI'S LEADING DEVELOPERS</h2>
+            <h2 className='font-bold'>PARTNER WITH DUBAI&apos;S LEADING DEVELOPERS</h2>
           </div>
 
           {/* Carousel section */}

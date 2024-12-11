@@ -8,6 +8,7 @@ import { applyFilters, sortProperties, displayTitle } from "@/lib/utils";
 import SearchAllProp from "../search/SearchAllProp";
 import { motion } from "framer-motion";
 import { fadeIn, slideIn } from "@/app/styles/animations";
+import { useCurrency } from "../hooks/useCurrency";
 
 // Lazy-loaded components
 const AllPropCard = React.lazy(() => import("@/app/components/property/AllPropCard"));
@@ -58,11 +59,13 @@ const AllProp: React.FC<{ initialProperties: Props[] }> = ({ initialProperties }
   const [breadcrumbItems, setBreadcrumbItems] = useState<BreadcrumbItem[]>([]);
   const searchParams = useSearchParams();
   const router = useRouter();
-  const title = displayTitle(searchParams);
-
+  const { selectedCurrency } = useCurrency();
+  const title = displayTitle(searchParams, selectedCurrency);
+  
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
+
 
   // Filter and sort properties with useMemo
   const filteredAndSortedProperties = useMemo(() => {

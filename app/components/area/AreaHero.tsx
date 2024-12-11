@@ -36,7 +36,7 @@ const AreaHero: React.FC<FilterAminityProps> = ({ aminity, setAminity, searchQue
           Discover Dubai's Finest Communities
         </h2>
         <p className="text-sm md:text-base lg:text-lg max-w-3xl px-4 md:px-6 py-2 drop-shadow-sm dark:text-white">
-          Discover Dubai’s neighborhoods with Bay Homes Real Estate. Our area guides provide insights into lifestyle, amenities, and property options, helping you find your ideal home.
+          Discover Dubai&rsquo;s neighborhoods with Bay Homes Real Estate. Our area guides provide insights into lifestyle, amenities, and property options, helping you find your ideal home.
         </p>
       </div>
 
