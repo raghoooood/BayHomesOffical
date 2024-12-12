@@ -79,3 +79,4 @@ export const SmallTitleText = memo(({ title, textStyles = '' }: TitleTextProps) 
     {title}
   </motion.h3>
 ));
+
