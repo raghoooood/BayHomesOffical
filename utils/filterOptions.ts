@@ -11,6 +11,9 @@ const filterOptions = {
     { value: 'apartment', label: 'Apartment' },
     { value: 'villa', label: 'Villa' },
     { value: 'townhouse', label: 'Townhouse' },
+    { value: 'office', label: 'Office' },
+    { value: 'shop', label: 'Shop' },
+    { value: 'studio', label: 'Studio' },
   ],
   priceRange: [
     { value: '', label: 'Price Range' },

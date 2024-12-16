@@ -20,43 +20,13 @@ export interface SearchParamsProps {
 }
 
 
-
-
-
-export interface URLProps {
-  params: { id: string };
-  searchParams: { [key: string]: string | undefined };
-}
-
-
 export interface TeamMemberCardProps {
   name: string;
   position: string;
   imageUrl: string;
 }
 
-export interface PropItemType {
-  createdAt?: string | number | Date;
-  price: number;
-  toObject?: any;
-  _id?: string;
-  images?: string[];
-  title?: string;
-  numOfbathrooms?: number;
-  location?: {
-    city: string;
-    state: string;
-    street: string;
-  };
-  numOfrooms: number;
-  area?: string;
-  size?: string;
-  description?: string;
-  featured?:boolean;
-  propertyType?:string;
-  purpose?:string;
-  
-}
+
 
 //sanity type
 type Base = {

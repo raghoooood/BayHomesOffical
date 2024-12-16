@@ -26,21 +26,25 @@ const Hero : React.FC<Props> = ({
         className="w-full h-screen bg-no-repeat rounded-b-4xl object-cover object-center"
       />
          <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 ">
-        <SmallTitleText title="The best way to" textStyles="text-center text-gray-100 "/>
+        <SmallTitleText title="Use Our Property Finder to Filter" textStyles="text-center text-gray-100 "/>
         
-        <LargeTypingText title="Find Your Dream Home" textStyles="text-center text-gray-50 "/>
+        <LargeTypingText title="Residential, Commercial & Industrial Properties." textStyles="text-center text-orange-500 " />
           
-          <SmallTitleText title="Home to lucrative opportunities" textStyles="text-center text-gray-100"/>         
+          <SmallTitleText title="Buy, Sell, Rent Now!" textStyles="text-center text-gray-100"/>         
         <div className="w-full max-w-2xl mt-10">
           <SearchContainer />
         </div>
          {/* Conditionally render the link */}
          <Link
-          href={totalProjects > 1 ? "/projects" : `/projects/${projectName}`}
-          className="block text-white hover:text-orange-500 pt-5 sm:pt-10 text-md font-semibold underline uppercase"
-        >
-          new launch coming soon
-        </Link>
+  href={totalProjects > 1 ? "/projects" : `/projects/${projectName}`}
+  className="block text-orange-500 hover:text-orange-300 pt-5 sm:pt-5 text-md font-semibold underline uppercase"
+  style={{
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)", // Add shadow
+  }}
+>
+  new launch coming soon
+</Link>
+
       </div>
     
     </section>

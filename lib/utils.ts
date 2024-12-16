@@ -9,43 +9,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-interface UrlQueryParams {
-  params: string;
-  key: string;
-  value?: string | null;
-}
-
-export const formUrlQuery = ({ params, key, value}: UrlQueryParams) => {
-  const currentUrl = qs.parse(params);
-
-  
-
-  return qs.stringifyUrl({
-    url: window.location.pathname,
-    query: currentUrl,
-  },
-  { skipNull: true})
-}
-
-interface RemoveUrlQueryParams {
-  params: string;
-  keysToRemove: string[];
-}
-
-export const removeKeysFromQuery = ({ params, keysToRemove}: RemoveUrlQueryParams) => {
-  const currentUrl = qs.parse(params);
-
-  keysToRemove.forEach((key) => {
-    delete currentUrl[key];
-  })
-
-  return qs.stringifyUrl({
-    url: window.location.pathname,
-    query: currentUrl,
-  },
-  { skipNull: true})
-}
-
 export const applyFilters = (properties: any[], searchParams: URLSearchParams): any[] => {
   const areaFilters = searchParams.get('area')?.split(',') || [];
   const purposeFilter = searchParams.get('purpose');

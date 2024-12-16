@@ -61,7 +61,7 @@ interface LatestPropProps {
   title?: string;
 }
 
-const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperties, title = 'Latest Properties' }) => {
+const LatestProp: React.FC<LatestPropProps> = ({ intialProjects, initialProperties, title = 'Featured Properties' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [pageSize, setPageSize] = useState(3);
