@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['res.cloudinary.com' , 's3-ap-southeast-1.amazonaws.com'],
+  
 
     remotePatterns: [
       {

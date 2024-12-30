@@ -1,8 +1,8 @@
 import { Document, model, models, Schema } from "mongoose";
-import { Url } from "url";
 
 export interface IProperty extends Document {
-    propertyId: string;
+ propertyId: string;
+ propId: string;
     title: string;
     location: {
       city: string,
@@ -30,14 +30,26 @@ export interface IProperty extends Document {
     permitNo: string;
     barcode: string;
     status: string;
+    // completion_status: string;
+    geopoints: {
+      lat: Number,
+      lng: Number,
+    },
+
   }
   
   const PropertySchema = new Schema({
-    propertyId: { type: String, required: true, unique: true , sparse: true},
+    propertyId: { type: String, required: true, unique: true },
+    propId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   title: { type: String, required: true },
   projectName: { type: String, required: true },
   size: { type: String },
   creator: { type: Schema.Types.ObjectId, ref: 'User' },
+  agent: { type: Schema.Types.ObjectId, ref: 'Agent' },
   purpose: { type: String, required: true },
   propertyType: { type: String, required: true },
   price: { type: Number, required: true },
@@ -48,7 +60,9 @@ export interface IProperty extends Document {
   area: { type: Schema.Types.ObjectId, required: true, ref: 'Area' },
   numOfrooms: { type: Number, required: true },
   numOfbathrooms: { type: Number, required: true },
-  furnishingType: { type: String, required: true },
+  furnishingType: { type: String,
+    enum: ['Yes', 'No'],
+    required: true, },
   classification: { type: String, required: true },
   features: [{ type: String, required: true }],
   description: { type: String, required: true },
@@ -66,7 +80,15 @@ export interface IProperty extends Document {
     default: 'active',
     required: true,
   },
-  });
+/*   completion_status: {
+    type: String,
+    enum: ['on_plan', 'off_plan_primary', 'off_plan_secondary', 'completed_primary', 'completed'], // Add completed_primary here
+  }, */
+  geopoints: {
+    lat: { type: Number },
+    lng: { type: Number },
+  },
+  },{ timestamps: true });
   
   const Property = models.Property || model('Property', PropertySchema);
   

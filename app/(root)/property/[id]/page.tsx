@@ -118,12 +118,14 @@ const Page = async ({ params }: any) => {``
 
       <div className="my-7">
         <h4 className="text-2xl font-semibold">Location</h4>
-        <Map url={result.location.URL}/>
+       <Map url={result.location.URL}/> 
+
+        
       </div>
 
       <div className="border-t border-gray-300 dark:border-gray-700" />
 
-      <PremitCard imageSrc={result.barcode} permitNumber={result.permitNo} />
+       <PremitCard imageSrc={result.barcode} permitNumber={result.permitNo} /> 
 
       <div className="lg:hidden w-full">
       <AgentCard agentImage={agentImage} agentName={'SAMAH FAEK'} agentPosition={'Broker & Manager'} _id={params.id} />

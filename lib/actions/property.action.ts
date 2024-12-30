@@ -46,3 +46,4 @@ export async function getPropertyCard(params: { propertyId: string }) {
     throw error;
   }
 }
+
