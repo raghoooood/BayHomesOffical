@@ -12,7 +12,7 @@ const BookingViewForm = ({ propertyName }: PropertyNameProps) => {
     name: "",
     email: "",
     phone: "",
-    country: "AE", // Add default country value
+    country: "AE",
     bookingDate: "",
     bookingTime: "",
     preferredLanguage: "English",
@@ -51,6 +51,13 @@ const BookingViewForm = ({ propertyName }: PropertyNameProps) => {
               type={field === "email" ? "email" : "text"}
               name={field}
               id={field}
+              placeholder={
+                field === "name"
+                  ? "e.g., John Doe"
+                  : field === "email"
+                  ? "example@example.com"
+                  : "+971501234567"
+              }
               value={formData[field as keyof typeof formData]}
               onChange={handleChange}
               required
@@ -97,6 +104,7 @@ const BookingViewForm = ({ propertyName }: PropertyNameProps) => {
           />
         </div>
 
+        {/* Preferred Language */}
         <div>
           <label
             htmlFor="preferredLanguage"
@@ -120,6 +128,7 @@ const BookingViewForm = ({ propertyName }: PropertyNameProps) => {
           </select>
         </div>
 
+        {/* Message */}
         <div className="md:col-span-2">
           <label
             htmlFor="message"

@@ -107,6 +107,7 @@ const ListYourPropForm: React.FC = () => {
               type="text"
               name="name"
               id="name"
+              placeholder="e.g., John Doe"
               value={formData.name}
               onChange={handleChange}
               required
@@ -119,6 +120,7 @@ const ListYourPropForm: React.FC = () => {
               type="email"
               name="email"
               id="email"
+              placeholder="example@example.com"
               value={formData.email}
               onChange={handleChange}
               required
@@ -128,20 +130,17 @@ const ListYourPropForm: React.FC = () => {
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-white">Phone</label>
             <div className="mt-1 flex flex-col md:flex-row">
-              <div className="flex items-center border border-gray-300 rounded-md shadow-sm">
-                <div className="flex items-center p-2 bg-gray-100 border-r border-gray-300 rounded-l-md">
-                  <span className="text-gray-600">+971</span>
-                </div>
+                
                 <input
                   type="tel"
                   name="phone"
                   id="phone"
+                  placeholder="+971501234567"
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="p-2 block w-full dark:bg-cardText dark:text-white border-0 rounded-r-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
+                  className="mt-1 p-2 block w-full dark:bg-cardText dark:text-white border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
             </div>
           </div>
           <div>
@@ -164,6 +163,7 @@ const ListYourPropForm: React.FC = () => {
               type="text"
               name="propertyAddress"
               id="propertyAddress"
+              placeholder="Downtown Dubai, UAE"
               value={formData.propertyAddress}
               onChange={handleChange}
               required
@@ -225,6 +225,8 @@ const ListYourPropForm: React.FC = () => {
             <textarea
               name="message"
               id="message"
+              placeholder="Message"
+
               value={formData.message}
               onChange={handleChange}
               rows={4}

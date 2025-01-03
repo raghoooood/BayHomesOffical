@@ -27,8 +27,13 @@ const Hero : React.FC<Props> = ({
       />
          <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-6 ">
         <SmallTitleText title="Use Our Property Finder to Filter" textStyles="text-center text-gray-100 "/>
+        <LargeTypingText
+  title="Residential, Commercial & Industrial Properties."
+  textStyles="text-center text-orange-500 max-w-[90%] sm:max-w-[80%] md:max-w-[60%] lg:max-w-[200%] leading-snug break-words sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl"
+/>
+
+
         
-        <LargeTypingText title="Residential, Commercial & Industrial Properties." textStyles="text-center text-orange-500 " />
           
           <SmallTitleText title="Buy, Sell, Rent Now!" textStyles="text-center text-gray-100"/>         
         <div className="w-full max-w-2xl mt-10">

@@ -67,13 +67,13 @@ const Footer: React.FC = () => {
         <div className="py-4 px-4 border-t-2 border-[#EDEFF2] flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
           {/* Social Media Icons */}
           <div className="flex justify-center sm:justify-start gap-3 mb-2 sm:mb-0">
-            <Link href="https://www.facebook.com/Alsayyahgroup/" target="_blank">
+            {/* <Link href="https://www.facebook.com/Alsayyahgroup/" target="_blank">
               <FaFacebookF className="text-blue-600 hover:text-blue-800 text-lg sm:text-xl" />
-            </Link>
-            <Link href="https://www.instagram.com/alsayyahgroup/" target="_blank">
+            </Link> */}
+            <Link href="https://www.instagram.com/bay_homes.ae?igsh=dHVhM2hvamFuZm9x" target="_blank">
               <FaInstagram className="text-pink-500 hover:text-pink-700 text-lg sm:text-xl" />
             </Link>
-            <Link href="https://www.linkedin.com/company/alsayyahgroup" target="_blank">
+            <Link href="https://ae.linkedin.com/in/samah-faek-721194213" target="_blank">
               <FaLinkedinIn className="text-blue-700 hover:text-blue-900 text-lg sm:text-xl" />
             </Link>
           </div>
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
               target="_blank"
               className="font-semibold text-center text-bluePText hover:text-orange-500 dark:text-white mb-1"
             >
-              &copy; 2024 Bay Homes. All Rights Reserved.
+              &copy; 2025 Bay Homes. All Rights Reserved.
             </a>
           </div>
 

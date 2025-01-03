@@ -96,7 +96,7 @@ const ContactForm: React.FC = () => {
                 <label className="relative">
                   <input
                     {...register('email')}
-                    placeholder="Email Address"
+                    placeholder="example@example.com"
                     className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600 dark:text-white"
                   />
                   <MdOutlineEmail className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
@@ -110,7 +110,7 @@ const ContactForm: React.FC = () => {
                 <label className="relative">
                   <input
                     {...register('phoneNumber')}
-                    placeholder="Phone Number"
+                    placeholder="+971501234567"
                     className="flex justify-between items-center rounded-xl py-3 px-6 shadow-md w-full h-12 capitalize text-black dark:bg-gray-600 dark:text-white"
                   />
                   <IoCallOutline className="w-5 h-5 absolute right-5 top-1/2 transform -translate-y-1/2" />
