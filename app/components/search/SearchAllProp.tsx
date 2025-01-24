@@ -19,7 +19,7 @@ interface SearchContainerProps {
   defaultPurpose?: string;
 }
 
-const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
+const SearchAllProp = ({ areaName }: SearchContainerProps) => {
   const [filters, setFilters] = useState({
     areas: [] as string[],
     propertyType: '',
@@ -148,6 +148,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
       priceMax: Number(convertedMax),
     }));
   }, [rawPriceMin, rawPriceMax, selectedCurrency]);
+  
   const handleSearch = () => {
     const queryParams = new URLSearchParams();
 
@@ -171,8 +172,8 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
       ...prevFilters,
       areas: [...new Set([...prevFilters.areas, areaName])],
     }));
-    setSearchText(''); // Clear search text
-    setFilteredAreas([]); // Close the dropdown
+    setSearchText('');
+    setFilteredAreas([]);
   };
 
   const handleAreaRemove = (areaName: string) => {
@@ -194,9 +195,7 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
           setActiveDropdown(null);
         }
       }
-      if (areaDropdownRef.current && !areaDropdownRef.current.contains(event.target as Node)) {
-        setFilteredAreas([]); // Close area dropdown if clicked outside
-      }
+      
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -212,9 +211,10 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   {/* Filters Container */}
   <div className="flex flex-wrap items-center bg-white dark:bg-bg rounded-lg shadow-lg p-2 space-x-4 flex-grow max-w-6xl">
     {/* Area Filter */}
-    <div className="relative flex items-center space-x-2 flex-grow z-20 ">
-    {filters.areas.length > 0 && (
-                    <div className="flex items-center bg-gray-200 p-1 rounded text-xs text-black">
+    <div className="relative w-full md:w-auto">
+                <div className="flex items-center gap-2">
+                  {filters.areas.length > 0 && (
+                    <div className="flex items-center bg-white p-1 rounded text-xs text-black">
                       {filters.areas[0]}
                       {filters.areas.length > 1 && (
                         <span
@@ -233,28 +233,29 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
                       </button>
                     </div>
                   )}
-      <input
-        type="text"
-        name="area"
-        placeholder="Area, project or community"
-        onChange={(e) => setSearchText(e.target.value)}
-        className="p-2 w-full dark:bg-white dark:text-gray-800"
-        value={searchText}
-      />
-      {filteredAreas.length > 0 && (
-        <ul className="absolute z-30 bg-white w-full mt-1 max-h-40 overflow-y-auto">
-          {filteredAreas.map((area) => (
-            <li
-              key={area._id}
-              className="p-3 hover:bg-gray-100 cursor-pointer"
-              onClick={() => handleAreaSelect(area.areaName)}
-            >
-              {area.areaName}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+                  <input
+                    type="text"
+                    name="area"
+                    placeholder="Area, project or community"
+                    onChange={e => setSearchText(e.target.value)}
+                    className="p-2 border-l-4 w-full md:w-auto bg-white dark:text-black"
+                    value={searchText}
+                  />
+                </div>
+                {filteredAreas.length > 0 && (
+                  <ul className="absolute z-10 bg-white border border-gray-300 rounded-lg shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
+                    {filteredAreas.map(area => (
+                      <li
+                        key={area._id}
+                        className="p-2 hover:bg-gray-200 cursor-pointer text-black dark:text-black"
+                        onClick={() => handleAreaSelect(area.areaName)}
+                      >
+                        {area.areaName}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
 
     {/* Type Filter */}
     <select
@@ -540,28 +541,36 @@ const SearchAllProp = ({ areaName, defaultPurpose }: SearchContainerProps) => {
   </div>
 )}
 
-      
-  {/* Modal/Dropdown for displaying all selected areas */}
- {showAllAreas && filters.areas.length > 0 && (
+    {/* Modal/Dropdown for displaying all selected areas */}
+    {showAllAreas && filters.areas.length > 0 && (
   <div
-    className="absolute left-0 right-0 mt-2 z-50"
+    className="fixed inset-0 z-50 flex justify-center items-start pt-10 bg-black bg-opacity-50" 
     onClick={() => setShowAllAreas(false)}  // Close modal on click outside
   >
-     <div
-      className="bg-white shadow-lg p-2 w-full max-w-md mx-auto"
-      // onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the content
+    <div
+      className="bg-white shadow-lg p-4 w-full max-w-md mx-auto rounded-lg relative"
+      onClick={(e) => e.stopPropagation()}  // Prevent closing when clicking inside the modal
     >
+      {/* Modal Close Button */}
+      <button
+        type="button"
+        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+        onClick={() => setShowAllAreas(false)}
+      >
+        ×
+      </button>
+
       {/* Selected Areas Grid */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-4 mt-4">
         {filters.areas.map((area) => (
           <div
             key={area}
-            className="flex justify-between items-center p-2 bg-gray-200 rounded text-sm h-10"
+            className="flex justify-between items-center p-2 bg-gray-100 rounded text-sm h-10"
           >
             <span>{area}</span>
             <button
               type="button"
-              className="text-red-500"
+              className="text-red-500 hover:text-red-700"
               onClick={() => handleAreaRemove(area)}
             >
               ×
