@@ -34,12 +34,6 @@ export const agentsData = [
       position: 'Property Consultant ',
     
     },
-    {
-      image: Faizal,
-      name: 'Muhamed Faizal Ali',
-      position: 'Property Consultant',
-    
-    },
  
  ];
   
