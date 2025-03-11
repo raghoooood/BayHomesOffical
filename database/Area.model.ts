@@ -15,7 +15,6 @@ export interface IArea extends Document {
 
 const AreaSchema = new Schema({
   areaId: { type: String, required: true },
- // aminities: [{ type: String, required: true }],
   features: [{ type: String, required: true }],
    areaName: { type: String, required: true},
    description: { type: String, required: true },

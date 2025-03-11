@@ -32,9 +32,10 @@ const AreaDetails: React.FC<{ params: { areaName: string } }> = async ({ params 
   }
 
   // Filter properties by the current area ID
-  const filteredProperties = propertiesResult.properties.filter((property) =>
-    property.area._id.equals(result._id)
+  const filteredProperties = propertiesResult.properties.filter(
+    (property) => property.area && property.area._id && property.area._id.equals(result._id)
   );
+  
 
   const plainProperties = filteredProperties.map((property) =>
     property.toObject ? property.toObject() : property

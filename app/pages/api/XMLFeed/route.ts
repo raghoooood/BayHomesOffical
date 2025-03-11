@@ -89,7 +89,7 @@ export async function GET(req: Request) {
     const savePropertyPromises = properties.map(async (property: any) => {
       try {
         console.log('Processing property:', property);
-
+    
         const {
           permit_number,
           title_en,
@@ -109,107 +109,109 @@ export async function GET(req: Request) {
           property_type,
           offering_type,
         } = property;
-
+    
         if (!property_type || !photo || !geopoints) {
           console.log(`Skipping property: ${title_en || 'No Title'}, missing data.`);
           return;
         }
-
+    
         const photoUrls = Array.isArray(photo?.url) ? photo.url : (photo?.url ? [photo.url] : []);
         const [lat, lng] = geopoints?.split(',') || [];
-
+    
         if (!lat || !lng) {
           console.log(`Invalid geopoints for property: ${title_en || 'No Title'}`);
           return;
         }
-
+    
         if (!community) {
           console.log(`Skipping property: ${title_en || 'No Title'}, missing community.`);
           return;
         }
-
+    
         const location = {
           city: city || "Unknown",
-          street: sub_community || "Unknown",
+          street: sub_community || "Unknown",  // Use sub_community (street) as matching key
           URL: geopoints || "Unknown",
         };
-
+    
         const furnishingType = furnishing || "No";
         const mappedPropertyType = mapPropertyType(property_type);
         const { purpose, classification } = mapOfferingTypeToPurposeAndClassification(offering_type);
-
+    
         const numOfrooms = bedroom || 0;
         const newPropId = await generatePropId(property_type);
-
-        const area = await Area.findOneAndUpdate(
-          { areaName: community },
-          { $setOnInsert: { areaName: community } },
-          { new: true, upsert: true }
-        );
-
-        if (!area) {
-          console.log(`Failed to find or create area for community: ${community}`);
-          return;
+    
+        // Look for the area by its areaName (street in the location)
+        let area = await Area.findOne({ areaName: location.street });
+    
+        if (area) {
+          // If area is found, update the areaId in the property
+          const existingProperty = await Property.findOne({ title: title_en });
+          if (existingProperty) {
+            console.log(`Property already exists: ${title_en}`);
+            return;
+          }
+    
+          // Create a new property
+          const newProperty = new Property({
+            propId: newPropId,
+            propertyId: new mongoose.Types.ObjectId(),
+            title: title_en,
+            location,
+            area: area._id, // Linking the areaId properly here
+            projectName: sub_community,
+            purpose,
+            propertyType: mappedPropertyType,
+            price,
+            description: description_en,
+            images: {
+              propImages: photoUrls,
+              backgroundImage: photoUrls[0] || '',
+            },
+            size,
+            numOfrooms,
+            numOfbathrooms: bathroom || 0,
+            features: amenities ? [amenities] : [],
+            furnishingType,
+            classification,
+            featured: true,
+            agent: '6766043911c80df2358d1385', // Default agent ID
+            permitNo: permit_number || "N/A",
+            barcode: "barcode-1234",
+            completion_status: completion_status || 'on_plan',
+            status: 'active',
+            creator: '66f37530fe2b4401100688af',
+          });
+    
+          // Push the propertyId to the Area collection
+          await Area.findByIdAndUpdate(area._id, {
+            $addToSet: { propertyId: newProperty._id }, // Using $addToSet to avoid duplicates
+          });
+    
+          // Save the new property
+          await newProperty.save();
+          console.log(`Property added: ${newProperty.title}`);
+        } else {
+          console.log(`No matching area found for property: ${title_en}, street: ${location.street}`);
         }
-
-        const existingProperty = await Property.findOne({ title: title_en });
-        if (existingProperty) {
-          console.log(`Property already exists: ${title_en}`);
-          return;
-        }
-
-        const newProperty = new Property({
-          propId: newPropId,
-          propertyId: new mongoose.Types.ObjectId(),
-          title: title_en,
-          location,
-          area: area._id,
-          projectName: sub_community,
-          purpose,
-          propertyType: mappedPropertyType,
-          price,
-          description: description_en,
-          images: {
-            propImages: photoUrls,
-            backgroundImage: photoUrls[0] || '',
-          },
-          size,
-          numOfrooms,
-          numOfbathrooms: bathroom || 0,
-          features: amenities ? [amenities] : [],
-          furnishingType,
-          classification,
-          featured: true,
-          agent: '6766043911c80df2358d1385', // Default agent ID
-          permitNo: permit_number || "N/A",
-          barcode: "barcode-1234",
-          completion_status: completion_status || 'on_plan',
-          status: 'active',
-          creator: '66f37530fe2b4401100688af',
-        });
-
-      //  Push property ID to Area
-        await Area.findByIdAndUpdate(area._id, {
-          $addToSet: { propertyId: newProperty._id },
-        }); 
-
-        await newProperty.save();
-        console.log(`Property added: ${newProperty.title}`);
       } catch (err) {
         console.error("Error processing property:", err);
       }
     });
-
+    
     const results = await Promise.allSettled(savePropertyPromises);
     results.forEach((result, index) => {
       if (result.status === 'rejected') {
         console.error(`Error in property ${properties[index]?.title_en}:`, result.reason);
       }
     });
-
+    
     return NextResponse.json({ message: "Properties added successfully" }, { status: 200 });
+    
+   
   } catch (error: unknown) {
     console.error("Error adding properties:", error);
     return NextResponse.json({ message: "Error adding properties", error: (error as Error).message }, { status: 500 });
   }
 }
+
